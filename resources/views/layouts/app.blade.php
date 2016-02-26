@@ -47,13 +47,10 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
                     @if (Auth::check())
                         <li><a href="{{ url('/users') }}">Users</a></li>
                         <li><a href="{{ url('/movies') }}">Movies</a></li>
-                        <li><a href="{{ url('/roles') }}">Roles</a></li>
-                        <li><a href="{{ url('/files') }}">Files</a></li>
-                        <li><a href="{{ url('/files/create') }}">Upload</a></li>
+                        <li><a href="{{ url('/applications') }}">Applications</a></li>
                     @endif
                 </ul>
 

@@ -8,14 +8,8 @@
 				<hr>
 				<br>
 				@include('common.errors')
-				<form action={{ url('/files')}} method="POST" enctype="multipart/form-data">
+				<form action={{ url('/files/review')}} method="POST" enctype="multipart/form-data">
 					{!! csrf_field() !!}
-
-					<!-- File Name -->
-			        <div class="form-group">
-			            <label for="name" class="control-label">File Name</label>
-		                <input type="text" name="name" id="name" class="form-control">
-			        </div>
 
 					<!-- Upload File -->
 			        <div class="form-group">

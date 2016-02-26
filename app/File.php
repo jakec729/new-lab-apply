@@ -33,21 +33,6 @@ class File extends Model
     	}
     }
 
-    public function createMovies()
-    {
-        $csv = Reader::createFromPath($this->url);
-        $results = $csv->setOffset(1)->setLimit(10)->fetchAssoc(["Movie", "Year", "Watched"]);
-        $movies = iterator_to_array($results, false);
-
-        foreach ($movies as $movie) {
-            Movie::create([
-                'name' => $movie['Movie'],
-                'year' => $movie['Year'],
-                'watched' => $movie['Watched']
-            ]);
-        }
-    }
-
     protected function setFileName()
     {
         $filename = sha1( time() . $this->file->getClientOriginalName() );
