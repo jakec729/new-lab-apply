@@ -49,7 +49,6 @@
                 <ul class="nav navbar-nav">
                     @if (Auth::check())
                         <li><a href="{{ url('/users') }}">Users</a></li>
-                        <li><a href="{{ url('/movies') }}">Movies</a></li>
                         <li><a href="{{ url('/applications') }}">Applications</a></li>
                     @endif
                 </ul>

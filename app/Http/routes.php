@@ -8,6 +8,9 @@ Route::group(['middleware' => 'web'], function () {
     });
     
     Route::auth();
+});
+
+Route::group(['middleware' => ['web', 'auth']], function() { 
     Route::get('/home', 'HomeController@index');
     Route::get('/users', 'UserController@index');
     Route::get('/roles', 'RoleController@index');
