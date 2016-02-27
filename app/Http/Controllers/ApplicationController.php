@@ -12,8 +12,9 @@ class ApplicationController extends Controller
 
 	public function index()
 	{
-        $applications = Application::with('ratings')->get();
-        return view('applications.index', compact('applications'));
+        $total = Application::all()->count();
+        $applications = Application::with('ratings')->paginate(10);
+        return view('applications.index', compact('applications', 'total'));
     }
 
 	public function show(Application $applications) 

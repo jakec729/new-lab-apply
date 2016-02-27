@@ -7,34 +7,30 @@
 				@if(count($applications))
 					<a href="{{ url("/applications/download") }}" class="btn btn-primary">Download CSV</a>
 					<a href="{{ url("/files/import") }}" class="btn btn-default">Import CSV</a>
-					<h1>{{ count($applications) }} Applications</h1>
+					<h1>{{$total}} Applications <small>{{count($applications)}} Shown</small></h1>
 					<hr>
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Rating</th>
 								<th>Name</th>
 								<th>Company</th>
-								<th>Disciplines</th>
+								<th>Funding Stage</th>
+								<th>Rating</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($applications as $applicant)
 								<tr>
-									<td>{{$applicant->rating }}</td>
 									<td><a href="{{ url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
 									<td><a href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
-									<td>
-										<ul class="list-unstyled">
-											@foreach ($applicant->disciplines as $discipline)
-											<li>{{ $discipline }}</li>
-											@endforeach
-										</ul>
-									</td>
+									<td>{{$applicant->funding_stage }}</td>
+									<td>{{$applicant->rating }}</td>
 								</tr>
 							@endforeach
 						</tbody>
 					</table>
+
+					{!! $applications->links() !!}
 				@else
 					<h1>Applications</h1>
 					<hr>
