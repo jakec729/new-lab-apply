@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Movie;
+use App\Csv;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -26,7 +26,11 @@ class FileController extends Controller
             'file' => 'required',
         ]);
 
-        $movies = Movie::formatMoviesFromFile($request->file);
+        $applications = Csv::formatIntoApplications($request->file);
+
+        dd($applications);
+
+        // $movies = Movie::formatMoviesFromFile($request->file);
         $file = $request->file;
 
         return view('movies.review', compact('movies', 'file'));

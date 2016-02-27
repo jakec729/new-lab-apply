@@ -11,6 +11,8 @@ class Application extends Model
 {
 	use Rateable;
 
+    protected $fillable = ['name', 'email', 'website', 'company'];
+
     public function getDisciplinesAttribute($value)
     {
     	return unserialize($value);

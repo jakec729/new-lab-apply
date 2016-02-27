@@ -8,7 +8,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Csv 
 {
 	protected $collection;
-	
+
+    public static function formatIntoApplications(UploadedFile $file)
+    {
+        $application_keys = ['name', 'email', 'company'];
+        return static::fetchCols($file, $application_keys)->mapToApplications();
+    }
+
     public static function fetchCols(UploadedFile $file, array $cols)
     {
     	$csv = new static;
@@ -16,6 +22,16 @@ class Csv
         $csv->collection = $reader->setOffset(1)->fetchAssoc($cols);
 
         return $csv;
+    }
+
+    public function mapToApplications()
+    {
+        $collection = [];
+        foreach ($this->collection as $row) {
+            $collection[] = new Application($row);
+        }
+        
+        dd($collection);
     }
 
     public function mapToMovies()
