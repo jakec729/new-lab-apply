@@ -12,6 +12,7 @@
 					<table class="table">
 						<thead>
 							<tr>
+								<th>Rating</th>
 								<th>Name</th>
 								<th>Company</th>
 								<th>Disciplines</th>
@@ -20,6 +21,7 @@
 						<tbody>
 							@foreach ($applications as $applicant)
 								<tr>
+									<td>{{$applicant->rating }}</td>
 									<td><a href="{{ url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
 									<td><a href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
 									<td>

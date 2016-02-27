@@ -19,7 +19,7 @@ class Csv
     {
     	$csv = new static;
         $reader = Reader::createFromPath($file);
-        $csv->collection = $reader->setOffset(1)->fetchAssoc($cols);
+        $csv->collection = $reader->fetchAssoc();
 
         return $csv;
     }
@@ -31,21 +31,21 @@ class Csv
             $collection[] = new Application($row);
         }
         
-        dd($collection);
+        return collect($collection);
     }
 
-    public function mapToMovies()
-    {
-    	$catalog = [];
+    // public function mapToMovies()
+    // {
+    // 	$catalog = [];
 
-    	foreach ($this->collection as $movie) {
-    	    $catalog[] = new Movie([
-    	        'name' => $movie['Movie'],
-    	        'year' => $movie['Year'],
-    	        'watched' => $movie['Watched']
-    	    ]);
-    	}
+    // 	foreach ($this->collection as $movie) {
+    // 	    $catalog[] = new Movie([
+    // 	        'name' => $movie['Movie'],
+    // 	        'year' => $movie['Year'],
+    // 	        'watched' => $movie['Watched']
+    // 	    ]);
+    // 	}
 
-    	return collect($catalog);
-    }
+    // 	return collect($catalog);
+    // }
 }

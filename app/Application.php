@@ -11,7 +11,22 @@ class Application extends Model
 {
 	use Rateable;
 
-    protected $fillable = ['name', 'email', 'website', 'company'];
+    protected $fillable = [
+        'name', 
+        'email', 
+        'company',
+        'website', 
+        'desks', 
+        'disciplines', 
+        'membership_type', 
+        'text_pitch', 
+        'text_tech', 
+        'text_team', 
+        'text_strategy', 
+        'funding_stage', 
+        'new_lab_resources', 
+        'text_community' 
+    ];
 
     public function getDisciplinesAttribute($value)
     {
@@ -28,9 +43,28 @@ class Application extends Model
     	}
     }
 
+    public function rating()
+    {
+        if ($this->hasRatings()) {
+            return $this->averageRating;
+        } else {
+            return "Unrated";
+        }
+    }
+
+    public function getRatingAttribute()
+    {
+        return $this->rating();
+    }
+
+    public function hasRatings()
+    {
+        return !! $this->ratings->count();
+    }
+
     public function alreadyRated()
     {
-    	return !! $this->ratings->where('user_id', Auth::id(), false);
+    	return !! $this->ratings->where('user_id', Auth::id(), false)->count();
     }
 
     public function getUserRatingAttribute()
@@ -40,7 +74,11 @@ class Application extends Model
 
     public function ratingFromUser()
     {
-    	return $this->ratings->where('user_id', Auth::id(), false)->first()->rating;
+        if (! $this->alreadyRated()) {
+            return false;
+        }
+        
+        return $this->ratings->where('user_id', Auth::id(), false)->first()->rating;
     }
 
     public function toArray()

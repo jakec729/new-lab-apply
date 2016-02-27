@@ -12,7 +12,7 @@ class ApplicationController extends Controller
 
 	public function index()
 	{
-        $applications = Application::all();
+        $applications = Application::with('ratings')->get();
         return view('applications.index', compact('applications'));
     }
 

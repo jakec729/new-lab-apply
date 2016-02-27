@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Application;
+use App\Csv;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Csv;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -26,14 +27,10 @@ class FileController extends Controller
             'file' => 'required',
         ]);
 
+        $file = $request->file;
         $applications = Csv::formatIntoApplications($request->file);
 
-        dd($applications);
-
-        // $movies = Movie::formatMoviesFromFile($request->file);
-        $file = $request->file;
-
-        return view('movies.review', compact('movies', 'file'));
+        return view('applications.review', compact('applications', 'file'));
     }
 
     /**
@@ -44,12 +41,14 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        $movies = collect(unserialize($request->input('file')))->only($request->input('movie_keys'));
-        $movies->map(function($movie){
-            Movie::create($movie);
+        $all = collect( unserialize( $request->input('file') ) );
+        $applications = $all->only($request->input('application_keys'));
+
+        $applications->map(function($movie){
+            Application::create($movie);
         });
 
-        return redirect('/movies');
+        return redirect('/applications');
     }
 
 }
