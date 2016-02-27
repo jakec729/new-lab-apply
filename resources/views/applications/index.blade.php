@@ -5,6 +5,8 @@
 	    <div class="row">
 	        <div class="col-md-12">
 				@if(count($applications))
+					<a href="{{ url("/applications/download") }}" class="btn btn-primary">Download CSV</a>
+					<a href="{{ url("/files/import") }}" class="btn btn-default">Import CSV</a>
 					<h1>{{ count($applications) }} Applications</h1>
 					<hr>
 					<table class="table">

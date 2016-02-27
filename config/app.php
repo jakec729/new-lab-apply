@@ -160,7 +160,8 @@ return [
         /**
          * Third Party Service Providers...
          */
-        Bican\Roles\RolesServiceProvider::class
+        Bican\Roles\RolesServiceProvider::class,
+        willvincent\Rateable\RateableServiceProvider::class,
 
     ],
 

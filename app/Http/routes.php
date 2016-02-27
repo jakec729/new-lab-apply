@@ -12,7 +12,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/users', 'UserController@index');
     Route::get('/roles', 'RoleController@index');
 
-    Route::get('/files/create', 'FileController@create');
+Route::get('/files/import', 'FileController@import');
     Route::post('/files/review', 'FileController@review');
     Route::post('/files', 'FileController@store');
 
@@ -21,13 +21,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/movies/assign', 'MovieController@assignMoviesToUsers');
     Route::resource('movies', 'MovieController');
 
-    Route::get('/applications', function() {
-        $applications = Application::all();
-        return view('applications.index', compact('applications'));
-    });
-
-    Route::get('/applications/{applications}', function(Application $applications) {
-        // dd($applications->disciplines);
-        return view('applications.show', ['application' => $applications]);
-    });
+    Route::get('/applications', 'ApplicationController@index');
+    Route::get('/applications/download', 'ApplicationController@downloadCSV');
+    Route::get('/applications/{applications}', 'ApplicationController@show');
+    Route::post('/applications/{application}/rate', 'ApplicationController@rate');
 });

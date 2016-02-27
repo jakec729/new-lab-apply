@@ -3,10 +3,34 @@
 @section('content')
 	<div class="container">
 		<header class="col-md-10 col-md-offset-1">
+			<p class="label label-default">
+				@if(count($application->ratings))
+					Rating: {{$application->averageRating}}
+				@else
+					Unrated
+				@endif
+			</p>
 			<h1>{{$application->name}} <small><a href="{{$application->website}}">{{$application->company}}</a></small></h1>
 			<ul class="list-unstyled">
 				<li><a href="#">{{$application->email}}</a></li>
 			</ul>
+			@if($application->alreadyRated())
+				<p>Your rating: <strong>{{ $application->userRating }}</strong></p>
+			@else
+				<form action="{{ url("/applications/{$application->id}/rate")}}" method="POST" class="form-inline">
+					{{csrf_field()}}
+					<div class="form-group">
+						<select name="rating" id="rating" class="form-control">
+							<option value="1">1 Star</option>
+							<option value="2">2 Stars</option>
+							<option value="3">3 Stars</option>
+							<option value="4">4 Stars</option>
+							<option value="5">5 Stars</option>
+						</select>
+					</div>
+				<input type="submit" class="btn btn-default" value="Add Rating">
+				</form>
+			@endif
 			<hr>
 		</header>
 		<br>

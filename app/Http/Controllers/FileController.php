@@ -15,9 +15,9 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function import()
     {
-        return view('files.create');
+        return view('files.import');
     }
 
     public function review(Request $request)
