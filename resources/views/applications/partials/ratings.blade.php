@@ -1,22 +1,44 @@
 <div class="col-md-5 submission-ratings">
     <div class="inner">
-        <section class="ratings">
-            <h4>Avg. Rating</h4>
-            <hr>
-            <table>
-                <tr>
-                    <td>Me</td>
-                    <td>2 Stars</td>
-                </tr>
-                <tr>
-                    <td>David</td>
-                    <td>3 Stars</td>
-                </tr>
-                <tr>
-                    <td>Ronda</td>
-                    <td>unrated</td>
-                </tr>
-            </table>
+        <section id="app__ratings" class="ratings">
+            <ul class="list-unstyled">
+                <li>
+                    <span class="rating__user">Me</span>
+                    <form action="" method="POST" class="star-rating">
+                        {{ csrf_field() }}
+                        @for ($i = 1; $i <= 5; $i++)
+                            <label class="">
+                                <input type="radio" name="rating" value="{{$i}}" onclick="submit()">
+                                <i class="fa fa-star"></i>
+                            </label>
+                        @endfor
+                    </form>
+                </li>
+                <li>
+                    <span class="rating__user">Dan</span>
+                    <span class="rating__value stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </span>
+                </li>
+                <li>
+                    <span class="rating__user">Jake</span>
+                    <span class="rating__value stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </span>
+                </li>
+                <li>
+                    <span class="rating__user">Cait</span>
+                    <span class="rating__value stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </span>
+                </li>
+            </ul>
         </section>
         <section class="comments">
             <textarea name="comment" id="comment" rows="10"></textarea>

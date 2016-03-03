@@ -5760,6 +5760,41 @@ button.close {
   padding-top: 1em;
   padding-bottom: 1em; }
 
+.star-rating {
+  direction: rtl;
+  display: inline-block; }
+  .star-rating input {
+    display: none; }
+  .star-rating label {
+    color: grey;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 0; }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: black; }
+
+#app__ribbon {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black; }
+  #app__ribbon .item {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 2em; }
+    #app__ribbon .item + .item {
+      border-left: 1px solid black; }
+
+#app__ratings li {
+  padding: .25em 0; }
+
+#app__ratings .rating__user {
+  display: inline-block;
+  width: 10%; }
+
 .submission__header {
   padding-bottom: 1em;
   margin-bottom: 1em;

@@ -13,10 +13,16 @@
 	        	<div class="container-fluid">
 	        		<header class="submission__header clearfix">
 	        			<h1 class="submission__heading pull-left">{{$application->company}}</h1>
-	        			<ul class="list-inline pull-right">
-	        				<li><a href="{{url("/users/{$previous}")}}">Previous</a></li>
-	        				<li><a href="{{url("/users/{$next}")}}">Next</a></li>
-	        			</ul>
+	        			@if ($previous || $next)
+		        			<ul class="list-inline pull-right">
+		        				@if ($previous)
+			        				<li><a href="{{url("/users/{$previous}")}}">Previous</a></li>
+			        			@endif
+			        			@if($next)
+			        				<li><a href="{{url("/users/{$next}")}}">Next</a></li>
+			        			@endif
+		        			</ul>
+	        			@endif
 	        		</header>
 					@include('applications.partials.data')
 					@include('applications.partials.ratings')

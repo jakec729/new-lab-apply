@@ -22,6 +22,53 @@ body {
 	padding-bottom: 1em;
 }
 
+.star-rating {
+	direction: rtl;
+	display: inline-block;
+
+	input {
+		display: none;
+	}
+
+	label {
+		color: grey;
+		display: inline-block;
+		cursor: pointer;
+		margin-bottom: 0;
+
+		&:hover,
+		&:hover ~ label {
+			color: black;
+		}
+	}
+}
+
+#app__ribbon {
+	display: flex;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+
+	.item {
+		flex: 1 1 auto;
+		padding: 2em;
+
+		& + .item {
+			border-left: 1px solid black;
+		}
+	}
+}
+
+#app__ratings {
+	li {
+		padding: .25em 0;
+	}
+
+	.rating__user {
+		display: inline-block;
+		width: 10%;
+	}
+}
+
 .submission {
 
 	&__header {
