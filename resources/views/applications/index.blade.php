@@ -19,18 +19,9 @@
 						<div class="col-md-5 submission-controls">
 							<ul class="list-inline">
 								<li>
-									<form action="" class="form-inline">
-										<div class="form-group">
-											<label for="posts_per_page">Show</label>
-											<select name="posts_per_page" id="posts_per_page" class="form-control">
-												<option value="50">50</option>
-												<option value="100">100</option>
-												<option value="200">200</option>
-											</select>
-										</div>
-									</form>
+									@include('applications.partials.pagination')
 								</li>
-								<li>{!! $applications->links() !!}</li>
+								<li>{!! $applications->appends(['posts_per_page' => $pagination])->links() !!}</li>
 							</ul>
 						</div>
 					</div>

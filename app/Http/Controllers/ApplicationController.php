@@ -9,13 +9,38 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
+    protected function applyFilters(Request $request)
+    {
+        // $applications = "";
+        // if ($request->input('filter') == "shortlisted") {
+        //     $applications = Application::with('ratings')->has('ratings')->get();
+        // } else {
+        //     $applications = Application
+        // }
+    }
 
-	public function index()
-	{
-        $total = Application::all()->count();
-        $applications = Application::with('ratings')->paginate(10);
-        $shortlisted = Application::has('ratings')->get();
-        return view('applications.index', compact('applications', 'total', 'shortlisted'));
+    protected function setPagination(Request $request)
+    {
+        $pagination = 10;
+        $posts_per_page = ($request->has('posts_per_page')) ? $request->input('posts_per_page') : null;
+
+        if ($posts_per_page) {
+            $pagination = $request->input('posts_per_page');
+        }
+
+        return $pagination;
+    }
+
+
+    public function index(Request $request)
+    {
+        $pagination = $this->setPagination($request);
+        $apps_builder = Application::with('ratings');
+        $total = $apps_builder->get()->count();
+        $applications = $apps_builder->paginate($pagination);
+        $shortlisted = $apps_builder->has('ratings')->get();
+
+        return view('applications.index', compact('applications', 'total', 'shortlisted', 'pagination'));
     }
 
 	public function show(Application $applications) 
