@@ -14,12 +14,20 @@ class ApplicationController extends Controller
 	{
         $total = Application::all()->count();
         $applications = Application::with('ratings')->paginate(10);
-        return view('applications.index', compact('applications', 'total'));
+        $shortlisted = Application::has('ratings')->get();
+        return view('applications.index', compact('applications', 'total', 'shortlisted'));
     }
 
 	public function show(Application $applications) 
 	{
-        return view('applications.show', ['application' => $applications]);
+        $previous = Application::where('id', '<', $applications->id)->max('id');
+        $next = Application::where('id', '>', $applications->id)->min('id');
+
+        return view('applications.show', [
+            'application' => $applications,
+            'next' => $next,
+            'previous' => $previous,
+        ]);
     }
 
     public function rate(Request $request, Application $application)

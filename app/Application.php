@@ -11,6 +11,8 @@ class Application extends Model
 {
 	use Rateable;
 
+    // protected $dateFormat = 'U';
+
     protected $fillable = [
         'name', 
         'email', 
