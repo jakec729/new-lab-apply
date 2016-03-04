@@ -1,68 +1,47 @@
-@extends('layouts.app')
+@extends('layouts.submission')
 
-@section('content')
-	<div class="container-fluid submissions">
-	    <div class="row">
-	    	<div class="col-md-2 filter-sidebar">
-	    		<ul class="list-unstyled submission-filters">
-	    			<li><a href="#" class="active">All Submissions <small>({{$total}})</small></a></li>
-	    			<li><a href="#">Shortlisted <small>({{$shortlisted->count()}})</small></a></li>
-	    		</ul>
-	    	</div>
-	        <div class="col-md-10 submissions-body">
-	        	<div class="container-fluid">
-				@if(count($applications))
-		        	<div class="row">
-						<div class="col-md-7">
-							<h1>All Submissions</h1>
-						</div>
-						<div class="col-md-5 submission-controls">
-							<ul class="list-inline">
-								<li>
-									@include('applications.partials.pagination')
-								</li>
-								<li>{!! $applications->appends(['posts_per_page' => $pagination])->links() !!}</li>
-							</ul>
-						</div>
-					</div>
-					<hr>
-					<table class="table table-striped" id="submissions-table">
-						<thead>
-							<tr>
-								<th>Date</th>
-								<th>Name</th>
-								<th>Company</th>
-								<th>Discipline</th>
-								<th>Size</th>
-								<th>Type</th>
-								<th>Pitch</th>
-								<th>Me</th>
-								<th>Avg.</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($applications as $applicant)
-								<tr>
-									<td>{{$applicant->created_at}}</td>
-									<td><a href="{{ url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
-									<td><a href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
-									<td>TBD</td>
-									<td>{{$applicant->desks}}</td>
-									<td>{{$applicant->membership_type}}</td>
-									<td>{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
-									<td>TBD</td>
-									<td>{{$applicant->rating }}</td>
-								</tr>
-							@endforeach
-						</tbody>
-					</table>
-	        	</div>
-				@else
-					<h1>Applications</h1>
-					<hr>
-					<p>No applications yet.</p>
-				@endif
-			</div>
-		</div>
-	</div>
+@section('title', 'All Submissions')
+
+@section('controls')
+	<div>@include('applications.partials.pagination')</div>
+	<div>{!! $applications->appends(['posts_per_page' => $pagination])->links() !!}</div>
+@endsection
+
+@section('body')
+	<table class="table table-striped" id="submissions-table">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Name</th>
+				<th>Company</th>
+				<th>Discipline</th>
+				<th>Size</th>
+				<th>Type</th>
+				<th>Pitch</th>
+				<th>Me</th>
+				<th>Avg.</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach ($applications as $applicant)
+				<tr>
+					<td>{{$applicant->created_at}}</td>
+					<td><a href="{{ url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
+					<td><a href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
+					<td>TBD</td>
+					<td>{{$applicant->desks}}</td>
+					<td>{{$applicant->membership_type}}</td>
+					<td>{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
+					<td>
+						@if ($applicant->alreadyRated())
+							{{$applicant->user_rating}}
+						@else
+							Unrated
+						@endif
+					</td>
+					<td>{{$applicant->rating }}</td>
+				</tr>
+			@endforeach
+		</tbody>
+	</table>
 @endsection

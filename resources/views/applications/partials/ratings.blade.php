@@ -4,39 +4,19 @@
             <ul class="list-unstyled">
                 <li>
                     <span class="rating__user">Me</span>
-                    <form action="" method="POST" class="star-rating">
+                    <form action="{{url("/applications/{$application->id}/rate")}}" method="POST" class="star-rating">
                         {{ csrf_field() }}
+                        <label class="label-reject">
+                            <input type="radio" name="rating" value="0" onclick="submit()">
+                            <i class="fa fa-close"></i>
+                        </label>
                         @for ($i = 1; $i <= 5; $i++)
-                            <label class="">
+                            <label class="label-star {{ ($application->alreadyRated() && $application->userRating <= $i) ? "selected" : null }}">
                                 <input type="radio" name="rating" value="{{$i}}" onclick="submit()">
                                 <i class="fa fa-star"></i>
                             </label>
                         @endfor
                     </form>
-                </li>
-                <li>
-                    <span class="rating__user">Dan</span>
-                    <span class="rating__value stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </span>
-                </li>
-                <li>
-                    <span class="rating__user">Jake</span>
-                    <span class="rating__value stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </span>
-                </li>
-                <li>
-                    <span class="rating__user">Cait</span>
-                    <span class="rating__value stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </span>
                 </li>
             </ul>
         </section>

@@ -1,0 +1,37 @@
+.star-rating {
+	direction: rtl;
+	display: inline-block;
+
+	input {
+		display: none;
+	}
+
+	label {
+		margin-bottom: 0;
+		display: inline-block;
+		cursor: pointer;
+	}
+
+	.label-star {
+		color: darken(rgb(255,255,255), 30%);
+
+		&:hover,
+		&:hover ~ label,
+		&.selected {
+			color: black;
+		}
+	}
+
+	.label-reject {
+		margin-left: .5em;
+		color: darken(rgb(255,255,255), 20%);
+
+		&:hover {
+			color: red;
+		}
+
+		&:hover ~ label {
+			color: darken(rgb(255,255,255), 20%);
+		}
+	}
+}

@@ -9,15 +9,6 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
-    protected function applyFilters(Request $request)
-    {
-        // $applications = "";
-        // if ($request->input('filter') == "shortlisted") {
-        //     $applications = Application::with('ratings')->has('ratings')->get();
-        // } else {
-        //     $applications = Application
-        // }
-    }
 
     protected function setPagination(Request $request)
     {

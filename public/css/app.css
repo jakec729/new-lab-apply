@@ -5766,13 +5766,21 @@ button.close {
   .star-rating input {
     display: none; }
   .star-rating label {
-    color: grey;
+    margin-bottom: 0;
     display: inline-block;
-    cursor: pointer;
-    margin-bottom: 0; }
-    .star-rating label:hover,
-    .star-rating label:hover ~ label {
+    cursor: pointer; }
+  .star-rating .label-star {
+    color: #b3b3b3; }
+    .star-rating .label-star:hover,
+    .star-rating .label-star:hover ~ label, .star-rating .label-star.selected {
       color: black; }
+  .star-rating .label-reject {
+    margin-left: .5em;
+    color: #cccccc; }
+    .star-rating .label-reject:hover {
+      color: red; }
+    .star-rating .label-reject:hover ~ label {
+      color: #cccccc; }
 
 #app__ribbon {
   display: -webkit-flex;
@@ -5838,8 +5846,24 @@ button.close {
     display: block;
     font-weight: normal; }
 
-.submission-controls .pagination {
-  margin: 0; }
+.submission-controls {
+  text-align: right;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end; }
+  .submission-controls > div {
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto; }
+    .submission-controls > div + div {
+      margin-left: 1em; }
+  .submission-controls .pagination {
+    margin: 0; }
+  .submission-controls .form-inline {
+    display: inline-block; }
 
 .submissions-body {
   padding: 0; }
