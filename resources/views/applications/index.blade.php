@@ -25,21 +25,44 @@
 		<tbody>
 			@foreach ($applications as $applicant)
 				<tr>
-					<td>{{$applicant->created_at}}</td>
+					<td>{{$applicant->created_at->format('Y-m-d')}}</td>
 					<td><a href="{{ url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
 					<td><a href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
-					<td>TBD</td>
+					<td>
+						@if ($applicant->disciplines)
+							<ul class="list-unstyled">
+							@foreach( $applicant->disciplines as $d)
+								<li>{{$d}}</li>
+							@endforeach
+							</ul>
+						@endif
+					</td>
 					<td>{{$applicant->desks}}</td>
 					<td>{{$applicant->membership_type}}</td>
 					<td>{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
 					<td>
 						@if ($applicant->alreadyRated())
-							{{$applicant->user_rating}}
+							@if ($applicant->userRating < 1)
+								<i class="fa fa-close"></i>
+							@else
+								@for ($i = 0; $i < $applicant->userRating; $i++)
+							        <i class="fa fa-star"></i>
+								@endfor
+							@endif
 						@else
 							Unrated
 						@endif
 					</td>
-					<td>{{$applicant->rating }}</td>
+					<td>
+						@if ($applicant->rating > 0)
+							@for ($i = 0; $i < $applicant->rating; $i++)
+						        <i class="fa fa-star"></i>
+							@endfor
+						@else
+							Unrated
+						@endif
+
+					</td>
 				</tr>
 			@endforeach
 		</tbody>

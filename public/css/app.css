@@ -5760,6 +5760,10 @@ button.close {
   padding-top: 1em;
   padding-bottom: 1em; }
 
+.rating__user {
+  display: inline-block;
+  width: 25%; }
+
 .star-rating {
   direction: rtl;
   display: inline-block; }
@@ -5798,10 +5802,6 @@ button.close {
 
 #app__ratings li {
   padding: .25em 0; }
-
-#app__ratings .rating__user {
-  display: inline-block;
-  width: 10%; }
 
 .submission__header {
   padding-bottom: 1em;

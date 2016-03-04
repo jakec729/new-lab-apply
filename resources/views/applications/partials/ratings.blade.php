@@ -4,20 +4,20 @@
             <ul class="list-unstyled">
                 <li>
                     <span class="rating__user">Me</span>
-                    <form action="{{url("/applications/{$application->id}/rate")}}" method="POST" class="star-rating">
-                        {{ csrf_field() }}
-                        <label class="label-reject">
-                            <input type="radio" name="rating" value="0" onclick="submit()">
-                            <i class="fa fa-close"></i>
-                        </label>
-                        @for ($i = 1; $i <= 5; $i++)
-                            <label class="label-star {{ ($application->alreadyRated() && $application->userRating <= $i) ? "selected" : null }}">
-                                <input type="radio" name="rating" value="{{$i}}" onclick="submit()">
-                                <i class="fa fa-star"></i>
-                            </label>
-                        @endfor
-                    </form>
+                    @include('applications.partials.ratings-form')
                 </li>
+                @foreach (\App\User::all() as $user)
+                    <li>
+                        <span class="rating__user">{{$user->name}}</span>
+                        @if ($application->hasRatingByUser($user->id))
+                            @for ($i = 1; $i <= $application->ratingByUser($user->id); $i++)
+                                <i class="fa fa-star"></i>
+                            @endfor
+                        @else
+                            Unrated
+                        @endif
+                    </li>
+                @endforeach
             </ul>
         </section>
         <section class="comments">

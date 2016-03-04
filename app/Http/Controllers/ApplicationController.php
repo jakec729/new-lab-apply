@@ -34,8 +34,9 @@ class ApplicationController extends Controller
         return view('applications.index', compact('applications', 'total', 'shortlisted', 'pagination'));
     }
 
-	public function show(Application $applications) 
+	public function show($applications) 
 	{
+        $applications = Application::with('ratings')->find($applications);
         $previous = Application::where('id', '<', $applications->id)->max('id');
         $next = Application::where('id', '>', $applications->id)->min('id');
 
