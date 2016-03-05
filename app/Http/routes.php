@@ -22,5 +22,8 @@ Route::group(['middleware' => ['web', 'auth']], function() {
     Route::get('/applications', 'ApplicationController@index');
     Route::get('/applications/download', 'ApplicationController@downloadCSV');
     Route::get('/applications/{applications}', 'ApplicationController@show');
+    Route::post('/applications/{applications}/comments', 'ApplicationController@addComment');
     Route::post('/applications/{application}/rate', 'ApplicationController@rate');
+
+    Route::post('/comments', 'CommentController@store');
 });

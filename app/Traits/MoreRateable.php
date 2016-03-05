@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Auth;
+use willvincent\Rateable\Rating;
 
 trait MoreRateable 
 {

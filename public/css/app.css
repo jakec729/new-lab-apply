@@ -5760,9 +5760,19 @@ button.close {
   padding-top: 1em;
   padding-bottom: 1em; }
 
+.heading--border {
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+  border-bottom: 1px solid black; }
+
+#app__ratings {
+  margin-bottom: 2em; }
+  #app__ratings li {
+    padding: .25em 0; }
+
 .rating__user {
   display: inline-block;
-  width: 25%; }
+  width: 45%; }
 
 .star-rating {
   direction: rtl;
@@ -5781,7 +5791,7 @@ button.close {
   .star-rating .label-reject {
     margin-left: .5em;
     color: #cccccc; }
-    .star-rating .label-reject:hover {
+    .star-rating .label-reject.selected, .star-rating .label-reject:hover {
       color: red; }
     .star-rating .label-reject:hover ~ label {
       color: #cccccc; }
@@ -5799,9 +5809,6 @@ button.close {
     padding: 2em; }
     #app__ribbon .item + .item {
       border-left: 1px solid black; }
-
-#app__ratings li {
-  padding: .25em 0; }
 
 .submission__header {
   padding-bottom: 1em;
@@ -5830,15 +5837,26 @@ button.close {
   .app__extra .pull-left {
     padding-right: 2em; }
 
+.app__texts .text {
+  margin-bottom: 2em; }
+  .app__texts .text p {
+    color: #666666; }
+
+.app__texts .text-heading {
+  font-weight: 900;
+  font-size: 1em;
+  padding-bottom: 0;
+  margin-bottom: .5em; }
+
 .submission-filters a {
   color: black;
   text-decoration: none;
   background-color: whitesmoke;
   display: block;
-  padding: 2em;
+  padding: 1.5em 2em;
   font-weight: bold; }
   .submission-filters a.active {
-    background-color: gainsboro; }
+    background-color: #cccccc; }
   .submission-filters a:hover {
     color: white;
     background-color: black; }
@@ -5876,5 +5894,25 @@ button.close {
     border-right: 1px solid white; }
   #submissions-table td:nth-child(8), #submissions-table td:nth-child(9) {
     background-color: rgba(0, 0, 0, 0.1); }
+
+.comments textarea {
+  width: 100%;
+  padding: 1em;
+  height: 10em; }
+
+.comments__form {
+  margin: 2em 0; }
+
+.comment {
+  padding-bottom: 1em; }
+  .comment__author {
+    font-weight: 900;
+    padding-bottom: 0;
+    margin-bottom: 0; }
+    .comment__author:after {
+      content: "—";
+      display: inline-block; }
+  .comment__text {
+    color: #666666; }
 
 /*# sourceMappingURL=app.css.map */

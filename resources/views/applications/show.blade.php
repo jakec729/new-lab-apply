@@ -17,5 +17,13 @@
 
 @section('body')
 	@include('applications.partials.data')
-	@include('applications.partials.ratings')
+	<div class="col-md-5 submission-ratings">
+	    <div class="inner">
+			@include('applications.partials.ratings')
+			@include('applications.partials.comments')
+		</div>
+		<footer class="text-right sidebar__footer">
+		    <a href="#app-layout">Back to top <i class="fa fa-arrow-up"></i></a>
+		</footer>
+	</div>
 @endsection

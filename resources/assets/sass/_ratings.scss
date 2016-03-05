@@ -1,6 +1,14 @@
+#app__ratings {
+	margin-bottom: 2em;
+
+	li {
+		padding: .25em 0;
+	}
+}
+
 .rating__user {
 	display: inline-block;
-	width: 25%;
+	width: 45%;
 }
 
 .star-rating {
@@ -18,25 +26,26 @@
 	}
 
 	.label-star {
-		color: darken(rgb(255,255,255), 30%);
+		color: $grey-medium;
 
 		&:hover,
 		&:hover ~ label,
 		&.selected {
-			color: black;
+			color: $black;
 		}
 	}
 
 	.label-reject {
 		margin-left: .5em;
-		color: darken(rgb(255,255,255), 20%);
-
+		color: $grey-light;
+		
+		&.selected,
 		&:hover {
 			color: red;
 		}
 
 		&:hover ~ label {
-			color: darken(rgb(255,255,255), 20%);
+			color: $grey-light;
 		}
 	}
 }

@@ -1,0 +1,29 @@
+.comments {
+	textarea {
+		width: 100%;
+		padding: 1em;
+		height: 10em;
+	}
+
+	&__form {
+		margin: 2em 0;
+	}
+}
+
+.comment {
+	padding-bottom: 1em;
+
+	&__author {
+		font-weight: 900;
+		padding-bottom: 0;
+		margin-bottom: 0;
+		&:after {
+			content: "—";
+			display: inline-block;
+		}
+	}
+
+	&__text {
+		color: $grey-dark;
+	}
+}

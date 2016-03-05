@@ -36,7 +36,7 @@ class ApplicationController extends Controller
 
 	public function show($applications) 
 	{
-        $applications = Application::with('ratings')->find($applications);
+        $applications = Application::with('ratings', 'comments')->find($applications);
         $previous = Application::where('id', '<', $applications->id)->max('id');
         $next = Application::where('id', '>', $applications->id)->min('id');
 
@@ -70,5 +70,19 @@ class ApplicationController extends Controller
     	$date = sha1(date('u'));
 
     	$csv->output("{$date}-applications.csv");
+    }
+
+    public function addComment(Request $request, Application $applications)
+    {
+        $this->validate($request, [ 
+            'comment' => 'required|min:5',
+            'application_id' => 'required' 
+        ]);
+
+        $body = $request->input('comment');
+        $applications->addComment($body, $request->user()->id);
+
+        return redirect()->back();
+
     }
 }

@@ -37,26 +37,38 @@
 		</div>
 	</section>
 	<section class="app__texts">
-		<h4 class="text-heading">Elevator Pitch</h4>
-		<p>{{$application->text_pitch}}</p>
+		<div class="text">
+			<h4 class="text-heading">Elevator Pitch</h4>
+			<p>{{$application->text_pitch}}</p>
+		</div>
 
-		<h4 class="text-heading">Technology</h4>
-		<p>{{$application->text_tech}}</p>
+		<div class="text">
+			<h4 class="text-heading">Technology</h4>
+			<p>{{$application->text_tech}}</p>
+		</div>
 
-		<h4 class="text-heading">Management Team</h4>
-		<p>{{$application->text_team}}</p>
-
-		<h4 class="text-heading">Funding Stage</h4>
-		<p>{{$application->funding_stage}}</p>
-
-		<h4 class="text-heading">What New Lab resources would be most beneficial to you?</h4>
-		<ul class="list-unstyled">
-			@foreach( unserialize($application->new_lab_resources) as $r)
-			<li>{{$r}}</li>
-			@endforeach
-		</ul>
-
-		<h4 class="text-heading">Community</h4>
-		<p>{{$application->text_community}}</p>
+		<div class="text">
+			<h4 class="text-heading">Management Team</h4>
+			<p>{{$application->text_team}}</p>
+		</div>
+		
+		<div class="text">
+			<h4 class="text-heading">Funding Stage</h4>
+			<p>{{$application->funding_stage}}</p>
+		</div>
+		
+		<div class="text">
+			<h4 class="text-heading">What New Lab resources would be most beneficial to you?</h4>
+			<ul class="list-unstyled">
+				@foreach( unserialize($application->new_lab_resources) as $r)
+				<li>{{$r}}</li>
+				@endforeach
+			</ul>
+		</div>
+		
+		<div class="text">
+			<h4 class="text-heading">Community</h4>
+			<p>{{$application->text_community}}</p>
+		</div>
 	</section>
 </div>

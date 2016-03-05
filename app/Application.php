@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Comment;
 use App\Traits\MoreRateable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -42,5 +43,19 @@ class Application extends Model
     	$app = parent::toArray();
     	$app['disciplines'] = serialize($app['disciplines']);
     	return $app;
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function addComment($body, $user_id)
+    {
+        $comment = new Comment;
+        $comment->application_id = $this->id;
+        $comment->user_id = $user_id;
+        $comment->body = $body;
+        $comment->save();
     }
 }
