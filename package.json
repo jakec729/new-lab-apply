@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
+    "font-awesome": "^4.5.0",
     "gulp": "^3.8.8"
   },
   "dependencies": {

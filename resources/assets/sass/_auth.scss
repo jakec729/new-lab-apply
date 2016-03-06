@@ -1,0 +1,70 @@
+.auth--panel {
+	width: 90%;
+	max-width: 480px;
+
+	.panel-body,
+	.panel-heading {
+		padding: 3em;
+		background-color: white;
+	}
+
+	.panel-heading {
+		display: flex;
+		align-items: center;
+		font-weight: 900;
+		padding: 1.5em 3em;
+	}
+
+	.site__name {
+		margin-left: 1em;
+		font-size: 1.5rem;
+	}
+
+	.form-group:last-of-type {
+		margin-bottom: 0;
+	}
+
+	.form-group + .form-group {
+		margin-top: 2em;
+	}
+
+	.checkbox label {
+		padding-left: 24px;
+	}
+
+	.checkbox input {
+		margin-left: -24px;
+	}
+
+	input,
+	.btn {
+		height: auto;
+		padding: 1em 1.25em;
+		border: 1px solid $brand-primary;
+	}
+
+	input,
+	.btn,
+	.checkbox {
+		font-size: 1.25em;
+	}
+
+	.btn {
+		background-color: white;
+		border: 2px solid $brand-primary;
+		color: $brand-primary;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+
+		&:hover {
+			background-color: $brand-primary;
+			color: white;
+		}
+
+	}
+
+	.btn-block {
+		text-align: left;
+	}
+}
