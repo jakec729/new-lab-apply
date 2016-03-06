@@ -12,13 +12,13 @@
         </span>
     </h4>
     <ul class="list-unstyled">
-        <li>
+        <li class="rating--auth">
             <span class="rating__user">Me</span>
             @include('applications.partials.ratings-form')
         </li>
         @foreach (\App\User::all() as $user)
             @unless($user->id == Auth::id())
-            <li>
+            <li class="rating--guest">
                 <span class="rating__user">{{$user->name}}</span>
                 @if ($application->hasRatingByUser($user->id))
                     @for ($i = 1; $i <= $application->ratingByUser($user->id); $i++)

@@ -36,7 +36,6 @@
 	}
 
 	.label-reject {
-		margin-left: .5em;
 		color: $grey-light;
 		
 		&.selected,
@@ -47,5 +46,17 @@
 		&:hover ~ label {
 			color: $grey-light;
 		}
+	}
+
+	&.rated {
+
+		label:not(.selected) {
+			display: none;
+		}
+
+		&:hover label:not(.selected) {
+			display: initial;
+		}
+
 	}
 }

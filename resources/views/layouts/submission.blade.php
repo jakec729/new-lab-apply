@@ -7,15 +7,18 @@
                 <ul class="list-unstyled submission-filters">
                     <li><a href="#" class="active">All Submissions <small>(245)</small></a></li>
                     <li><a href="#">Shortlisted <small>(67)</small></a></li>
+                    @if (Auth::user()->hasRole('admin'))
+                        <li><a href="{{ url('/users') }}">Users</a></li>
+                        <li><a href="{{ url('/applications') }}">Applications</a></li>
+                    @endif
+
                 </ul>
             </div>
             <div class="col-md-10 submissions-body">
                 <div class="container-fluid">
-                    <header class="submission__header clearfix">
-                        <h1 class="submission__heading pull-left">@yield('title')</h1>
-                        <div class="submission-controls clearfix pull-right">
-                            @yield('controls')
-                        </div>
+                    <header class="submission__header">
+                        <h1 class="submission__heading">@yield('title')</h1>
+                        <div class="submission-controls">@yield('controls')</div>
                     </header>
                     @yield('body')
                 </div>

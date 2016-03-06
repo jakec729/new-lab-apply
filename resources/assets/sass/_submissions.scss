@@ -17,14 +17,20 @@
 .submission {
 
 	&__header {
-		padding-bottom: 1em;
+		padding: 1em 0;
 		margin-bottom: 1em;
-		border-bottom: 4px solid black
+		border-bottom: 4px solid black;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 	
 	&__heading {
 		font-size: 2rem;
 		font-weight: 700;
+		flex: 1 1 auto;
+		margin: 0;
+		padding: 0;
 	}
 
 	&-data {
@@ -98,9 +104,20 @@
 }
 
  .submission-controls {
+ 	padding-top: .5rem;
  	text-align: right;
  	display: flex;
  	justify-content: flex-end;
+
+	// Posts Per Page
+	form .form-group{
+		display: flex;
+		align-items: center;
+
+		label {
+			margin: 0 5px 0 0;
+		}
+	}
 
  	& > div {
  		flex: 0 0 auto;

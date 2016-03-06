@@ -1,4 +1,4 @@
-<form action="{{url("/applications/{$application->id}/rate")}}" method="POST" class="star-rating">
+<form action="{{url("/applications/{$application->id}/rate")}}" method="POST" class="star-rating {{ ($application->alreadyRated()) ? "rated" : null }}">
     {{ csrf_field() }}
     <label class="label-reject {{ ($application->alreadyRated() && $application->userRating == 0) ? "selected" : null }}">
         <input type="radio" name="rating" value="0" onclick="submit()">

@@ -2,6 +2,22 @@ body {
     // font-family: 'Lato';
 }
 
+.inline-block {
+	display: inline-block;
+}
+
+#newlab-logo {
+	color: $black;
+
+	.logo-seg {
+		fill: transparent;
+	}
+
+	#shape {
+		fill: $black;
+	}
+}
+
 .fa-btn {
     margin-right: 6px;
 }
@@ -18,10 +34,35 @@ body {
 	margin-bottom: 0;
 	padding-top: 1em;
 	padding-bottom: 1em;
+
+	&-brand {
+		display: flex;
+		align-items: center;
+		color: $black !important;
+
+		span + span {
+			margin-left: 1em;
+		}
+
+		&:hover,
+		&:hover #newlab-logo,
+		&:hover #newlab-logo #shape {
+			color: $link-color !important;
+			fill: $link-color;
+		}
+	}
 }
 
 .heading--border {
 	padding-bottom: 1em;
 	margin-bottom: 1em;
 	border-bottom: 1px solid $black;
+}
+
+.link--chevron {
+	&:after {
+		content: ">";
+		display: inline-block;
+		margin: 0 .5rem;
+	}
 }

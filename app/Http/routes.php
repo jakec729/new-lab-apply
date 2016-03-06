@@ -4,7 +4,7 @@ use App\Application;
 Route::group(['middleware' => 'web'], function () {
     
     Route::get('/', function () { 
-        return redirect('/home');
+        return redirect('/applications');
     });
     
     Route::auth();

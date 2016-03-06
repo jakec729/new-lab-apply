@@ -14,10 +14,10 @@
 				<th>Date</th>
 				<th>Name</th>
 				<th>Company</th>
-				<th>Discipline</th>
-				<th>Size</th>
-				<th>Type</th>
-				<th>Pitch</th>
+				<th class="hidden-xs hidden-sm hidden-md">Discipline</th>
+				<th class="hidden-xs hidden-sm hidden-md">Size</th>
+				<th class="hidden-xs hidden-sm hidden-md">Type</th>
+				<th class="hidden-xs hidden-sm hidden-md">Pitch</th>
 				<th>Me</th>
 				<th>Avg.</th>
 			</tr>
@@ -25,10 +25,10 @@
 		<tbody>
 			@foreach ($applications as $applicant)
 				<tr>
-					<td>{{$applicant->created_at->format('Y-m-d')}}</td>
-					<td><a href="{{ url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
-					<td><a href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
-					<td>
+					<td>{{$applicant->created_at->format('m-d-Y')}}</td>
+					<td><a href="{{url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
+					<td><a class="link--chevron" href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
+					<td class="hidden-xs hidden-sm hidden-md">
 						@if ($applicant->disciplines)
 							<ul class="list-unstyled">
 							@foreach( $applicant->disciplines as $d)
@@ -37,9 +37,9 @@
 							</ul>
 						@endif
 					</td>
-					<td>{{$applicant->desks}}</td>
-					<td>{{$applicant->membership_type}}</td>
-					<td>{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
+					<td class="hidden-xs hidden-sm hidden-md">{{$applicant->desks}}</td>
+					<td class="hidden-xs hidden-sm hidden-md">{{$applicant->membership_type}}</td>
+					<td class="hidden-xs hidden-sm hidden-md">{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
 					<td>
 						@if ($applicant->alreadyRated())
 							@if ($applicant->userRating < 1)
