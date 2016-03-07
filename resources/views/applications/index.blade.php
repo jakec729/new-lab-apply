@@ -4,7 +4,7 @@
 
 @section('controls')
 	<div>@include('applications.partials.pagination')</div>
-	<div>{!! $applications->appends(['posts_per_page' => $pagination])->links() !!}</div>
+	<div>{!! $applications->links() !!}</div>
 @endsection
 
 @section('body')

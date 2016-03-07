@@ -6,11 +6,10 @@
         <div class="row">
             <div class="col-md-2 filter-sidebar">
                 <ul class="list-unstyled submission-filters">
-                    <li><a href="#" class="active">All Submissions <small>({{$applications->count()}})</small></a></li>
-                    <li><a href="#">Shortlisted <small>({{$applications->countShortlisted()}})</small></a></li>
+                    <li><a class="{{set_active('applications')}}" href="{{url('/applications')}}">All Submissions <small>({{$applications->count()}})</small></a></li>
+                    <li><a class="{{set_active('applications/shortlisted')}}" href="{{url('/applications/shortlisted')}}">Shortlisted <small>({{$applications->countShortlisted()}})</small></a></li>
                     @if (Auth::user()->hasRole('admin'))
-                        <li><a href="{{ url('/users') }}">Users</a></li>
-                        <li><a href="{{ url('/applications') }}">Applications</a></li>
+                        <li><a class="{{set_active('users')}}" href="{{ url('/users') }}">Users</a></li>
                     @endif
 
                 </ul>

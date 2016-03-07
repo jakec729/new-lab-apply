@@ -3,32 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Application;
+use App\ApplicationRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Session\Store;
 
 class ApplicationController extends Controller
 {
+    protected $applications;
 
-    protected function setPagination(Request $request)
+    public function __construct(ApplicationRepository $applications)
     {
-        $pagination = 10;
-        $posts_per_page = ($request->has('posts_per_page')) ? $request->input('posts_per_page') : null;
-
-        if ($posts_per_page) {
-            $pagination = $request->input('posts_per_page');
-        }
-
-        return $pagination;
+        $this->applications = $applications;
     }
 
 
     public function index(Request $request)
     {
-        $pagination = $this->setPagination($request);
-        $applications = Application::with('ratings')->paginate($pagination);
+        $applications = $this->applications->paginatedSubmissions();
 
-        return view('applications.index', compact('applications', 'pagination'));
+        return view('applications.index', compact('applications'));
+    }
+
+    public function shortlisted()
+    {
+        $applications = $this->applications->getShortlisted();
+        // dd($applications);
+        return view('applications.index', compact('applications'));
     }
 
 	public function show($applications) 
@@ -81,5 +83,12 @@ class ApplicationController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function updatePPG(Request $request)
+    {
+        $request->session()->forget('posts_per_page');
+        $request->session()->put('posts_per_page', $request->input('posts_per_page') );
+        return redirect()->back();
     }
 }
