@@ -1,6 +1,6 @@
 @extends('layouts.submission')
 
-@section('title', 'All Submissions')
+@section('title', 'Shortlisted')
 
 @section('controls')
 	<div>@include('applications.partials.pagination')</div>

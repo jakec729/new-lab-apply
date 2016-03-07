@@ -30,7 +30,7 @@ class ApplicationController extends Controller
     {
         $applications = $this->applications->getShortlisted();
         // dd($applications);
-        return view('applications.index', compact('applications'));
+        return view('applications.shortlisted', compact('applications'));
     }
 
 	public function show($applications) 
