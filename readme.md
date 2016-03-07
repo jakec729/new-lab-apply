@@ -3,16 +3,16 @@
 
 ### TODO
 
-- [] Import fonts
 - [x] Ratings to stars
 - [x] Update ratings
 - [x] List user ratings on show page
+- [x] Add comments
+- [x] Login styling
+- [] Final theme styling
+- [] Import fonts
 - [] Import true sample data
 - [] Check for already imported submissions
-- [] Add comments
 - [] Reset password
-- [] Login styling
-- [] Final theme styling
 
 ### BONUS
 

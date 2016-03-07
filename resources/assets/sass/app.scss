@@ -1,8 +1,6 @@
 @import "vars";
 
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/font-awesome/scss/font-awesome.scss";
-
+@import "plugins";
 @import "base";
 @import "ratings";
 @import "auth";
