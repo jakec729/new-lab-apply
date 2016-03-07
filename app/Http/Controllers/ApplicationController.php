@@ -26,12 +26,9 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
         $pagination = $this->setPagination($request);
-        $apps_builder = Application::with('ratings');
-        $total = $apps_builder->get()->count();
-        $applications = $apps_builder->paginate($pagination);
-        $shortlisted = $apps_builder->has('ratings')->get();
+        $applications = Application::with('ratings')->paginate($pagination);
 
-        return view('applications.index', compact('applications', 'total', 'shortlisted', 'pagination'));
+        return view('applications.index', compact('applications', 'pagination'));
     }
 
 	public function show($applications) 
