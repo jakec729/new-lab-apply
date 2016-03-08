@@ -7841,6 +7841,9 @@ button.close {
   float: right;
   padding-top: 2px; }
 
+.btn-primary:hover {
+  background-color: #666666; }
+
 .inline-block {
   display: inline-block; }
 

@@ -30,7 +30,15 @@ class FileController extends Controller
         $file = $request->file;
         $applications = Csv::formatIntoApplications($request->file);
 
-        return view('applications.review', compact('applications', 'file'));
+        $duplicates = $applications->filter(function($application){
+            return (!! Application::where('email', $application->email)->first());
+        });
+
+        $applications = $applications->filter(function($application){
+            return (! Application::where('email', $application->email)->first());
+        });
+
+        return view('applications.review', compact('applications', 'duplicates', 'file'));
     }
 
     /**

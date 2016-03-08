@@ -4,9 +4,8 @@
 	<div class="container">
 	    <div class="row">
 	        <div class="col-md-10 col-md-offset-1">
-				<h1>Review Applications</h1>
-			 	<hr>
-				@if ($applications)
+				@if ($applications->count() > 0)
+				<h1 class="page-heading">Unique Applications</h1>
 					<form action="{{ url('/files') }}" method="POST">
 					<input type="hidden" name="file" value="{{ serialize($applications->toArray()) }}">
 					{{ csrf_field() }}
@@ -32,8 +31,13 @@
 					</table>
 					<input type="submit" class="btn btn-warning">
 					</form>
-				@else
-					<p>Nothing to show.</p>
+				@elseif ($duplicates->count() > 0)
+					<div class="alert alert-danger">
+						<p class="page-heading">
+							<strong>{{$duplicates->count() }} Duplicate Applications Found</strong> <br>
+							Unable to import duplicates at this time.
+						</p>
+					</div>
 				@endif
 			</div>
 		</div>

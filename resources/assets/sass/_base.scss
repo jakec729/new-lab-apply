@@ -17,6 +17,10 @@ body {
 	}
 }
 
+.btn-primary:hover {
+	background-color: $grey-dark;
+}
+
 .inline-block {
 	display: inline-block;
 }

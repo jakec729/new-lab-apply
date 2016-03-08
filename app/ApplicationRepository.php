@@ -23,6 +23,7 @@ class ApplicationRepository extends Model
     			->whereHas('ratings', function ($query) {
 		    	    $query->where('rating', '>', 0);
 		    	})
+                ->orderBy('created_at', 'desc')
 		    	->paginate(session('posts_per_page'));
     }
 
@@ -38,13 +39,15 @@ class ApplicationRepository extends Model
 
     public function paginatedSubmissions()
     {
-    	return $this->submissions()->paginate(session('posts_per_page'));
+    	return $this->submissions()
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(session('posts_per_page'));
     }
 
-    public function paginatedShortlist()
-    {
-    	return $this->submissions()->whereHas('ratings', function ($query) {
-    	    $query->where('rating', '>', 0);
-    	})->paginate(session('posts_per_page'));
-    }
+    // public function paginatedShortlist()
+    // {
+    // 	return $this->submissions()->whereHas('ratings', function ($query) {
+    // 	    $query->where('rating', '>', 0);
+    // 	})->paginate(session('posts_per_page'));
+    // }
 }
