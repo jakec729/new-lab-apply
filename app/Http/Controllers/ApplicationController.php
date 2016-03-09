@@ -54,23 +54,6 @@ class ApplicationController extends Controller
     	return redirect()->back();
     }
 
-    public function downloadCSV()
-    {
-    	$csv = \League\Csv\Writer::createFromFileObject(new \SplTempFileObject());
-
-    	$csv->insertOne(\Schema::getColumnListing('applications'));
-
-    	$applications = Application::all();
-
-    	$applications->each(function($application) use($csv) {
-    	    $csv->insertOne($application->toArray());
-    	});
-
-    	$date = sha1(date('u'));
-
-    	$csv->output("{$date}-applications.csv");
-    }
-
     public function addComment(Request $request, Application $applications)
     {
         $this->validate($request, [ 

@@ -21,9 +21,9 @@ Route::group(['middleware' => ['web', 'auth']], function() {
     Route::get('/files/import', 'FileController@import');
     Route::post('/files/review', 'FileController@review');
     Route::post('/files', 'FileController@store');
+    Route::post('/applications/download', 'FileController@downloadCSV');
 
     Route::get('/applications', 'ApplicationController@index');
-    Route::get('/applications/download', 'ApplicationController@downloadCSV');
     Route::get('/applications/shortlisted', 'ApplicationController@shortlisted');
     Route::post('/applications/updatePPG', 'ApplicationController@updatePPG');
     Route::get('/applications/{applications}', 'ApplicationController@show');

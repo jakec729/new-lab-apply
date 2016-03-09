@@ -21,6 +21,15 @@ class FileController extends Controller
         return view('files.import');
     }
 
+    public function downloadCSV(Request $request)
+    {
+        if (! $request->has('applications_filter')) {
+            return redirect()->back()->withErrors(['Need to select a filter']);
+        }
+
+        $csv = Csv::createApplicationCSV($request->input('applications_filter'));
+    }
+
     public function review(Request $request)
     {
         $this->validate($request, [

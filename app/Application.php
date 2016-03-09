@@ -33,6 +33,9 @@ class Application extends Model
         'text_community' 
     ];
 
+    protected $appends = [ 'rating' ];
+    protected $hidden = [ 'ratings' ];
+
     public function getDisciplinesAttribute($value)
     {
     	return unserialize($value);
