@@ -20,9 +20,9 @@ class ApplicationRepository extends Model
     public function getAllShortlisted()
     {
         $applications = Application::with('ratings')
-                            ->whereHas('ratings', function ($query) {
-                                $query->where('rating', '>', 0);
-                            })->get();
+                        ->whereHas('ratings', function ($query) {
+                            $query->where('rating', '>', 0);
+                        })->get();
         return $applications;
     }
 
@@ -32,6 +32,7 @@ class ApplicationRepository extends Model
     			->whereHas('ratings', function ($query) {
 		    	    $query->where('rating', '>', 0);
 		    	})
+                ->orderBy('rating', 'desc')
                 ->orderBy('created_at', 'desc')
 		    	->paginate(session('posts_per_page'));
     }
@@ -48,8 +49,11 @@ class ApplicationRepository extends Model
 
     public function paginatedSubmissions()
     {
-    	return $this->submissions()
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(session('posts_per_page'));
+        $apps = $this->submissions()
+                     // ->orderBy('average_rating', 'desc')
+                     ->orderBy('created_at', 'desc')
+                     ->paginate(session('posts_per_page'));
+                     
+        return $apps;
     }
 }
