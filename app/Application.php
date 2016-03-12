@@ -17,12 +17,16 @@ class Application extends Model
     // protected $dateFormat = 'U';
 
     protected $fillable = [
-        'name', 
+        'submitted_on',
+        'first_name', 
+        'last_name', 
         'email', 
         'company',
         'website', 
+        'link_1', 
+        'link_2', 
         'desks', 
-        'disciplines', 
+        'discipline', 
         'membership_type', 
         'text_pitch', 
         'text_tech', 
@@ -36,16 +40,27 @@ class Application extends Model
     protected $appends = [ 'rating' ];
     protected $hidden = [ 'ratings' ];
 
-    public function getDisciplinesAttribute($value)
+    public function getNameAttribute()
     {
-    	return unserialize($value);
+        return "{$this->first_name} {$this->last_name}";
     }
 
-    public function toArray()
+    public function getDesksAttribute($value)
     {
-    	$app = parent::toArray();
-    	$app['disciplines'] = serialize($app['disciplines']);
-    	return $app;
+        $categories = [
+            'Solo: ',
+            'Small: ',
+            'person',
+            'Medium: ',
+            'Micro: ',
+            'Large: '
+        ];
+        return str_replace($categories, "", $value);
+    }
+
+    public function resources()
+    {
+        return comma_to_array($this->new_lab_resources);
     }
 
     public function comments()

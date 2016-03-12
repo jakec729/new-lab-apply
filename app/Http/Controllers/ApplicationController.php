@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Application;
 use App\ApplicationRepository;
+use App\CustomPaginator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -13,15 +14,16 @@ class ApplicationController extends Controller
 {
     protected $applications;
 
+
     public function __construct(ApplicationRepository $applications)
     {
         $this->applications = $applications;
     }
 
-
     public function index(Request $request)
     {
-        $applications = $this->applications->paginatedSubmissions();
+        $applications = $this->applications->submissionsSortedByAverageRating();
+        $applications = CustomPaginator::paginateCollection($request, $applications);
 
         return view('applications.index', compact('applications'));
     }

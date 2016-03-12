@@ -38,6 +38,7 @@ class FileController extends Controller
 
         $file = $request->file;
         $applications = Csv::formatIntoApplications($request->file);
+        // dd($applications);
 
         $duplicates = $applications->filter(function($application){
             return (!! Application::where('email', $application->email)->first());

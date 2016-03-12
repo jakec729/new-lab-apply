@@ -38,19 +38,23 @@ $factory->define(App\Comment::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Application::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'submitted_on' => $faker->date,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
         'email' => $faker->email,
         'company' => $faker->company,
         'website' => $faker->url,
+        'link_1' => $faker->url,
+        'link_2' => $faker->url,
         'desks' => $faker->randomElement(['Solo: 1 Person', 'Micro: 2-4', 'Medium: 10-30']),
-        'disciplines' => serialize($faker->randomElements(['Robotics', 'Urban Tech', 'Nano Tech', 'Life Sciences', 'Additive Manufacturing', 'Energy'], 4)),
+        'discipline' => $faker->randomElement(['Robotics', 'Urban Tech', 'Nano Tech', 'Life Sciences', 'Additive Manufacturing', 'Energy']),
         'membership_type' => $faker->randomElement(['Resident', 'Flex', 'Urban Tech']),
         'text_pitch' => $faker->paragraph,
         'text_tech' => $faker->paragraph,
         'text_team' => $faker->paragraph,
         'text_strategy' => $faker->paragraph,
         'funding_stage' => $faker->randomElement(['Bootstrap', 'Grants', 'Venture Funding']),
-        'new_lab_resources' => serialize($faker->randomElements(['Prototyping Shops', 'Event Space', 'Member Community'], 2)),
+        'new_lab_resources' => comma_separate($faker->randomElements(['Prototyping Shops', 'Event Space', 'Member Community'], 2)),
         'text_community' => $faker->paragraph
     ];
 });

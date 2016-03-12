@@ -27,13 +27,7 @@
 		</div>
 		<div class="item">
 			<strong>Discipline</strong><br>
-			@if ($application->disciplines)
-				<ul class="list-unstyled">
-				@foreach( $application->disciplines as $d)
-					<li>{{$d}}</li>
-				@endforeach
-				</ul>
-			@endif
+			{{$application->discipline}}
 		</div>
 	</section>
 	<section class="app__texts">
@@ -60,8 +54,8 @@
 		<div class="text">
 			<h4 class="text-heading">What New Lab resources would be most beneficial to you?</h4>
 			<ul class="list-unstyled">
-				@foreach( unserialize($application->new_lab_resources) as $r)
-				<li>{{$r}}</li>
+				@foreach($application->resources() as $r)
+					<li>{{$r}}</li>
 				@endforeach
 			</ul>
 		</div>

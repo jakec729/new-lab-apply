@@ -4,6 +4,9 @@ namespace App;
 
 use App\Application;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationRepository extends Model
 {
@@ -47,13 +50,21 @@ class ApplicationRepository extends Model
     	return Application::with('ratings');
     }
 
-    public function paginatedSubmissions()
+    public function submissionsSortedByAverageRating() 
     {
-        $apps = $this->submissions()
-                     // ->orderBy('average_rating', 'desc')
-                     ->orderBy('created_at', 'desc')
-                     ->paginate(session('posts_per_page'));
-                     
+        $apps = DB::table('applications')
+            ->select('applications.*')
+            ->leftJoin('ratings', 'applications.id', '=', 'ratings.rateable_id')
+            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+            ->groupBy('applications.id')
+            ->orderBy('average_rating', 'desc')
+            ->get();
+
+        $apps = collect($apps);
+        $apps = $apps->map(function($item){
+            return Application::with('ratings')->find($item->id);
+        });
+
         return $apps;
     }
 }

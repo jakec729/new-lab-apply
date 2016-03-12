@@ -18,15 +18,7 @@
 				<td>{{$applicant->created_at->format('m-d-Y')}}</td>
 				<td><a href="{{url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
 				<td><a class="link--chevron" href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
-				<td class="hidden-xs hidden-sm hidden-md">
-					@if ($applicant->disciplines)
-						<ul class="list-unstyled">
-						@foreach( $applicant->disciplines as $d)
-							<li>{{$d}}</li>
-						@endforeach
-						</ul>
-					@endif
-				</td>
+				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->discipline}}</td>
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->desks}}</td>
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->membership_type}}</td>
 				<td class="hidden-xs hidden-sm hidden-md">{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
