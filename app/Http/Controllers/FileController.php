@@ -28,7 +28,12 @@ class FileController extends Controller
         }
 
         $csv = Csv::createApplicationCSV($request->input('applications_filter'));
-        $csv->download();
+        
+        if ($csv) {
+            $csv->download();
+        } else {
+            return redirect()->back()->withErrors(['Something Went Wrong']);
+        }
     }
 
     public function review(Request $request)

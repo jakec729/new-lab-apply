@@ -79,6 +79,10 @@ class Csv
             $applications = Application::with('ratings')->get();
         }
 
+        if($applications->count() == 0) {
+            return false;
+        }
+
         return $applications;
     }
 
@@ -86,8 +90,12 @@ class Csv
     {
         $csv = Csv::setupCSV($filter);
         $applications = $csv->collectApps();
+
+        if (! $applications) {
+            return false;
+        }
+
         $csv->insertApplications($applications);
-        
         return $csv;
     }
 
