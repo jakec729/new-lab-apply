@@ -34,29 +34,7 @@ class Csv
 
         foreach ($this->collection as $row) {
 
-            // format_text_submission($row[13]);
-            $app = new Application();
-
-            $app->submitted_on          = $row[1];
-            $app->first_name            = ucwords($row[2]);
-            $app->last_name             = ucwords($row[3]);
-            $app->email                 = $row[4];
-            $app->company               = ucwords($row[5]);
-            $app->website               = $row[6];
-            $app->link_1                = ($row[7] == "Add another related link") ? "" : $row[7];
-            $app->link_2                = ($row[8] == "Add another related link") ? "" : $row[8];
-            $app->desks                 = $row[9];
-            $app->discipline            = $row[10];
-            $app->membership_type       = $row[11];
-            $app->text_pitch            = $row[12];
-            $app->text_tech             = $row[13];
-            $app->text_team             = $row[14];
-            $app->text_strategy         = $row[15];
-            $app->funding_stage         = $row[16];
-            $app->new_lab_resources     = str_replace(",", ", ", $row[17]);
-            $app->text_community        = $row[18];
-
-            $collection[] = $app;
+            $collection[] = Application::createFromArray($row);
         }
         
         return collect($collection);
@@ -87,7 +65,7 @@ class Csv
         return "New_Lab-applications{$filter}.csv";
     }
 
-    protected function download()
+    public function download()
     {
         $this->file->output($this->generateFileName());
     }
@@ -109,7 +87,8 @@ class Csv
         $csv = Csv::setupCSV($filter);
         $applications = $csv->collectApps();
         $csv->insertApplications($applications);
-        $csv->download();
+        
+        return $csv;
     }
 
 }

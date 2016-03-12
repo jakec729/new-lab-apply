@@ -1,3 +1,4 @@
+@if($applications->count() > 0)
 <table class="table table-striped" id="submissions-table">
 	<thead>
 		<tr>
@@ -15,7 +16,7 @@
 	<tbody>
 		@foreach ($applications as $applicant)
 			<tr>
-				<td>{{$applicant->created_at->format('m-d-Y')}}</td>
+				<td>{{$applicant->submitted_on->format('m-d-y')}}</td>
 				<td><a href="{{url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
 				<td><a class="link--chevron" href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->discipline}}</td>
@@ -49,3 +50,7 @@
 		@endforeach
 	</tbody>
 </table>
+@else
+	<br>
+	<p>No Applications to show.</p>
+@endif

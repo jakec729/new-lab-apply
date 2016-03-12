@@ -28,6 +28,7 @@ class FileController extends Controller
         }
 
         $csv = Csv::createApplicationCSV($request->input('applications_filter'));
+        $csv->download();
     }
 
     public function review(Request $request)
@@ -38,7 +39,6 @@ class FileController extends Controller
 
         $file = $request->file;
         $applications = Csv::formatIntoApplications($request->file);
-        // dd($applications);
 
         $duplicates = $applications->filter(function($application){
             return (!! Application::where('email', $application->email)->first());
@@ -62,8 +62,9 @@ class FileController extends Controller
         $all = collect( unserialize( $request->input('file') ) );
         $applications = $all->only($request->input('application_keys'));
 
-        $applications->map(function($movie){
-            Application::create($movie);
+        $applications = $applications->map(function($movie){
+            $app = Application::createFromAssociativeArray($movie);
+            return $app;
         });
 
         return redirect('/applications');
