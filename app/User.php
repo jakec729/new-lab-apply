@@ -28,4 +28,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function listRoles()
+    {
+        $roles = $this->getRoles();
+        if (!empty($roles)) {
+            $role_names = $roles->pluck('name')->toArray();
+            return comma_separate($role_names);
+        }
+    }
+
 }

@@ -13,11 +13,11 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-       	$adminRole = Role::create([
-       	    'name' => 'Admin',
-       	    'slug' => 'admin',
-       	    'description' => 'Administrators have access to everything'
-       	]);
+        $adminRole = Role::create([
+            'name' => 'Admin',
+            'slug' => 'admin',
+            'description' => 'Administrators have access to everything'
+        ]);
 
        	User::find(1)->attachRole($adminRole);
     }

@@ -15,6 +15,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Email</th>
+					<th>Role</th>
 					<th>Created</th>
 				</tr>
 			</thead>
@@ -23,6 +24,7 @@
 					<tr>
 						<td><a href="{{url("/users/{$user->id}")}}">{{ $user->name }}</a></td>
 						<td>{{ $user->email }}</td>
+						<td>{{ $user->listRoles() }}</td>
 						<td>{{ $user->created_at->format('Y-m-d') }}</td>
 					</tr>							
 				@endforeach

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Bican\Roles\Models\Role;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
@@ -74,6 +75,23 @@ class AuthController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        if (property_exists($this, 'registerView')) {
+            return view($this->registerView);
+        }
+
+        $roles = Role::all();
+
+        return view('auth.register', compact('roles'));
+    }
+
+
+    /**
      * Handle a registration request of a new user by an authenticated user.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -89,7 +107,12 @@ class AuthController extends Controller
             );
         }
 
-        $this->create($request->all());
+        $user = $this->create($request->all());
+
+        if ($request->has('make_admin')) {
+            $admin = Role::where('slug', 'admin')->first();
+            $user->attachRole($admin);
+        }
 
         return redirect('/users');
     }

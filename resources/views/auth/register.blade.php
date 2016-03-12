@@ -53,6 +53,14 @@
         </div>
 
         <div class="form-group">
+            <div>
+                <label for="make_admin">
+                    <input type="checkbox" name="make_admin"> &nbsp; Make Admin
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
             <button type="submit" class="btn btn-block btn-primary">
                 <i class="fa fa-btn fa-user"></i>Register
             </button>
