@@ -20,16 +20,35 @@ class ApplicationController extends Controller
         $this->applications = $applications;
     }
 
+    protected function setTableFilter(Request $request)
+    {
+        $active = $request->session()->get('tableSortBy', ['column' => 'average_rating', 'direction' => 'desc']);
+        $filter = ($request->has('tableSortBy')) ? $request->input('tableSortBy') : null;
+
+        $direction = '';
+
+        if ($filter == $active['column']) {
+            $direction = ($active['direction'] == 'desc') ? 'asc' : 'desc';
+        } else {
+            $direction = 'asc';
+        }
+
+        $request->session()->forget('tableSortBy');
+        $request->session()->put('tableSortBy', ['column' => $filter, 'direction' => $direction]);
+    }
+
     public function index(Request $request)
     {
+        $this->setTableFilter($request);
         $applications = $this->applications->allSubs();
         $applications = CustomPaginator::paginateCollection($request, $applications);
 
         return view('applications.index', compact('applications'));
     }
 
-    public function shortlisted()
+    public function shortlisted(Request $request)
     {
+        $this->setTableFilter($request);
         $applications = $this->applications->shortlistedSubs();
         return view('applications.shortlisted', compact('applications'));
     }

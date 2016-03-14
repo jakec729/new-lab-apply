@@ -6,6 +6,7 @@ use App\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ApplicationRepository extends Model
@@ -33,10 +34,17 @@ class ApplicationRepository extends Model
 
     public function allSubmissionsWithAvgRating()
     {
+        // $my_rating = DB::table('ratings')
+        //                ->select('ratings.rating')
+        //                ->where('ratings.rateable_id', '=', Auth::id());
+
+        // dd($my_rating->get());
+
         return DB::table('applications')
                    ->select('applications.*')
                    ->leftJoin('ratings', 'applications.id', '=', 'ratings.rateable_id')
                    ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                   // ->unionAll($my_rating)
                    ->groupBy('applications.id');
     }
 
@@ -69,9 +77,9 @@ class ApplicationRepository extends Model
 
     public function addFilter($builder)
     {
-        $orderBy = session('sortBy');
-        $field = $orderBy['field'];
-        $direction = $orderBy['direction'];
+        $array = session('tableSortBy');
+        $field = $array['column'];
+        $direction = $array['direction'];
 
         return $builder->orderBy($field, $direction);
     }
