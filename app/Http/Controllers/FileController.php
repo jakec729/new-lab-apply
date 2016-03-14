@@ -41,7 +41,7 @@ class FileController extends Controller
         $this->validate($request, [
             'file' => 'required',
         ]);
-
+        
         $file = $request->file;
         $applications = Csv::formatIntoApplications($request->file);
 

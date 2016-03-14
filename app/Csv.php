@@ -32,8 +32,8 @@ class Csv
     {
         $collection = [];
 
-        foreach ($this->collection as $row) {
 
+        foreach ($this->collection as $row) {
             $collection[] = Application::createFromArray($row);
         }
         
