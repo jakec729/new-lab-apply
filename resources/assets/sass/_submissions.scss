@@ -139,6 +139,16 @@
  }
 
  #submissions-table {
+ 	label {
+		display: block;
+		cursor: pointer;
+		margin-bottom: 0;
+ 	}
+
+ 	th input {
+ 		display: none;
+ 	}
+
  	td {
  		width: (75/9 + 0%);
 

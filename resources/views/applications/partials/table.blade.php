@@ -1,17 +1,44 @@
 @if($applications->count() > 0)
 <table class="table table-striped" id="submissions-table">
 	<thead>
+		<form action="" method="GET">
+		{{csrf_field()}}
 		<tr>
-			<th>Date</th>
-			<th>Name</th>
-			<th>Company</th>
-			<th class="hidden-xs hidden-sm hidden-md">Discipline</th>
-			<th class="hidden-xs hidden-sm hidden-md">Size</th>
-			<th class="hidden-xs hidden-sm hidden-md">Type</th>
-			<th class="hidden-xs hidden-sm hidden-md">Pitch</th>
-			<th>Me</th>
-			<th>Avg.</th>
+			<th>
+				<label for="tableSortBy_date">Date&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_date" value="date" onchange="this.form.submit()"></input>
+			</th>
+			<th>
+				<label for="tableSortBy_name">Name&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_name" value="name" onchange="this.form.submit()"></input>
+			</th>
+			<th>
+				<label for="tableSortBy_company">Company&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_company" value="company" onchange="this.form.submit()"></input>
+			</th>
+			<th class="hidden-xs hidden-sm hidden-md">
+				<label for="tableSortBy_discipline">Discipline&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_discipline" value="discipline" onchange="this.form.submit()"></input>
+			</th>
+			<th class="hidden-xs hidden-sm hidden-md">
+				<label for="tableSortBy_size">Size&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_size" value="size" onchange="this.form.submit()"></input>
+			</th>
+			<th class="hidden-xs hidden-sm hidden-md">
+				<label for="tableSortBy_type">Type&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_type" value="type" onchange="this.form.submit()"></input>
+			</th>
+			<th>Pitch</th>
+			<th class="hidden-xs hidden-sm hidden-md">
+				<label for="tableSortBy_me">Me&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_me" value="me" onchange="this.form.submit()"></input>
+			</th>
+			<th>
+				<label for="tableSortBy_avg">Avg.&ensp;<i class="fa fa-sort"></i></label>
+				<input type="checkbox" name="tableSortBy" id="tableSortBy_avg" value="avg" onchange="this.form.submit()"></input>
+			</th>
 		</tr>
+		</form>
 	</thead>
 	<tbody>
 		@foreach ($applications as $applicant)

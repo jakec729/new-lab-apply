@@ -8087,6 +8087,14 @@ button.close {
 .submissions-body {
   padding: 0; }
 
+#submissions-table label {
+  display: block;
+  cursor: pointer;
+  margin-bottom: 0; }
+
+#submissions-table th input {
+  display: none; }
+
 #submissions-table td {
   width: 8.3333333333%; }
   #submissions-table td:nth-child(7) {
