@@ -22,7 +22,7 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        $applications = $this->applications->submissionsSortedByAverageRating();
+        $applications = $this->applications->allSubs();
         $applications = CustomPaginator::paginateCollection($request, $applications);
 
         return view('applications.index', compact('applications'));
@@ -30,8 +30,7 @@ class ApplicationController extends Controller
 
     public function shortlisted()
     {
-        $applications = $this->applications->getShortlisted();
-        // dd($applications);
+        $applications = $this->applications->shortlistedSubs();
         return view('applications.shortlisted', compact('applications'));
     }
 

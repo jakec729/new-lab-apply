@@ -74,7 +74,7 @@ class Csv
     {
         if ($this->filter == "shortlisted") {
             $applications = new ApplicationRepository();
-            $applications = $applications->getAllShortlisted();
+            $applications = $applications->shortlistedSubs();
         } else {
             $applications = Application::with('ratings')->get();
         }

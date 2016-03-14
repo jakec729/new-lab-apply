@@ -12,7 +12,8 @@ class ApplicationRepository extends Model
 {
 	public function __construct()
 	{
-		if(! session('posts_per_page')) session(['posts_per_page' => 5]);
+        if(! session('posts_per_page')) session(['posts_per_page' => 5]);
+		if(! session('sortBy')) session(['sortBy' => ['field' => 'average_rating', 'direction' => 'desc']]);
 	}
 
     public function count()
@@ -20,29 +21,9 @@ class ApplicationRepository extends Model
     	return $this->submissions()->count();
     }
 
-    public function getAllShortlisted()
-    {
-        $applications = Application::with('ratings')
-                        ->whereHas('ratings', function ($query) {
-                            $query->where('rating', '>', 0);
-                        })->get();
-        return $applications;
-    }
-
-    public function getShortlisted()
-    {
-    	return Application::with('ratings')
-    			->whereHas('ratings', function ($query) {
-		    	    $query->where('rating', '>', 0);
-		    	})
-                ->orderBy('rating', 'desc')
-                ->orderBy('created_at', 'desc')
-		    	->paginate(session('posts_per_page'));
-    }
-
     public function countShortlisted()
     {
-    	return $this->getShortlisted()->count();
+    	return $this->shortlistedSubs()->count();
     }
 
     public function submissions()
@@ -50,20 +31,63 @@ class ApplicationRepository extends Model
     	return Application::with('ratings');
     }
 
-    public function submissionsSortedByAverageRating() 
+    public function allSubmissionsWithAvgRating()
     {
-        $apps = DB::table('applications')
-            ->select('applications.*')
-            ->leftJoin('ratings', 'applications.id', '=', 'ratings.rateable_id')
-            ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-            ->groupBy('applications.id')
-            ->orderBy('average_rating', 'desc')
-            ->get();
+        return DB::table('applications')
+                   ->select('applications.*')
+                   ->leftJoin('ratings', 'applications.id', '=', 'ratings.rateable_id')
+                   ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                   ->groupBy('applications.id');
+    }
 
-        $apps = collect($apps);
-        $apps = $apps->map(function($item){
+    public function shortlistedSubmissionsWithAvgRating()
+    {
+        return DB::table('applications')
+                   ->select('applications.*')
+                   ->join('ratings', 'applications.id', '=', 'ratings.rateable_id')
+                   ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                   ->groupBy('applications.id')
+                   ->havingRaw(DB::raw('AVG(ratings.rating) > 0'));
+    }
+
+    public function appsFromQuery($builder)
+    {
+        $apps = $this->addFilter($builder)->get();
+        return $this->mapArrayToCollection($apps);
+    }
+
+    public function mapArrayToCollection($array)
+    {
+        $array = collect($array);
+
+        $apps = $array->map(function($item){
             return Application::with('ratings')->find($item->id);
         });
+
+        return $apps;
+    }
+
+    public function addFilter($builder)
+    {
+        $orderBy = session('sortBy');
+        $field = $orderBy['field'];
+        $direction = $orderBy['direction'];
+
+        return $builder->orderBy($field, $direction);
+    }
+
+    public function allSubs() 
+    {
+        $array = $this->allSubmissionsWithAvgRating();
+        $apps = $this->appsFromQuery($array);
+
+        return $apps;
+    }
+
+    public function shortlistedSubs() 
+    {
+        $array = $this->shortlistedSubmissionsWithAvgRating();
+        $apps = $this->appsFromQuery($array);
 
         return $apps;
     }
