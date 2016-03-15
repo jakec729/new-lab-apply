@@ -1051,7 +1051,7 @@ html {
   -webkit-tap-highlight-color: transparent; }
 
 body {
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Circular-S", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 1.428571429;
   color: #333333;
@@ -5130,7 +5130,7 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Circular-S", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -5243,7 +5243,7 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Circular-S", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
@@ -5757,8 +5757,8 @@ button.close {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/fontawesome-webfont.eot?v=4.5.0");
-  src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.5.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff2?v=4.5.0") format("woff2"), url("../fonts/fontawesome-webfont.woff?v=4.5.0") format("woff"), url("../fonts/fontawesome-webfont.ttf?v=4.5.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular") format("svg");
+  src: url("../fonts/FontAwesome/fontawesome-webfont.eot?v=4.5.0");
+  src: url("../fonts/FontAwesome/fontawesome-webfont.eot?#iefix&v=4.5.0") format("embedded-opentype"), url("../fonts/FontAwesome/fontawesome-webfont.woff2?v=4.5.0") format("woff2"), url("../fonts/FontAwesome/fontawesome-webfont.woff?v=4.5.0") format("woff"), url("../fonts/FontAwesome/fontawesome-webfont.ttf?v=4.5.0") format("truetype"), url("../fonts/FontAwesome/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -7890,6 +7890,23 @@ button.close {
   display: inline-block;
   margin: 0 .5rem; }
 
+/* Complete */
+/* Subsetted */
+@font-face {
+  font-family: "Circular-S";
+  src: url("../fonts/lineto-circular-book-s/lineto-circular-book.eot");
+  src: url("../fonts/lineto-circular-book-s/lineto-circular-book.eot?#iefix") format("embedded-opentype"), url("../fonts/lineto-circular-book-s/lineto-circular-book.woff") format("woff"), url("../fonts/lineto-circular-book-s/lineto-circular-book.ttf") format("truetype"), url("../fonts/lineto-circular-book-s/lineto-circular-book.svg#lineto-circular-book") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+/* Subsetted */
+@font-face {
+  font-family: "Circular-S";
+  src: url("../fonts/lineto-circular-black-s/lineto-circular-black.eot");
+  src: url("../fonts/lineto-circular-black-s/lineto-circular-black.eot?#iefix") format("embedded-opentype"), url("../fonts/lineto-circular-black-s/lineto-circular-black.woff") format("woff"), url("../fonts/lineto-circular-black-s/lineto-circular-black.ttf") format("truetype"), url("../fonts/lineto-circular-black-s/lineto-circular-black.svg#lineto-circular-black") format("svg");
+  font-weight: 700;
+  font-style: normal; }
+
 #app__ratings {
   margin-bottom: 2em; }
   #app__ratings li {
@@ -8028,6 +8045,14 @@ button.close {
   .app__extra .pull-left {
     padding-right: 2em; }
 
+.app__links {
+  max-width: 70%; }
+  .app__links a {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+
 .app__texts .text {
   margin-bottom: 2em; }
   .app__texts .text p {
@@ -8038,6 +8063,9 @@ button.close {
   font-size: 1em;
   padding-bottom: 0;
   margin-bottom: .5em; }
+
+.submission-filters li + li a {
+  border-top: 2px solid white; }
 
 .submission-filters a {
   color: black;
@@ -8083,6 +8111,9 @@ button.close {
     margin: 0; }
   .submission-controls .form-inline {
     display: inline-block; }
+
+.submission-ratings .sidebar__footer {
+  padding-top: 1em; }
 
 .submissions-body {
   padding: 0; }

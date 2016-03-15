@@ -5,7 +5,7 @@ $grey-dark: darken(rgb(255,255,255), 60%);
 $off-white: whitesmoke;
 $brand-primary: $black;
 $link-color: darken(cyan, 20%);
-$font-family-sans-serif:  "Roboto","Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-sans-serif:  "Circular-S", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-size-base: 13px;
 
 $border-radius-base: 0px;
@@ -13,4 +13,4 @@ $border-radius-large: 0px;
 $border-radius-small: 0px;
 
 $navbar-height: 60px;
-$fa-font-path: "../fonts";
+$fa-font-path: "../fonts/FontAwesome";

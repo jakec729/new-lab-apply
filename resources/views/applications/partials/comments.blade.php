@@ -8,13 +8,15 @@
     @include("common.errors")
     <h4 class="heading--border">All Comments</h4>
     @if($application->comments->count() > 0)
-    <ul class="list-unstyled">
-        @foreach($application->comments as $comment)
-            <li class="comment">
-                <p class="comment__author">{{$comment->user->name}}</p>
-                <p class="comment__text">{{$comment->body}}</p>
-            </li>
-        @endforeach
-    </ul>
+        <ul class="list-unstyled">
+            @foreach($application->comments as $comment)
+                <li class="comment">
+                    <p class="comment__author">{{$comment->user->name}}</p>
+                    <p class="comment__text">{{$comment->body}}</p>
+                </li>
+            @endforeach
+        </ul>
+    @else
+        <p>No comments yet.</p>
     @endif
 </section>

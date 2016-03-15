@@ -7,12 +7,16 @@
 				<a href="mailto:{{$application->email}}">{{$application->email}}</a>
 			</address>
 		</div>
-		<div class="pull-left">
+		<div class="app__links pull-left">
 			<h4>Links</h4>
 			<ul class="list-unstyled">
-				<li><a href="#">www.honeybeerobotics.com</a></li>
-				<li><a href="#">www.honeybeerobotics.com</a></li>
-				<li><a href="#">www.honeybeerobotics.com</a></li>
+				<li><a href="{{$application->website}}">{{$application->website}}</a></li>
+				@if($application->link_1)
+					<li><a href="{{$application->link_1}}">{{$application->link_1}}</a></li>
+				@endif
+				@if($application->link_2)
+					<li><a href="{{$application->link_2}}">{{$application->link_2}}</a></li>
+				@endif
 			</ul>
 		</div>
 	</section>

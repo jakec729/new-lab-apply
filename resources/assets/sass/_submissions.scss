@@ -61,6 +61,17 @@
 	}
 }
 
+.app__links {
+	max-width: 70%;
+
+	a {
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+
 .app__texts {
 	.text {
 		margin-bottom: 2em;
@@ -79,6 +90,11 @@
 }
 
 .submission-filters {
+
+	li + li a {
+		border-top: 2px solid white;
+	}
+
 	a {
 		color: black;
 		text-decoration: none;
@@ -86,7 +102,8 @@
 		display: block;
 		padding: 1.5em 2em;
 		font-weight: bold;
-		
+		// border-right: 1px solid $grey-light;
+
 		&.active {
 			background-color: $grey-light;
 		}
@@ -131,6 +148,12 @@
 
  	.form-inline {
  		display: inline-block;
+ 	}
+ }
+
+ .submission-ratings {
+ 	.sidebar__footer {
+ 		padding-top: 1em;
  	}
  }
 
