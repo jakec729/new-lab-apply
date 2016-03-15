@@ -14,75 +14,7 @@ class ApplicationRepository extends Model
 	public function __construct()
 	{
         if(! session('posts_per_page')) session(['posts_per_page' => 5]);
-		if(! session('sortBy')) session(['sortBy' => ['field' => 'average_rating', 'direction' => 'desc']]);
 	}
-
-    public function count()
-    {
-    	return $this->submissions()->count();
-    }
-
-    public function countShortlisted()
-    {
-    	return $this->shortlistedSubs()->count();
-    }
-
-    public function submissions()
-    {
-    	return Application::with('ratings');
-    }
-
-    public function allSubmissionsWithAvgRating()
-    {
-        // $my_rating = DB::table('ratings')
-        //                ->select('ratings.rating')
-        //                ->where('ratings.rateable_id', '=', Auth::id());
-
-        // dd($my_rating->get());
-
-        return DB::table('applications')
-                   ->select('applications.*')
-                   ->leftJoin('ratings', 'applications.id', '=', 'ratings.rateable_id')
-                   ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-                   // ->unionAll($my_rating)
-                   ->groupBy('applications.id');
-    }
-
-    public function shortlistedSubmissionsWithAvgRating()
-    {
-        return DB::table('applications')
-                   ->select('applications.*')
-                   ->join('ratings', 'applications.id', '=', 'ratings.rateable_id')
-                   ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
-                   ->groupBy('applications.id')
-                   ->havingRaw(DB::raw('AVG(ratings.rating) > 0'));
-    }
-
-    public function appsFromQuery($builder)
-    {
-        $apps = $this->addFilter($builder)->get();
-        return $this->mapArrayToCollection($apps);
-    }
-
-    public function mapArrayToCollection($array)
-    {
-        $array = collect($array);
-
-        $apps = $array->map(function($item){
-            return Application::with('ratings')->find($item->id);
-        });
-
-        return $apps;
-    }
-
-    public function addFilter($builder)
-    {
-        $array = session('tableSortBy');
-        $field = $array['column'];
-        $direction = $array['direction'];
-
-        return $builder->orderBy($field, $direction);
-    }
 
     public function allSubs() 
     {
@@ -98,5 +30,66 @@ class ApplicationRepository extends Model
         $apps = $this->appsFromQuery($array);
 
         return $apps;
+    }
+
+    public function submissions()
+    {
+        return Application::with('ratings');
+    }
+
+    public function count()
+    {
+    	return $this->submissions()->count();
+    }
+
+    public function countShortlisted()
+    {
+    	return $this->shortlistedSubs()->count();
+    }
+
+    protected function allSubmissionsWithAvgRating()
+    {
+
+        return DB::table('applications')
+                   ->select('applications.*')
+                   ->leftJoin('ratings', 'applications.id', '=', 'ratings.rateable_id')
+                   ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                   ->groupBy('applications.id');
+    }
+
+    protected function shortlistedSubmissionsWithAvgRating()
+    {
+        return DB::table('applications')
+                   ->select('applications.*')
+                   ->join('ratings', 'applications.id', '=', 'ratings.rateable_id')
+                   ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
+                   ->groupBy('applications.id')
+                   ->havingRaw(DB::raw('AVG(ratings.rating) > 0'));
+    }
+
+    protected function appsFromQuery($builder)
+    {
+        $apps = $this->addFilter($builder)->get();
+        return $this->mapArrayToCollection($apps);
+    }
+
+    protected function mapArrayToCollection($array)
+    {
+        $array = collect($array);
+
+        $apps = $array->map(function($item){
+            return Application::with('ratings')->find($item->id);
+        });
+
+        return $apps;
+    }
+
+    protected function addFilter($builder)
+    {
+        $array = session('tableSortBy');
+        $field = $array['column'];
+        $direction = $array['direction'];
+
+        return $builder->orderBy($field, $direction);
     }
 }

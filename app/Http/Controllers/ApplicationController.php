@@ -53,7 +53,7 @@ class ApplicationController extends Controller
         return view('applications.index', compact('applications'));
     }
 
-    public function isOffsetPage($request, $collection)
+    protected function isOffsetPage($request, $collection)
     {
         $total = $collection->count();
         $current = $request->input('page', 1);
@@ -104,7 +104,7 @@ class ApplicationController extends Controller
 
     }
 
-    public function updatePPG(Request $request)
+    protected function updatePPG(Request $request)
     {
         $previous = session('posts_per_page');
         $current = ($request->has('posts_per_page')) ? $request->input('posts_per_page') : null;
