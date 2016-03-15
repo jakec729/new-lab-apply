@@ -8113,7 +8113,7 @@ button.close {
     display: inline-block; }
 
 .submission-ratings .sidebar__footer {
-  padding-top: 1em; }
+  padding: 1em 0; }
 
 .submissions-body {
   padding: 0; }
