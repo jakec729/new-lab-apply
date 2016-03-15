@@ -40,10 +40,26 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
         $this->setTableFilter($request);
+        $this->updatePPG($request);
+
         $applications = $this->applications->allSubs();
+        
+        if ($this->isOffsetPage($request, $applications)) {
+            return redirect($request->url());
+        }
+
         $applications = CustomPaginator::paginateCollection($request, $applications);
 
         return view('applications.index', compact('applications'));
+    }
+
+    public function isOffsetPage($request, $collection)
+    {
+        $total = $collection->count();
+        $current = $request->input('page', 1);
+        $posts_per_page = session('posts_per_page');
+
+        return ($current * $posts_per_page > $total);
     }
 
     public function shortlisted(Request $request)
@@ -90,8 +106,16 @@ class ApplicationController extends Controller
 
     public function updatePPG(Request $request)
     {
-        $request->session()->forget('posts_per_page');
-        $request->session()->put('posts_per_page', $request->input('posts_per_page') );
-        return redirect()->back();
+        $previous = session('posts_per_page');
+        $current = ($request->has('posts_per_page')) ? $request->input('posts_per_page') : null;
+
+        if ($current) {
+            $request->session()->forget('posts_per_page');
+            $request->session()->put('posts_per_page', $current );
+    
+            if ($current !== $previous) {
+                return redirect($request->url());
+            }
+        }
     }
 }
