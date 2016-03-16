@@ -40,7 +40,7 @@
 		
 		&.selected,
 		&:hover {
-			color: red;
+			color: $red;
 		}
 
 		&:hover ~ label {

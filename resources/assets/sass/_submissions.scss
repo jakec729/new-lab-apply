@@ -88,6 +88,7 @@
 }
 
 .submission-filters {
+	font-size: fs('subhead');
 
 	li + li a {
 		border-top: 2px solid white;
@@ -98,7 +99,7 @@
 		text-decoration: none;
 		background-color: $off-white;
 		display: block;
-		padding: 1.5em 2em;
+		padding: 1em 1.25em;
 		font-weight: bold;
 		// border-right: 1px solid $grey-light;
 
@@ -164,6 +165,14 @@
 		display: block;
 		cursor: pointer;
 		margin-bottom: 0;
+ 	}
+
+ 	tbody {
+ 		border: 1px solid $grey-light;
+ 	}
+
+ 	.fa-close {
+ 		color: $red;
  	}
 
  	th input {

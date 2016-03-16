@@ -46,29 +46,6 @@
 	// padding: 0;
 }
 
-.navbar {
-	margin-bottom: 0;
-	padding-top: 1em;
-	padding-bottom: 1em;
-
-	&-brand {
-		display: flex;
-		align-items: center;
-		color: $black !important;
-
-		span + span {
-			margin-left: 1em;
-		}
-
-		&:hover,
-		&:hover #newlab-logo,
-		&:hover #newlab-logo #shape {
-			color: $link-color !important;
-			fill: $link-color;
-		}
-	}
-}
-
 .heading--border {
 	padding-bottom: 1em;
 	margin-bottom: 1em;

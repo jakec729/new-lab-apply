@@ -1,10 +1,11 @@
 $black: black;
-$grey-light: darken(rgb(255,255,255), 20%);
+$off-white: #F0F5F8;
+$grey-light: darken($off-white, 7%);
 $grey-medium: darken(rgb(255,255,255), 30%);
 $grey-dark: darken(rgb(255,255,255), 60%);
 $blue-grey: #607586;
 $tan: #DAEADD;
-$off-white: whitesmoke;
+$red: tomato;
 
 $font-sizes: (
 	headline: 24px,

@@ -4,27 +4,27 @@
 	<thead>
 		<tr>
 			<th>
-				<label for="tableSortBy_date">Date&ensp;<i class="fa fa-sort"></i></label>
+				<label for="tableSortBy_date"><i class="fa fa-sort"></i>&ensp;Date</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_date" value="submitted_on" onchange="this.form.submit()"></input>
 			</th>
 			<th>
-				<label for="tableSortBy_name">Name&ensp;<i class="fa fa-sort"></i></label>
+				<label for="tableSortBy_name"><i class="fa fa-sort"></i>&ensp;Name</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_name" value="last_name" onchange="this.form.submit()"></input>
 			</th>
 			<th>
-				<label for="tableSortBy_company">Company&ensp;<i class="fa fa-sort"></i></label>
+				<label for="tableSortBy_company"><i class="fa fa-sort"></i>&ensp;Company</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_company" value="company" onchange="this.form.submit()"></input>
 			</th>
 			<th class="hidden-xs hidden-sm hidden-md">
-				<label for="tableSortBy_discipline">Discipline&ensp;<i class="fa fa-sort"></i></label>
+				<label for="tableSortBy_discipline"><i class="fa fa-sort"></i>&ensp;Discipline</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_discipline" value="discipline" onchange="this.form.submit()"></input>
 			</th>
 			<th class="hidden-xs hidden-sm hidden-md">
-				<label for="tableSortBy_size">Size&ensp;<i class="fa fa-sort"></i></label>
+				<label for="tableSortBy_size"><i class="fa fa-sort"></i>&ensp;Size</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_size" value="desks" onchange="this.form.submit()"></input>
 			</th>
 			<th class="hidden-xs hidden-sm hidden-md">
-				<label for="tableSortBy_type">Type&ensp;<i class="fa fa-sort"></i></label>
+				<label for="tableSortBy_type"><i class="fa fa-sort"></i>&ensp;Type</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_type" value="membership_type" onchange="this.form.submit()"></input>
 			</th>
 			<th>Pitch</th>
@@ -33,7 +33,7 @@
 				<!-- <input type="checkbox" name="tableSortBy" id="tableSortBy_me" value="me" onchange="this.form.submit()"></input> -->
 			</th>
 			<th>
-				<label for="tableSortBy_avg">Avg.&ensp;<i class="fa fa-sort"></i></label>
+				<label for="tableSortBy_avg"><i class="fa fa-sort"></i>&ensp;Avg.</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_avg" value="average_rating" onchange="this.form.submit()"></input>
 			</th>
 		</tr>
