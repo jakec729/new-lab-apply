@@ -7,6 +7,10 @@
 	.item {
 		flex: 1 1 auto;
 		padding: 2em;
+
+		&:first-of-type {
+			padding-left: 1em;
+		}
 	}
 
 	.item + .item {
@@ -47,6 +51,10 @@
 		.inner {
 			padding: 1em;
 			background-color: $off-white;
+		}
+
+		section {
+			margin-bottom: 2em;
 		}
 	}
 }

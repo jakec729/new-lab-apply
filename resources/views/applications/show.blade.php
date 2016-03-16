@@ -19,6 +19,19 @@
 	@include('applications.partials.data')
 	<div class="col-md-5 submission-ratings">
 	    <div class="inner">
+	    	<section>
+	    		<h4>Criteria</h4>
+				<ul class="list--pluses list-unstyled">
+					<li>High Impact Technology</li>
+					<li>Hardware Centric</li>
+					<li>Strong Founding Team</li>
+					<li>Scalability</li>
+					<li>Investment Potential</li>
+					<li>Benefits from NL Resources</li>
+					<li>Validated Business Model</li>
+					<li>Diversity</li>
+				</ul>
+	    	</section>
 			@include('applications.partials.ratings')
 			@include('applications.partials.comments')
 		</div>

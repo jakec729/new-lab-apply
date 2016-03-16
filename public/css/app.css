@@ -7915,13 +7915,23 @@ button.close {
   font-weight: 700;
   font-style: normal; }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold; }
+
 small {
   font-size: 12px; }
 
-#app__ratings {
-  margin-bottom: 2em; }
-  #app__ratings li {
-    padding: .25em 0; }
+.list--pluses li {
+  display: inline-block;
+  width: 49%;
+  padding: .5em 0; }
+  .list--pluses li:before {
+    content: "+";
+    display: inline-block;
+    width: 1em; }
+
+#app__ratings li {
+  padding: .25em 0; }
 
 .rating__user {
   display: inline-block;
@@ -8007,6 +8017,8 @@ small {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 2em; }
+    #app__ribbon .item:first-of-type {
+      padding-left: 1em; }
   #app__ribbon .item + .item {
     border-left: 1px solid black; }
 
@@ -8043,6 +8055,8 @@ small {
   .submission-ratings .inner {
     padding: 1em;
     background-color: #F0F5F8; }
+  .submission-ratings section {
+    margin-bottom: 2em; }
 
 .app__extra {
   padding: 2em;

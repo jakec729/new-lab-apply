@@ -2,6 +2,24 @@
 	font-size: map-get($font-sizes, $key);
 }
 
+h1,h2,h3,h4,h5,h6 {
+	font-weight: bold;
+}
+
 small {
 	font-size: fs('small');
+}
+
+.list--pluses {
+	li {
+		display: inline-block;
+		width: 49%;
+		padding: .5em 0;
+
+		&:before {
+			content: "+";
+			display: inline-block;
+			width: 1em;
+		}
+	}
 }
