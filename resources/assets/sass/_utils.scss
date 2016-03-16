@@ -1,0 +1,8 @@
+@function fs($key) {
+	@return map-get($font-sizes, $key);
+}
+
+
+body {
+	font-size: fs("heading") !important;
+}

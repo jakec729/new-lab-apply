@@ -7,10 +7,10 @@
 	.item {
 		flex: 1 1 auto;
 		padding: 2em;
+	}
 
-		& + .item {
-			border-left: 1px solid black;
-		}
+	.item + .item {
+		border-left: 1px solid black;
 	}
 }
 
@@ -26,7 +26,6 @@
 	}
 	
 	&__heading {
-		font-size: 2rem;
 		font-weight: 700;
 		flex: 1 1 auto;
 		margin: 0;
@@ -54,7 +53,7 @@
 
 .app__extra {
 	padding: 2em;
-	background-color: $off-white;
+	background-color: $tan;
 
 	.pull-left {
 		padding-right: 2em;
@@ -83,7 +82,6 @@
 
 	.text-heading {
 		font-weight: 900;
-		font-size: 1em;
 		padding-bottom: 0;
 		margin-bottom: .5em;
 	}

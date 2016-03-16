@@ -2,15 +2,13 @@ $black: black;
 $grey-light: darken(rgb(255,255,255), 20%);
 $grey-medium: darken(rgb(255,255,255), 30%);
 $grey-dark: darken(rgb(255,255,255), 60%);
+$blue-grey: #607586;
+$tan: #DAEADD;
 $off-white: whitesmoke;
-$brand-primary: $black;
-$link-color: darken(cyan, 20%);
-$font-family-sans-serif:  "Circular-S", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-size-base: 13px;
 
-$border-radius-base: 0px;
-$border-radius-large: 0px;
-$border-radius-small: 0px;
-
-$navbar-height: 60px;
-$fa-font-path: "../fonts/FontAwesome";
+$font-sizes: (
+	headline: 24px,
+	subhead: 14px,
+	body: 13px,
+	small: 12px,
+);

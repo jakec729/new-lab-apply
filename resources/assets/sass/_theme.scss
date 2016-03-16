@@ -1,0 +1,33 @@
+// COLORS
+
+$brand-primary: $black;
+$link-color: $blue-grey;
+
+$font-family-sans-serif:  "Circular-S", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size-base: fs("body");
+
+$font-size-large: fs("headline");
+$font-size-small: fs("small");
+
+$font-size-h1: fs("headline");
+$font-size-h2: fs("headline");
+$font-size-h3: fs("subhead");
+$font-size-h4: fs("subhead");
+$font-size-h5: fs("body");
+$font-size-h6: fs("body");
+
+
+
+// SHAPE
+
+$border-radius-base: 0px;
+$border-radius-large: 0px;
+$border-radius-small: 0px;
+
+// COMPONENT
+
+$navbar-height: 60px;
+
+// PLUGIN
+
+$fa-font-path: "../fonts/FontAwesome";

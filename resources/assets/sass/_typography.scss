@@ -1,0 +1,15 @@
+@mixin font-size($key) {
+	font-size: map-get($font-sizes, $key);
+}
+
+// h1, .h1 { font-size: fs("headline") !important; }
+// h2, .h2 { font-size: fs("headline") !important; }
+// h3, .h3 { font-size: fs("subhead") !important; }
+// h4, .h4 { font-size: fs("subhead") !important; }
+// h5, .h5 { font-size: fs("body") !important; }
+// h6, .h6 { font-size: fs("body") !important; }
+
+
+small {
+	font-size: fs('small');
+}
