@@ -7965,6 +7965,8 @@ small {
 .auth--panel {
   width: 90%;
   max-width: 480px; }
+  .auth--panel, .auth--panel * {
+    font-size: 14px; }
   .auth--panel .panel-body,
   .auth--panel .panel-heading {
     padding: 3em;
@@ -7976,7 +7978,7 @@ small {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    font-weight: 900;
+    font-weight: 700;
     padding: 1.5em 3em; }
   .auth--panel .site__name {
     margin-left: 1em; }
@@ -7997,9 +7999,10 @@ small {
     background-color: white;
     border: 2px solid black;
     color: black;
-    font-weight: 900;
+    font-weight: 700;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
-    letter-spacing: 0.1em; }
+    font-size: 13px; }
     .auth--panel .btn:hover {
       background-color: black;
       color: white; }

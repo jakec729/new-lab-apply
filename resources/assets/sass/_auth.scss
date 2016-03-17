@@ -2,6 +2,10 @@
 	width: 90%;
 	max-width: 480px;
 
+	&, * {
+		font-size: fs('subhead');
+	}
+
 	.panel-body,
 	.panel-heading {
 		padding: 3em;
@@ -11,7 +15,7 @@
 	.panel-heading {
 		display: flex;
 		align-items: center;
-		font-weight: 900;
+		font-weight: 700;
 		padding: 1.5em 3em;
 	}
 
@@ -51,9 +55,10 @@
 		background-color: white;
 		border: 2px solid $brand-primary;
 		color: $brand-primary;
-		font-weight: 900;
+		font-weight: 700;
+		letter-spacing: 0.01em;
 		text-transform: uppercase;
-		letter-spacing: 0.1em;
+		font-size: fs('body');
 
 		&:hover {
 			background-color: $brand-primary;
