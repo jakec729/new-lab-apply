@@ -15,8 +15,6 @@ class ApplicationRepository extends Model
 	{
         if(! session('posts_per_page')) session(['posts_per_page' => 5]);
         if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'average_rating', 'direction' => 'desc']]);
-
-        dd(session('tableSortBy'));
 	}
 
     public function allSubs() 
@@ -90,7 +88,7 @@ class ApplicationRepository extends Model
     protected function addFilter($builder)
     {
         $array = session('tableSortBy');
-        $field = $array['column'];
+        $field = ($array['column'] == null) ? 'average_rating' : $array['column'];
         $direction = $array['direction'];
 
         // dd($array);
