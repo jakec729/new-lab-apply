@@ -39,22 +39,23 @@ class ApplicationController extends Controller
 
     protected function formatResultsForTable($applications, $request)
     {
-        if ($applications->count() > 0) {
-            $this->setTableFilter($request);
-            $this->updatePPG($request);
+        $this->setTableFilter($request);
+        $this->updatePPG($request);
 
-            if ($this->isOffsetPage($request, $applications)) {
-                return redirect($request->url());
-            }
-    
-            return CustomPaginator::paginateCollection($request, $applications);
+        if ($this->isOffsetPage($request, $applications)) {
+            return redirect($request->url());
         }
+
+        return CustomPaginator::paginateCollection($request, $applications);
     }
 
     public function index(Request $request)
     {
         $applications = $this->applications->allSubs();
-        $applications = $this->formatResultsForTable($applications, $request);
+
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+        }
 
         return view('applications.index', compact('applications'));
     }
@@ -71,7 +72,10 @@ class ApplicationController extends Controller
     public function shortlisted(Request $request)
     {
         $applications = $this->applications->shortlistedSubs();
-        $applications = $this->formatResultsForTable($applications, $request);
+
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+        }
 
 
         return view('applications.shortlisted', compact('applications'));
