@@ -43,7 +43,7 @@
 			<tr>
 				<td>{{$applicant->submitted_on->format('m-d-y')}}</td>
 				<td><a href="{{url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
-				<td><a class="link--chevron" href="{{ $applicant->website }}">{{ $applicant->company }}</a></td>
+				<td><a href="{{ $applicant->website }}">{{ $applicant->company }}&nbsp;></a></td>
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->discipline}}</td>
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->desks}}</td>
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->membership_type}}</td>
