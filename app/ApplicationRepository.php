@@ -91,7 +91,7 @@ class ApplicationRepository extends Model
         $field = $array['column'];
         $direction = $array['direction'];
 
-        dd($field);
+        dd($array);
 
         return $builder->orderBy($field, $direction);
     }
