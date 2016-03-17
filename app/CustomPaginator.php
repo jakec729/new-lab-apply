@@ -16,10 +16,6 @@ class CustomPaginator
 	    $offset = ($page * $perPage) - $perPage;
 	    $total = $collection->count();
 
-	    if($page * $perPage > $total) {
-	    	return "REDIRECT";
-	    }
-
 	    $page_items = $collection->chunk($perPage);
 	    $page_items = $page_items[$page - 1];
 

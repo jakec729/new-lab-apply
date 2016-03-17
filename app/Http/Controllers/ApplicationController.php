@@ -37,18 +37,25 @@ class ApplicationController extends Controller
         $request->session()->put('tableSortBy', ['column' => $filter, 'direction' => $direction]);
     }
 
-    public function index(Request $request)
+    protected function formatResultsForTable($applications, $request)
     {
         $this->setTableFilter($request);
         $this->updatePPG($request);
 
-        $applications = $this->applications->allSubs();
-        
         if ($this->isOffsetPage($request, $applications)) {
             return redirect($request->url());
         }
 
-        $applications = CustomPaginator::paginateCollection($request, $applications);
+        return CustomPaginator::paginateCollection($request, $applications);
+    }
+
+    public function index(Request $request)
+    {
+        $applications = $this->applications->allSubs();
+
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+        }
 
         return view('applications.index', compact('applications'));
     }
@@ -59,13 +66,18 @@ class ApplicationController extends Controller
         $current = $request->input('page', 1);
         $posts_per_page = session('posts_per_page');
 
-        return ($current * $posts_per_page > $total);
+        return ($total > $posts_per_page && $current * $posts_per_page > $total);
     }
 
     public function shortlisted(Request $request)
     {
-        $this->setTableFilter($request);
         $applications = $this->applications->shortlistedSubs();
+
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+        }
+
+
         return view('applications.shortlisted', compact('applications'));
     }
 
