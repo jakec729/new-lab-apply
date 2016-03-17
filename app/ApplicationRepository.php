@@ -14,6 +14,7 @@ class ApplicationRepository extends Model
 	public function __construct()
 	{
         if(! session('posts_per_page')) session(['posts_per_page' => 5]);
+        if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'average_rating', 'direction' => 'desc']]);
 	}
 
     public function allSubs() 
