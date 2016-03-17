@@ -7,6 +7,16 @@ use willvincent\Rateable\Rating;
 
 trait MoreRateable 
 {
+    public function hasRatingByUser($id)
+    {
+        return $this->ratings()->where('user_id', $id)->count() > 0;
+    }
+
+    public function ratingByUser($id)
+    {
+        return $this->ratings()->where('user_id', $id)->first()->rating;
+    }
+
 	public function addRating($value)
     {
     	if (! $this->alreadyRated()) {
