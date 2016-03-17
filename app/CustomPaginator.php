@@ -20,11 +20,13 @@ class CustomPaginator
 	    	return "REDIRECT";
 	    }
 
+	    return redirect('/users');
+
 	    $page_items = $collection->chunk($perPage);
 	    $page_items = $page_items[$page - 1];
 
 	    return new LengthAwarePaginator(
-	        $page_items, $total, $perPage, $page, ['path' => $request->url(), 'query' => $request->query()]
+	        $page_items, $collection->count(), $perPage, $page, ['path' => $request->url(), 'query' => $request->query()]
 	    );
 	}	
 
