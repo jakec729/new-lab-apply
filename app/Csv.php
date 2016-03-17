@@ -15,11 +15,10 @@ class Csv
 
     public static function formatIntoApplications(UploadedFile $file)
     {
-        $application_keys = ['name', 'email', 'company'];
-        return static::fetchCols($file, $application_keys)->mapToApplications();
+        return static::fetchCols($file)->mapToApplications();
     }
 
-    public static function fetchCols(UploadedFile $file, array $cols)
+    public static function fetchCols(UploadedFile $file)
     {
     	$csv = new static;
         $reader = Reader::createFromPath($file);
