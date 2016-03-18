@@ -18,11 +18,15 @@ class UserTableSeeder extends Seeder
         ]);
 
         factory(App\User::class)->create([
+            'name' => 'New Lab Admin',
+            'email' => 'info@newlab.com',
+            'password' => bcrypt('password')
+        ]);
+
+        factory(App\User::class)->create([
             'name' => 'Test Account',
             'email' => 'test@test.com',
             'password' => bcrypt('password')
         ]);
-
-        factory(App\User::class, 8)->create();
     }
 }

@@ -19,6 +19,7 @@ class RoleSeeder extends Seeder
             'description' => 'Administrators have access to everything'
         ]);
 
-       	User::find(1)->attachRole($adminRole);
+        User::find(1)->attachRole($adminRole);
+       	User::find(2)->attachRole($adminRole);
     }
 }
