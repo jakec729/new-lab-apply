@@ -156,6 +156,18 @@
  	.form-inline {
  		display: inline-block;
  	}
+
+ 	.list-inline {
+ 		margin-bottom: 0;
+ 		padding: .75em 0;
+
+ 		a {
+ 			color: $brand-primary;
+ 			&:hover {
+				color: $grey-dark;
+ 			}
+ 		}
+ 	}
  }
 
  .submission-ratings {

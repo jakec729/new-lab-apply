@@ -8133,6 +8133,13 @@ small {
     margin: 0; }
   .submission-controls .form-inline {
     display: inline-block; }
+  .submission-controls .list-inline {
+    margin-bottom: 0;
+    padding: .75em 0; }
+    .submission-controls .list-inline a {
+      color: black; }
+      .submission-controls .list-inline a:hover {
+        color: #666666; }
 
 .submission-ratings .sidebar__footer {
   padding: 1em 0; }
@@ -8181,6 +8188,7 @@ small {
       content: "—";
       display: inline-block; }
   .comment__text {
-    color: #666666; }
+    color: #666666;
+    font-family: Georgia; }
 
 /*# sourceMappingURL=app.css.map */
