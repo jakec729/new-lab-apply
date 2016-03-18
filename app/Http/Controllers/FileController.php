@@ -41,9 +41,17 @@ class FileController extends Controller
         $this->validate($request, [
             'file' => 'required',
         ]);
+
+        if ($request->file->getClientOriginalExtension() !== 'csv') {
+            return redirect()->back()->withErrors(['File must be CSV']);
+        }
         
         $file = $request->file;
         $applications = Csv::formatIntoApplications($request->file);
+
+        if (! $applications) {
+            return redirect()->back()->withErrors(['CSV is not formatted properly. CSV must be exported from Ninja Forms.']);
+        }
 
         $duplicates = $applications->filter(function($application){
             return (!! Application::where('email', $application->email)->first());

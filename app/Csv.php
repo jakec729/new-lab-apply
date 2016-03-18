@@ -12,19 +12,60 @@ class Csv
     protected $filter;
 	protected $collection;
     protected $file;
+    protected $columns = [
+        "﻿#",
+        "Date Submitted",
+        "First Name",
+        "Last Name",
+        "Contact Email",
+        "Name of Company",
+        "Company Website",
+        "Add another related link",
+        "Add another related link",
+        "No. of employees / desks needed",
+        "Primary Discipline",
+        "Membership Type",
+        "Elevator Pitch",
+        "Tell us about your Technology (150 words)",
+        "Founding Team",
+        "Commercialization Strategy",
+        "Funding Stage",
+        "Resources",
+        "Community",
+        "Subscribe to newsletter?",
+        "Newsletter",
+        "Member Application"
+    ];
 
     public static function formatIntoApplications(UploadedFile $file)
     {
-        return static::fetchCols($file)->mapToApplications();
+        $csv = static::createFromUploadedFile($file);
+
+        if (! $csv) {
+            return false;
+        }
+
+        $applications = $csv->mapToApplications();
+        return $applications;
     }
 
-    public static function fetchCols(UploadedFile $file)
+    public static function createFromUploadedFile(UploadedFile $file)
     {
-    	$csv = new static;
+        $csv = new static;
         $reader = Reader::createFromPath($file);
-        $csv->collection = $reader->setOffset(1)->fetch();
+        $columns = $reader->fetchOne();
 
+        if (! $csv->hasCorrectColumns($columns)) {
+            return false;
+        }
+
+        $csv->collection = $reader->setOffset(1)->fetch();
         return $csv;
+    }
+
+    protected function hasCorrectColumns($columns) 
+    {
+        return ($columns[5] == $this->columns[5]);
     }
 
     public function mapToApplications()

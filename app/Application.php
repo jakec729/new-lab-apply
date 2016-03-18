@@ -63,7 +63,7 @@ class Application extends Model
     {
         $app = new Application();
 
-        dd(Carbon::createFromFormat('d/m/Y', $array[1]));
+        // dd(Carbon::createFromFormat('d/m/Y', $array[1]));
 
         $app->submitted_on          = Carbon::createFromFormat('d/m/Y', $array[1]);
         $app->first_name            = ucwords($array[2]);
