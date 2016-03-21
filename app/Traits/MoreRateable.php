@@ -31,6 +31,11 @@ trait MoreRateable
     	}
     }
 
+    public function removeRating()
+    {
+        $this->getUserRating()->delete();
+    }
+
     public function rating()
     {
         if ($this->hasRatings()) {

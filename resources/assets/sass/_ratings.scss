@@ -31,8 +31,10 @@
 		}
 	}
 
-	.label-reject {
+	.label-reject,
+	.label-remove {
 		color: $grey-light;
+		padding-left: .5em;
 		
 		&.selected,
 		&:hover {

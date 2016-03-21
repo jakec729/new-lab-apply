@@ -7951,11 +7951,16 @@ small {
     .star-rating .label-star:hover,
     .star-rating .label-star:hover ~ label, .star-rating .label-star.selected {
       color: black; }
-  .star-rating .label-reject {
-    color: #d8e5ed; }
-    .star-rating .label-reject.selected, .star-rating .label-reject:hover {
+  .star-rating .label-reject,
+  .star-rating .label-remove {
+    color: #d8e5ed;
+    padding-left: .5em; }
+    .star-rating .label-reject.selected, .star-rating .label-reject:hover,
+    .star-rating .label-remove.selected,
+    .star-rating .label-remove:hover {
       color: tomato; }
-    .star-rating .label-reject:hover ~ label {
+    .star-rating .label-reject:hover ~ label,
+    .star-rating .label-remove:hover ~ label {
       color: #d8e5ed; }
   .star-rating.rated label:not(.selected) {
     display: none; }

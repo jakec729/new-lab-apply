@@ -1,5 +1,13 @@
 <form action="{{url("/applications/{$application->id}/rate")}}" method="POST" class="star-rating {{ ($application->alreadyRated()) ? "rated" : null }}">
     {{ csrf_field() }}
+
+    @if($application->alreadyRated())
+    <label class="label-remove">
+        <input type="radio" name="rating" value="remove" onclick="submit()">
+        Undo
+    </label>
+    @endif
+
     <label class="label-reject {{ ($application->alreadyRated() && $application->userRating == 0) ? "selected" : null }}">
         <input type="radio" name="rating" value="0" onclick="submit()">
         <i class="fa fa-close"></i>

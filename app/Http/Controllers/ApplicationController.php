@@ -96,8 +96,16 @@ class ApplicationController extends Controller
 
     public function rate(Request $request, Application $application)
     {
-    	$this->validate($request, [ 'rating' => 'required|min:1|max:5' ]);
-    	$application->addRating($request->input('rating'));
+    	$this->validate($request, [ 'rating' => 'required' ]);
+
+        $rating = $request->input('rating');
+
+        if ($rating == 'remove') {
+            $application->removeRating();
+        } else {
+        	$application->addRating($request->input('rating'));
+        }
+
 
     	return redirect()->back();
     }
