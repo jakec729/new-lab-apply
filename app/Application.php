@@ -59,6 +59,17 @@ class Application extends Model
         return str_replace($categories, "", $value);
     }
 
+    public function getWebsiteAttribute($value) 
+    {
+
+        if (false === stripos($value, "http://")) {
+            $value = "http://" . $value;
+        }
+
+        return $value;
+
+    }
+
     public static function createFromArray($array)
     {
         $app = new Application();
