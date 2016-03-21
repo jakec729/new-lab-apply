@@ -27,13 +27,22 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		flex-wrap: wrap;
+
+		& > * {
+			flex: 1 0 auto;
+		}
 	}
-	
+
 	&__heading {
 		font-weight: 700;
-		flex: 1 1 auto;
 		margin: 0;
 		padding: 0;
+		flex-basis: 100%;
+
+		@media screen and (min-width: $screen-md) {
+			flex-basis: auto;
+		}
 	}
 
 	&-data {
@@ -128,10 +137,19 @@
 }
 
  .submission-controls {
- 	padding-top: .5rem;
- 	text-align: right;
  	display: flex;
- 	justify-content: flex-end;
+ 	flex-basis: 100%;
+ 	padding-top: 2em;
+ 	justify-content: space-between;
+ 	
+
+ 	@media screen and (min-width: $screen-md) {
+	 	padding-top: .5rem;
+	 	justify-content: flex-end;
+	 	text-align: right;
+ 		flex-basis: auto;
+ 	}
+
 
 	// Posts Per Page
 	form .form-group{

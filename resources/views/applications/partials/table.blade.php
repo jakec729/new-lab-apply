@@ -27,7 +27,7 @@
 				<label for="tableSortBy_type"><i class="fa fa-sort"></i>&ensp;Type</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_type" value="membership_type" onchange="this.form.submit()"></input>
 			</th>
-			<th>Pitch</th>
+			<th class="hidden-xs hidden-sm hidden-md">Pitch</th>
 			<th class="hidden-xs hidden-sm hidden-md">
 				<label for="tableSortBy_me">Me</label>
 				<!-- <input type="checkbox" name="tableSortBy" id="tableSortBy_me" value="me" onchange="this.form.submit()"></input> -->
@@ -48,7 +48,7 @@
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->desks}}</td>
 				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->membership_type}}</td>
 				<td class="hidden-xs hidden-sm hidden-md">{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
-				<td>
+				<td class="hidden-xs hidden-sm hidden-md">
 					@if ($applicant->alreadyRated())
 						@if ($applicant->userRating < 1)
 							<i class="fa fa-close"></i>
