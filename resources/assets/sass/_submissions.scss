@@ -181,6 +181,10 @@
  }
 
  #submissions-table {
+ 	tr {
+ 		cursor: pointer;
+ 	}
+ 	
  	label {
 		display: block;
 		cursor: pointer;

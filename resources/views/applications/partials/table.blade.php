@@ -1,6 +1,6 @@
 @if($applications->count() > 0)
 <form action="" method="GET">
-<table class="table table-striped" id="submissions-table">
+<table class="table table-striped table-hover" id="submissions-table">
 	<thead>
 		<tr>
 			<th>
@@ -40,7 +40,7 @@
 	</thead>
 	<tbody>
 		@foreach ($applications as $applicant)
-			<tr>
+			<tr data-single-link="{{url("/applications/{$applicant->id}")}}">
 				<td>{{$applicant->submitted_on->format('m-d-y')}}</td>
 				<td><a href="{{url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
 				<td><a href="{{ $applicant->website }}">{{ $applicant->company }}&nbsp;></a></td>

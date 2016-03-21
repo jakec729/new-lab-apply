@@ -2082,7 +2082,7 @@ th {
   background-color: #f9f9f9; }
 
 .table-hover > tbody > tr:hover {
-  background-color: #f5f5f5; }
+  background-color: #d8e5ed; }
 
 table col[class*="col-"] {
   position: static;
@@ -2107,14 +2107,14 @@ table th[class*="col-"] {
 .table > tfoot > tr > th.active,
 .table > tfoot > tr.active > td,
 .table > tfoot > tr.active > th {
-  background-color: #f5f5f5; }
+  background-color: #d8e5ed; }
 
 .table-hover > tbody > tr > td.active:hover,
 .table-hover > tbody > tr > th.active:hover,
 .table-hover > tbody > tr.active:hover > td,
 .table-hover > tbody > tr:hover > .active,
 .table-hover > tbody > tr.active:hover > th {
-  background-color: #e8e8e8; }
+  background-color: #c6d9e5; }
 
 .table > thead > tr > td.success,
 .table > thead > tr > th.success,
@@ -8146,6 +8146,9 @@ small {
 
 .submissions-body {
   padding: 0; }
+
+#submissions-table tr {
+  cursor: pointer; }
 
 #submissions-table label {
   display: block;
