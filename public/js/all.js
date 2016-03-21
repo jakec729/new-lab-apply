@@ -11,4 +11,16 @@ $rows.each(function(){
 		window.location.href = $url;
 	});
 });
+
+$confirm = $('[data-confirm]');
+
+$confirm.each(function(){
+	$(this).on('click', function(e) {
+		e.preventDefault();
+		$url = $(this).attr('href');
+		if (window.confirm("Are you sure?")) {
+			window.location.href = $url;
+		}
+	});
+});
 //# sourceMappingURL=all.js.map

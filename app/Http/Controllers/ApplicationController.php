@@ -18,6 +18,7 @@ class ApplicationController extends Controller
     public function __construct(ApplicationRepository $applications)
     {
         $this->applications = $applications;
+        $this->middleware('admin', ['only' => ['delteAll']]);
     }
 
     protected function setTableFilter(Request $request)
@@ -126,6 +127,13 @@ class ApplicationController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function deleteAll()
+    {
+        $this->applications->deleteAll();
+
+        return redirect('/applications');
     }
 
     protected function updatePPG(Request $request)

@@ -17,6 +17,16 @@ class ApplicationRepository extends Model
         if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'submitted_on', 'direction' => 'asc']]);
 	}
 
+    public function deleteAll()
+    {
+        $applications = Application::all();
+
+        foreach ($applications as $application) {
+            $application->ratings()->delete();
+            $application->delete();
+        }
+    }
+
     public function allSubs() 
     {
         $array = $this->allSubmissionsWithAvgRating();
