@@ -14,7 +14,7 @@ class ApplicationRepository extends Model
 	public function __construct()
 	{
         if(! session('posts_per_page')) session(['posts_per_page' => 20]);
-        if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'average_rating', 'direction' => 'desc']]);
+        if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'submitted_on', 'direction' => 'asc']]);
 	}
 
     public function allSubs() 
@@ -88,7 +88,7 @@ class ApplicationRepository extends Model
     protected function addFilter($builder)
     {
         $array = session('tableSortBy');
-        $field = ($array['column'] == null) ? 'average_rating' : $array['column'];
+        $field = ($array['column'] == null) ? 'submitted_on' : $array['column'];
         $direction = $array['direction'];
 
         // dd($array);

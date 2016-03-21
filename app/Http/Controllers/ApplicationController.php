@@ -22,15 +22,15 @@ class ApplicationController extends Controller
 
     protected function setTableFilter(Request $request)
     {
-        $active = $request->session()->get('tableSortBy', ['column' => 'average_rating', 'direction' => 'desc']);
+        $active = $request->session()->get('tableSortBy', ['column' => 'submitted_on', 'direction' => 'asc']);
         $filter = ($request->has('tableSortBy')) ? $request->input('tableSortBy') : null;
 
         $direction = '';
 
         if ($filter == $active['column']) {
-            $direction = ($active['direction'] == 'desc') ? 'asc' : 'desc';
+            $direction = ($active['direction'] == 'asc') ? 'desc' : 'asc';
         } else {
-            $direction = 'asc';
+            $direction = 'desc';
         }
 
         $request->session()->forget('tableSortBy');
@@ -39,8 +39,6 @@ class ApplicationController extends Controller
 
     protected function formatResultsForTable($applications, $request)
     {
-        $this->setTableFilter($request);
-        $this->updatePPG($request);
 
         if ($this->isOffsetPage($request, $applications)) {
             return redirect($request->url());
@@ -51,6 +49,9 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
+        $this->setTableFilter($request);
+        $this->updatePPG($request);
+        
         $applications = $this->applications->allSubs();
 
         if ($applications->count() > 0) {
@@ -71,6 +72,9 @@ class ApplicationController extends Controller
 
     public function shortlisted(Request $request)
     {
+        $this->setTableFilter($request);
+        $this->updatePPG($request);
+
         $applications = $this->applications->shortlistedSubs();
 
         if ($applications->count() > 0) {
