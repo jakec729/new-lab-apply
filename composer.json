@@ -10,7 +10,8 @@
         "bican/roles": "2.1.*",
         "league/csv": "^8.0",
         "willvincent/laravel-rateable": "^1.0",
-        "fzaninotto/faker": "~1.4"
+        "fzaninotto/faker": "~1.4",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
