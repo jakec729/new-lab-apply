@@ -58,8 +58,15 @@ class Csv
         if (! $csv->hasCorrectColumns($columns)) {
             return false;
         }
+        $rows = $reader->setOffset()->fetch();
 
-        $csv->collection = $reader->setOffset(1)->fetch();
+        if (! is_array($rows)) {
+            return false;
+        }
+
+        $csv->collection = $rows;
+
+
         return $csv;
     }
 
