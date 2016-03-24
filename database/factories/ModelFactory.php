@@ -52,7 +52,7 @@ $factory->define(App\Application::class, function (Faker\Generator $faker) {
         'text_pitch' => $faker->paragraph,
         'text_tech' => $faker->paragraph,
         'text_team' => $faker->paragraph,
-        'text_strategy' => $faker->paragraph,
+        'additional_message' => $faker->paragraph,
         'funding_stage' => $faker->randomElement(['Bootstrap', 'Grants', 'Venture Funding']),
         'new_lab_resources' => comma_separate($faker->randomElements(['Prototyping Shops', 'Event Space', 'Member Community'], 2)),
         'text_community' => $faker->paragraph
