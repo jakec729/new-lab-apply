@@ -46,7 +46,7 @@
 		</div>
 
 		<div class="text">
-			<h4 class="text-heading">Management Team</h4>
+			<h4 class="text-heading">Team</h4>
 			<p>{{$application->text_team}}</p>
 		</div>
 		
@@ -65,8 +65,13 @@
 		</div>
 		
 		<div class="text">
-			<h4 class="text-heading">Community</h4>
+			<h4 class="text-heading">Why New Lab?</h4>
 			<p>{{$application->text_community}}</p>
+		</div>
+		
+		<div class="text">
+			<h4 class="text-heading">Additional Message</h4>
+			<p>{{$application->additional_message}}</p>
 		</div>
 	</section>
 </div>
