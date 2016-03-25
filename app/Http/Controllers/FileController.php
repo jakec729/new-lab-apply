@@ -36,6 +36,15 @@ class FileController extends Controller
         $csv->download();
     }
 
+    public function storeFile($file)
+    {
+        $name = sha1(time()) . "-" . $file->getClientOriginalName();
+        $dest = "tmp/uploads";
+        $file->move($dest, $name);
+
+        return "{$dest}/{$name}";
+    }
+
     public function review(Request $request)
     {
         $this->validate($request, [
@@ -61,6 +70,10 @@ class FileController extends Controller
             return (! Application::where('email', $application->email)->first());
         });
 
+        if ($applications->count() > 0) {
+            $file = $this->storeFile($file);
+        }
+
         return view('applications.review', compact('applications', 'duplicates', 'file'));
     }
 
@@ -72,12 +85,11 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        $all = collect( unserialize( $request->input('file') ) );
+        $all = Csv::formatIntoApplications($request->input('file'));
         $applications = $all->only($request->input('application_keys'));
 
-        $applications = $applications->map(function($movie){
-            $app = Application::createFromAssociativeArray($movie);
-            return $app;
+        $applications = $applications->map(function($app){
+            $app->save();
         });
 
         return redirect('/applications');

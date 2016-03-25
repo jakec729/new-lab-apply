@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\ApplicationFormatter;
 use App\ApplicationRepository;
 use League\Csv\Reader;
 use League\Csv\Writer;
@@ -37,7 +38,7 @@ class Csv
         "Member Application"
     ];
 
-    public static function formatIntoApplications(UploadedFile $file)
+    public static function formatIntoApplications($file)
     {
         $csv = static::createFromUploadedFile($file);
 
@@ -49,11 +50,13 @@ class Csv
         return $applications;
     }
 
-    public static function createFromUploadedFile(UploadedFile $file)
+    public static function createFromUploadedFile($file)
     {
         $csv = new static;
         $reader = Reader::createFromPath($file);
         $columns = $reader->fetchOne();
+
+        // dd($columns);
 
         if (! $csv->hasCorrectColumns($columns)) {
             return false;
@@ -81,7 +84,11 @@ class Csv
 
 
         foreach ($this->collection as $row) {
-            $collection[] = Application::createFromArray($row);
+            $application = ApplicationFormatter::createFromArray($row);
+
+            if ($application) {
+                $collection[] = $application;
+            }
         }
         
         return collect($collection);

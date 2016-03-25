@@ -12,7 +12,7 @@
 						</div>
 						<div class="panel-body">
 							<form action="{{ url('/files') }}" method="POST">
-							<input type="hidden" name="file" value="{{ serialize($applications->toArray()) }}">
+							<input type="hidden" name="file" value="{{$file}}">
 							{{ csrf_field() }}
 							<table class="table">
 								<thead>
