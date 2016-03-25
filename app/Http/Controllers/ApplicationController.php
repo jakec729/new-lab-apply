@@ -40,7 +40,6 @@ class ApplicationController extends Controller
 
     protected function formatResultsForTable($applications, $request)
     {
-
         if ($this->isOffsetPage($request, $applications)) {
             return redirect($request->url());
         }
@@ -68,7 +67,7 @@ class ApplicationController extends Controller
         $current = $request->input('page', 1);
         $posts_per_page = session('posts_per_page');
 
-        return ($total > $posts_per_page && $current * $posts_per_page > $total);
+        return ($total > $posts_per_page && ($current - 1) * $posts_per_page > $total);
     }
 
     public function shortlisted(Request $request)
