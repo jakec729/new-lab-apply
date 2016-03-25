@@ -12,11 +12,6 @@ class ApplicationFormatter
 
 		$app = new Application();
 
-		// if (! isset($array[1])) {
-		// 	$array[1] = null;
-		// } else {
-		// }
-		
 		if ($array[1] == "") {
 			return false;
 		} else {
@@ -38,7 +33,7 @@ class ApplicationFormatter
 		$app->text_pitch            = $array[12];
 		$app->text_tech             = $array[13];
 		$app->text_team             = $array[14];
-		$app->text_strategy         = $array[15];
+		$app->additional_message    = $array[15];
 		$app->funding_stage         = $array[16];
 		$app->new_lab_resources     = str_replace(",", ", ", $array[17]);
 		$app->text_community        = $array[18];

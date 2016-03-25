@@ -56,14 +56,15 @@ class Csv
         $reader = Reader::createFromPath($file);
         $columns = $reader->fetchOne();
 
-        // dd($columns);
-
         if (! $csv->hasCorrectColumns($columns)) {
             return false;
         }
-        $rows = $reader->setOffset()->fetch();
 
-        if (! is_array($rows)) {
+        $rows = $reader->setOffset(1)->fetch();
+
+        // dd(iterator_to_array($rows));
+
+        if (empty(iterator_to_array($rows))) {
             return false;
         }
 
