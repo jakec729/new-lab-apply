@@ -1,3 +1,5 @@
+@inject('user_rep', 'App\Repositories\UserRepository')
+
 <section id="app__ratings" class="ratings">
     <h4 class="heading--border">
         Avg. Rating 
@@ -16,7 +18,7 @@
             <span class="rating__user">Me</span>
             @include('applications.partials.ratings-form')
         </li>
-        @foreach (\App\User::all() as $user)
+        @foreach ($user_rep->reviewers() as $user)
             @unless($user->id == Auth::id())
             <li class="rating--guest">
                 <span class="rating__user">{{$user->name}}</span>

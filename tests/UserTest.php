@@ -17,18 +17,12 @@ class UserTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testRegisterRedirectIfGuest()
+    public function testNameFormatting()
     {
-    	$this->visit('/register')
-    		 ->see('<i class="fa fa-btn fa-sign-in"></i>Login');
-    }
+        $user = factory(App\User::class)->create([
+            'name' => 'lower case'
+        ]);
 
-    public function testRouteIndex()
-    {
-        $user = factory(App\User::class)->create();
-        
-        $this->visit('/users')
-             ->see('<h1>Users</h1>')
-             ->see($user->name);
+        $this->assertEquals('Lower Case', $user->name);
     }
 }

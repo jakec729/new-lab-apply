@@ -28,6 +28,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
+
     public function listRoles()
     {
         $roles = $this->getRoles();

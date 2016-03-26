@@ -1,5 +1,7 @@
 <?php
 
+use Bican\Roles\Models\Role;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -20,11 +22,12 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Movie::class, function (Faker\Generator $faker) {
+$factory->define(Role::class, function (Faker\Generator $faker) {
+    $name = ucwords($faker->word);
+
     return [
-        'name' => $faker->name,
-        'year' => $faker->year,
-        'watched' => "X"
+        'name' => $name,
+        'slug' => strtolower($name)
     ];
 });
 
