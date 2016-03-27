@@ -7827,6 +7827,10 @@ button.close {
 .fa-percent:before {
   content: ""; }
 
+.col-xs-12 {
+  padding-left: 0;
+  padding-right: 0; }
+
 #header-less {
   display: -webkit-flex;
   display: -ms-flexbox;

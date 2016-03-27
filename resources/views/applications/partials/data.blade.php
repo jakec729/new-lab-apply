@@ -1,4 +1,4 @@
-<div class="col-md-7 submission-data">
+<div class="col-xs-12 col-md-7 submission-data">
 	<section class="app__extra clearfix">
 		<div class="pull-left">
 			<h4>Contact</h4>

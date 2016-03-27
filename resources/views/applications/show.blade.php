@@ -17,7 +17,7 @@
 
 @section('body')
 	@include('applications.partials.data')
-	<div class="col-md-5 submission-ratings">
+	<div class="col-xs-12 col-md-5 submission-ratings">
 	    <div class="inner">
 	    	<section>
 	    		<h4>Criteria</h4>
