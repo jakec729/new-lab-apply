@@ -7995,7 +7995,9 @@ small {
     padding-left: 24px; }
   .auth--panel .checkbox input {
     margin-left: -24px; }
-  .auth--panel input,
+  .auth--panel input[type="text"],
+  .auth--panel input[type="email"],
+  .auth--panel input[type="password"],
   .auth--panel .btn {
     height: auto;
     padding: 1em 1.25em;

@@ -39,16 +39,13 @@
 		margin-left: -24px;
 	}
 
-	input,
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
 	.btn {
 		height: auto;
 		padding: 1em 1.25em;
 		border: 1px solid $brand-primary;
-	}
-
-	input,
-	.btn,
-	.checkbox {
 	}
 
 	.btn {
