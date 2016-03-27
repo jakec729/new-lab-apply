@@ -8152,6 +8152,10 @@ small {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center; }
+    .submission-controls form .form-group > * {
+      -webkit-flex: 1;
+      -ms-flex: 1;
+      flex: 1; }
     .submission-controls form .form-group label {
       margin: 0 5px 0 0; }
   .submission-controls > div {
