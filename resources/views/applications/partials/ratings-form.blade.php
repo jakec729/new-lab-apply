@@ -1,4 +1,4 @@
-<form action="{{url("/applications/{$application->id}/rate")}}" method="POST" class="star-rating {{ ($application->alreadyRated()) ? "rated" : null }}">
+<form action="{{url("/applications/{$application->id}/rate")}}" method="POST" id="userRatingForm" class="star-rating {{ ($application->alreadyRated()) ? "rated" : null }}">
     {{ csrf_field() }}
 
     @if($application->alreadyRated())

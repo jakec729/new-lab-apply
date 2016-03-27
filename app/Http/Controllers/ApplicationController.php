@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
+use Illuminate\Support\Facades\URL;
 
 class ApplicationController extends Controller
 {
@@ -110,8 +111,9 @@ class ApplicationController extends Controller
         	$application->addRating($request->input('rating'));
         }
 
+        $previous = URL::previous();
 
-    	return redirect()->back();
+    	return redirect($previous . "#app__ratings");
     }
 
     public function addComment(Request $request, Application $applications)
@@ -124,8 +126,9 @@ class ApplicationController extends Controller
         $body = $request->input('comment');
         $applications->addComment($body, $request->user()->id);
 
-        return redirect()->back();
+        $previous = URL::previous();
 
+        return redirect($previous . "#app__ratings");
     }
 
     public function deleteAll()
