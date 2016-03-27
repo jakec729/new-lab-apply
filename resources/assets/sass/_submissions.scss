@@ -1,21 +1,35 @@
 
 #app__ribbon {
-	display: flex;
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
-
 	.item {
-		flex: 1 1 auto;
-		padding: 2em;
+		border-bottom: 1px solid black;
+		padding: 1em;
 
 		&:first-of-type {
-			padding-left: 1em;
+			border-top: 1px solid black;
 		}
 	}
 
-	.item + .item {
-		border-left: 1px solid black;
+	@media screen and (min-width: $screen-md) {
+		display: flex;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+
+		.item {
+			flex: 1 1 auto;
+			padding: 2em;
+			border-bottom: none;
+
+			&:first-of-type {
+				padding-left: 1em;
+				border-top: none;
+			}
+		}
+
+		.item + .item {
+			border-left: 1px solid black;
+		}
 	}
+
 }
 
 .submission {

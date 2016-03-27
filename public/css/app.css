@@ -8016,21 +8016,30 @@ small {
   .auth--panel .btn-block {
     text-align: left; }
 
-#app__ribbon {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black; }
-  #app__ribbon .item {
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 2em; }
-    #app__ribbon .item:first-of-type {
-      padding-left: 1em; }
-  #app__ribbon .item + .item {
-    border-left: 1px solid black; }
+#app__ribbon .item {
+  border-bottom: 1px solid black;
+  padding: 1em; }
+  #app__ribbon .item:first-of-type {
+    border-top: 1px solid black; }
+
+@media screen and (min-width: 992px) {
+  #app__ribbon {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black; }
+    #app__ribbon .item {
+      -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 2em;
+      border-bottom: none; }
+      #app__ribbon .item:first-of-type {
+        padding-left: 1em;
+        border-top: none; }
+    #app__ribbon .item + .item {
+      border-left: 1px solid black; } }
 
 .submission__header {
   padding: 1em 0;
