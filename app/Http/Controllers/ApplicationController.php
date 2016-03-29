@@ -7,6 +7,7 @@ use App\ApplicationRepository;
 use App\CustomPaginator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Session\SessionManager;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use Illuminate\Support\Facades\URL;
@@ -22,23 +23,6 @@ class ApplicationController extends Controller
         $this->middleware('admin', ['only' => ['delteAll']]);
     }
 
-    protected function setTableFilter(Request $request)
-    {
-        $active = $request->session()->get('tableSortBy', ['column' => 'submitted_on', 'direction' => 'asc']);
-        $filter = ($request->has('tableSortBy')) ? $request->input('tableSortBy') : null;
-
-        $direction = '';
-
-        if ($filter == $active['column']) {
-            $direction = ($active['direction'] == 'asc') ? 'desc' : 'asc';
-        } else {
-            $direction = 'desc';
-        }
-
-        $request->session()->forget('tableSortBy');
-        $request->session()->put('tableSortBy', ['column' => $filter, 'direction' => $direction]);
-    }
-
     protected function formatResultsForTable($applications, $request)
     {
         if ($this->isOffsetPage($request, $applications)) {
@@ -50,7 +34,7 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        $this->setTableFilter($request);
+        SessionManager::setTableFilter($request);
         $this->updatePPG($request);
         
         $applications = $this->applications->allSubs();
@@ -73,7 +57,7 @@ class ApplicationController extends Controller
 
     public function shortlisted(Request $request)
     {
-        $this->setTableFilter($request);
+        SessionManager::setTableFilter($request);
         $this->updatePPG($request);
 
         $applications = $this->applications->shortlistedSubs();
