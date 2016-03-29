@@ -86,14 +86,24 @@ class ApplicationController extends Controller
         return view('applications.shortlisted', compact('applications'));
     }
 
-	public function show($applications) 
+	public function show($id) 
 	{
-        $applications = Application::with('ratings', 'comments')->find($applications);
-        $previous = Application::where('id', '<', $applications->id)->max('id');
-        $next = Application::where('id', '>', $applications->id)->min('id');
+        $applications = $this->applications->allSubs();
+
+        $app_key = $applications->search(function($item, $key) use ($id) {
+            return $item->id == $id;
+        });
+
+        if ($app_key == false) {
+            return redirect('/applications');
+        }
+
+        $application = (isset($app_key)) ? $applications[$app_key] : null;
+        $next = ($applications[$app_key + 1]) ? $applications[$app_key + 1]->id : null;
+        $previous = ($app_key - 1 >= 0 && $applications[$app_key - 1]) ? $applications[$app_key - 1]->id : null;
 
         return view('applications.show', [
-            'application' => $applications,
+            'application' => $application,
             'next' => $next,
             'previous' => $previous,
         ]);

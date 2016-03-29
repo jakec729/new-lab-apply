@@ -46,6 +46,11 @@ class Application extends Model
         return "{$this->first_name} {$this->last_name}";
     }
 
+    public function getCompanyAttribute($value)
+    {
+        return (! empty($value)) ? $value : 'n/a';
+    }
+
     public function getDesksAttribute($value)
     {
         $categories = [
@@ -56,7 +61,19 @@ class Application extends Model
             'Micro: ',
             'Large: '
         ];
-        return str_replace($categories, "", $value);
+
+        if (!empty($value)) {
+            $value = str_replace($categories, "", $value);
+        } else {
+            $value = 'n/a';
+        }
+
+        return $value;
+    }
+
+    public function getMembershipTypeAttribute($value)
+    {
+        return (!empty($value)) ? $value : 'n/a';
     }
 
     public function getWebsiteAttribute($value) 
