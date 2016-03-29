@@ -48,7 +48,7 @@ class Application extends Model
 
     public function getCompanyAttribute($value)
     {
-        return (! empty($value)) ? $value : 'n/a';
+        return (! empty($value)) ? $value : '(Not submitted)';
     }
 
     public function getDesksAttribute($value)
@@ -62,19 +62,19 @@ class Application extends Model
             'Large: '
         ];
 
-        if (!empty($value)) {
+        // if (!empty($value)) {
             $value = str_replace($categories, "", $value);
-        } else {
-            $value = 'n/a';
-        }
+        // } else {
+        //     $value = 'n/a';
+        // }
 
         return $value;
     }
 
-    public function getMembershipTypeAttribute($value)
-    {
-        return (!empty($value)) ? $value : 'n/a';
-    }
+    // public function getMembershipTypeAttribute($value)
+    // {
+    //     return (!empty($value)) ? $value : 'n/a';
+    // }
 
     public function getWebsiteAttribute($value) 
     {

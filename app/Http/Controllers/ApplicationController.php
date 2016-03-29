@@ -94,9 +94,9 @@ class ApplicationController extends Controller
             return $item->id == $id;
         });
 
-        if ($app_key == false) {
-            return redirect('/applications');
-        }
+        // if ($app_key == false) {
+        //     return redirect('/applications');
+        // }
 
         $application = (isset($app_key)) ? $applications[$app_key] : null;
         $next = ($applications[$app_key + 1]) ? $applications[$app_key + 1]->id : null;
