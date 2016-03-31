@@ -41,10 +41,11 @@
 				@endif
 				@if ($duplicates->count() > 0)
 					<div class="alert alert-danger">
-						<p class="page-heading">
-							<strong>{{$duplicates->count() }} Duplicate Applications Found</strong> <br>
-							Unable to import duplicates at this time.
-						</p>
+						<div class="page-heading">
+							<p><strong>{{$duplicates->count() }} Duplicate Applications Found</strong></p>
+							<p>{{comma_separate($duplicates->pluck('email')->toArray())}}</p>
+							<p>Unable to import duplicates at this time.</p>
+						</div>
 					</div>
 				@endif
 			</div>
