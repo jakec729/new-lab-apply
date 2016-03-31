@@ -38,7 +38,8 @@
 							</form>
 						</div>
 					</div>
-				@elseif ($duplicates->count() > 0)
+				@endif
+				@if ($duplicates->count() > 0)
 					<div class="alert alert-danger">
 						<p class="page-heading">
 							<strong>{{$duplicates->count() }} Duplicate Applications Found</strong> <br>

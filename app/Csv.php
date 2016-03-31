@@ -76,7 +76,7 @@ class Csv
 
     protected function hasCorrectColumns($columns) 
     {
-        return ($columns[5] == $this->columns[5]);
+        return (($columns[5] == $this->columns[5]) || ($columns[5] == 'company'));
     }
 
     public function mapToApplications()

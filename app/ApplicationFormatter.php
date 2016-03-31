@@ -9,15 +9,17 @@ class ApplicationFormatter
 {
 	public static function createFromArray($array)
 	{
-
 		$app = new Application();
 
 		if ($array[1] == "") {
 			return false;
-		} else {
-			$array[1] = Carbon::createFromFormat('d/m/Y', $array[1]);
-		}
+		} 
 
+		if (strlen($array[1]) <= 10) {
+			$array[1] = Carbon::createFromFormat('d/m/Y', $array[1]);
+		} else {
+			$array[1] = Carbon::parse($array[1]);
+		}
 
 		$app->submitted_on          = $array[1];
 		$app->first_name            = ucwords($array[2]);

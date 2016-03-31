@@ -16,7 +16,7 @@ class Application extends Model
 	use MoreRateable;
 
     protected $dates = ['created_at', 'updated_at', 'submitted_on'];
-    
+
     protected $fillable = [
         'submitted_on',
         'first_name', 
