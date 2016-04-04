@@ -6,29 +6,50 @@ use Illuminate\Http\Request;
 
 class SessionManager 
 {
+	public function __construct(Request $request)
+	{
+		$this->request = $request;
+	}
+
+	protected function getTableFilter()
+	{
+		return ($this->request->has('tableSortBy')) ? $this->request->input('tableSortBy') : null;
+	}
+
+	protected function setNewFilter($filter, $value, $direction = 'desc')
+	{
+		$this->request->session()->forget($filter); // Forget the current session value
+		$this->request->session()->put($filter, ['column' => $value, 'direction' => $direction]);
+	}
+
+	protected function onSamePage()
+	{
+		return ($this->request->fullUrl() == $this->request->session()->previousUrl());
+	}
+
+	protected function flipFilterDirection($session_filter, $table_filter)
+	{
+		$direction = ($session_filter['direction'] == 'asc') ? 'desc' : 'asc';
+		return $this->setNewFilter('tableSortBy', $table_filter, $direction);
+	}
+
 	public static function setTableFilter(Request $request)
 	{
-		$session_filter = $request->session()->get('tableSortBy');
-		$table_filter =  ($request->has('tableSortBy')) ? $request->input('tableSortBy') : null;
-		$new_column = null;
-		$new_direction = 'desc';
+		$manager = new static($request);
 
-		// If a change has been made
-		if (isset($table_filter)) {
+		$session_filter = $manager->request->session()->get('tableSortBy');
+		$table_filter =  $manager->getTableFilter();
 
-		    // If selecting same column as active column
-		    if ($session_filter['column'] == $table_filter) {
+		if ($table_filter == null) {
+			return false;
+		}
 
-		        // reverse the direction
-		        $new_column = $table_filter;
-		        $new_direction = ($session_filter['direction'] == 'asc') ? 'desc' : 'asc';
-		    } else {
-		        // Otherwise, set a new columm
-		        $new_column = $table_filter;
-		    }
-
-		    $request->session()->forget('tableSortBy'); // Forget the current session value
-		    $request->session()->put('tableSortBy', ['column' => $new_column, 'direction' => $new_direction]);
+		if ($session_filter['column'] !== $table_filter) {
+			return $manager->setNewFilter('tableSortBy', $table_filter);
+		} else {
+			if ($manager->onSamePage()) {
+				return $manager->flipFilterDirection($session_filter, $table_filter);
+			}
 		}
 	}
 }
