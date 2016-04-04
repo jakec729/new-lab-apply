@@ -14,10 +14,12 @@
         </span>
     </h4>
     <ul class="list-unstyled">
-        <li class="rating--auth">
-            <span class="rating__user">Me</span>
-            @include('applications.partials.ratings-form')
-        </li>
+        @permission('create.ratings')
+            <li class="rating--auth">
+                <span class="rating__user">Me</span>
+                @include('applications.partials.ratings-form')
+            </li>
+        @endpermission
         @foreach ($user_rep->reviewers() as $user)
             @unless($user->id == Auth::id())
             <li class="rating--guest">

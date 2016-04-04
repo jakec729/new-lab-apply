@@ -1,5 +1,6 @@
 <?php
 
+use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
 
 /*
@@ -25,6 +26,15 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(Role::class, function (Faker\Generator $faker) {
     $name = ucwords($faker->word);
 
+    return [
+        'name' => $name,
+        'slug' => strtolower($name)
+    ];
+});
+
+$factory->define(Permission::class, function (Faker\Generator $faker) {
+    $name = ucwords($faker->word);
+    
     return [
         'name' => $name,
         'slug' => strtolower($name)
