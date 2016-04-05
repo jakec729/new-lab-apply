@@ -107,13 +107,13 @@ class AuthController extends Controller
             );
         }
 
+        $role = Role::where('slug', $request->input('assign_role'))->first();
         $user = $this->create($request->all());
 
-        if ($request->has('make_admin')) {
-            $admin = Role::where('slug', 'admin')->first();
-            $user->attachRole($admin);
+        if ($role) {
+            $user->attachRole($role);
         }
-
+        
         return redirect('/users');
     }
 }

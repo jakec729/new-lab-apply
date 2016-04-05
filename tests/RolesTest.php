@@ -15,10 +15,6 @@ class RolesTest extends TestCase
 	protected function makeReader()
 	{
 		$user = factory(User::class)->create();
-		$role = factory(Role::class)->create(['name' => 'Reader', 'slug' => 'reader']);
-		$permission = factory(Permission::class)->create(['name' => 'See Applications', 'slug' => 'see.applications']);
-
-		$role->attachPermission($permission);
 		$user->attachRole('reader');
 
 		return $user;
@@ -27,9 +23,6 @@ class RolesTest extends TestCase
 	protected function makeAdmin()
 	{
 		$user = factory(User::class)->create();
-		$permission = factory(permission::class)->create(['name' => 'Create Ratings', 'slug' => 'create.ratings']);
-
-		$role->attachPermission($permission);
 		$user->attachRole('admin');
 
 		return $user;

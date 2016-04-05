@@ -54,9 +54,10 @@
 
         <div class="form-group">
             <div>
-                <label for="make_admin">
-                    <input type="checkbox" name="make_admin"> &nbsp; Make Admin
-                </label>
+                <select name="assign_role" id="assign_role" class="form-control">
+                    <option value="admin">Admin</option>
+                    <option value="reader" selected>Reader</option>
+                </select>
             </div>
         </div>
 
