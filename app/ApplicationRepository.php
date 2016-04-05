@@ -27,6 +27,11 @@ class ApplicationRepository extends Model
         }
     }
 
+    public function search($terms)
+    {
+        dd($terms);
+    }
+
     public function allSubs() 
     {
         $array = $this->allSubmissionsWithAvgRating();

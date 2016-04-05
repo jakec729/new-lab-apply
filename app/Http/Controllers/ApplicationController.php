@@ -16,7 +16,6 @@ class ApplicationController extends Controller
 {
     protected $applications;
 
-
     public function __construct(ApplicationRepository $applications)
     {
         $this->applications = $applications;
@@ -36,6 +35,10 @@ class ApplicationController extends Controller
     {
         SessionManager::setTableFilter($request);
         $this->updatePPG($request);
+
+        if ($request->has('search')) {
+            $applications = $this->applications->search($request->input('search'));
+        }
         
         $applications = $this->applications->allSubs();
 
