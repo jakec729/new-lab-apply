@@ -23,15 +23,26 @@ class ApplicationFilterTest extends TestCase
 	{
 		$admin = $this->createAdmin();
 		$apps = factory(Application::class, 30)->create();
-		$sorted = $apps->sortBy('last_name');
-		$first = "{$sorted->first()->first_name} {$sorted->first()->last_name}";
-		$last = "{$sorted->last()->first_name} {$sorted->last()->last_name}";
 
-		// dd($sorted->pluck('last_name')->all(), $last);
+		$last = factory(Application::class)->create([
+			'first_name' => 'Zzzzzz', 
+			'last_name' => 'Zzzzzzz'
+		]);
+
+		$first = factory(Application::class)->create([
+			'first_name' => 'Aaaaa', 
+			'last_name' => 'Aaaaaa'
+		]);
+
+		$first = "{$first->first_name} {$first->last_name}";
+		$last = "{$last->first_name} {$last->last_name}";
 
 		$this->actingAs($admin)
-			 ->visit('/applications')
-			 ->check('tableSortBy_name')
-			 ->dontSee($last);
+			 ->visit('/applications?tableSortBy=last_name')
+			 ->see($last);
+
+		$this->actingAs($admin)
+			 ->visit('/applications?tableSortBy=last_name')
+			 ->see($first);
 	}
 }
