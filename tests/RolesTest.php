@@ -20,6 +20,14 @@ class RolesTest extends TestCase
 		return $user;
 	}
 
+	protected function makeEditor()
+	{
+		$user = factory(User::class)->create();
+		$user->attachRole('editor');
+
+		return $user;
+	}
+
 	protected function makeAdmin()
 	{
 		$user = factory(User::class)->create();
@@ -41,6 +49,26 @@ class RolesTest extends TestCase
 	{
 		$reader = $this->makeReader();
 		$application = factory(Application::class)->create();
+
+		$this->actingAs($reader)
+			 ->visit("/applications/{$application->id}")
+			 ->dontSee("userRatingForm");
+	}
+
+	public function testEditorCanRateApplications()
+	{
+		$editor = $this->makeEditor();
+		$reader = $this->makeReader();
+		$admin = $this->makeAdmin();
+		$application = factory(Application::class)->create();
+
+		// $this->actingAs($editor)
+		// 	 ->visit("/applications/{$application->id}")
+		// 	 ->see("userRatingForm");
+
+		$this->actingAs($admin)
+			 ->visit("/applications/{$application->id}")
+			 ->see("userRatingForm");
 
 		$this->actingAs($reader)
 			 ->visit("/applications/{$application->id}")
