@@ -42,6 +42,11 @@ class RolesTest extends TestCase
 		return $user;
 	}
 
+	protected function makeUser()
+	{
+		return factory(App\User::class)->create();
+	}
+
 	public function testReaderCantRateApplications()
 	{
 		$reader = $this->makeReader();
@@ -80,19 +85,44 @@ class RolesTest extends TestCase
 	public function testEditorCanRateApplications()
 	{
 		$editor = $this->makeEditor();		
+		$admin = $this->makeAdmin();		
+		$reader = $this->makeReader();
+		$user = $this->makeUser();	
+
 		$application = factory(Application::class)->create();
 
 		$this->actingAs($editor)
 			 ->visit("/applications/{$application->id}")
 			 ->see("userRatingForm");
 
-		// $this->actingAs($admin)
-		// 	 ->visit("/applications/{$application->id}")
-		// 	 ->see("userRatingForm");
+		$this->actingAs($admin)
+			 ->visit("/applications/{$application->id}")
+			 ->see("userRatingForm");
 
-		// $this->actingAs($reader)
-		// 	 ->visit("/applications/{$application->id}")
-		// 	 ->dontSee("userRatingForm");
+		$this->actingAs($reader)
+			 ->visit("/applications/{$application->id}")
+			 ->dontSee("userRatingForm");
+
+		$this->actingAs($user)
+			 ->visit("/applications/{$application->id}")
+			 ->dontSee("userRatingForm");
+	}
+
+	public function testSeeReviewerRatings()
+	{
+		$admin = $this->makeAdmin();
+		$user = $this->makeUser();
+		
+		$application = factory(Application::class)->create();
+		$application->addRating(5, $admin->id);
+
+		$this->actingAs($admin)
+			 ->visit("/applications/{$application->id}")
+			 ->see("label-star selected");
+
+		$this->actingAs($user)
+			 ->visit("/applications/{$application->id}")
+			 ->see('data-user-rating="5"');
 	}
 
 }

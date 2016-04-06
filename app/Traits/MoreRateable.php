@@ -17,12 +17,14 @@ trait MoreRateable
         return $this->ratings()->where('user_id', $id)->first()->rating;
     }
 
-	public function addRating($value)
+	public function addRating($value, $user = null)
     {
+        $id = (isset($user)) ? $user : \Auth::id();
+
     	if (! $this->alreadyRated()) {
 	    	$rating = new Rating;
 	    	$rating->rating = (int) $value;
-	    	$rating->user_id = \Auth::id();
+	    	$rating->user_id = $id;
 	    	$this->ratings()->save($rating);
     	} else {
     		$review = $this->getUserRating();

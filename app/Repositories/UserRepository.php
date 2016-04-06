@@ -5,8 +5,15 @@ use App\User;
 
 class UserRepository
 {
+	public function allUsers()
+	{
+		return User::all();
+	}
+
 	public function reviewers()
 	{
-		return User::has('roles', '<', 1)->get();
+		return $this->allUsers()->filter(function($user){
+			return $user->can('create.ratings');
+		});
 	}
 }

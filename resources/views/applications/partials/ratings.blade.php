@@ -23,12 +23,13 @@
         @foreach ($user_rep->reviewers() as $user)
             @unless($user->id == Auth::id())
             <li class="rating--guest">
-                <span class="rating__user">{{$user->name}}</span>
                 @if ($application->hasRatingByUser($user->id))
+                    <span class="rating__user" data-user-rating="{{$application->ratingByUser($user->id)}}">{{$user->name}}</span>
                     @for ($i = 1; $i <= $application->ratingByUser($user->id); $i++)
                         <i class="fa fa-star"></i>
                     @endfor
                 @else
+                    <span class="rating__user">{{$user->name}}</span>
                     Unrated
                 @endif
             </li>
