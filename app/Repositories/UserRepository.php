@@ -13,7 +13,7 @@ class UserRepository
 	public function reviewers()
 	{
 		return $this->allUsers()->filter(function($user){
-			return $user->can('create.ratings');
+			return ($user->can('create.ratings') && ! $user->hasRole('admin'));
 		});
 	}
 }

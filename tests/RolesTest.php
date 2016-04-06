@@ -111,12 +111,19 @@ class RolesTest extends TestCase
 	public function testSeeReviewerRatings()
 	{
 		$admin = $this->makeAdmin();
+		$editor = $this->makeEditor();
 		$user = $this->makeUser();
+
+		// MAKE TEST TO HIDE ADMIN RATINGS
 		
 		$application = factory(Application::class)->create();
-		$application->addRating(5, $admin->id);
+		$application->addRating(5, $editor->id);
 
 		$this->actingAs($admin)
+			 ->visit("/applications/{$application->id}")
+			 ->dontSee("label-star selected");
+
+		$this->actingAs($editor)
 			 ->visit("/applications/{$application->id}")
 			 ->see("label-star selected");
 
