@@ -41,7 +41,7 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => ['logout', 'showRegistrationForm', 'register', 'registerFromAuth'] ]);
         $this->middleware('auth', ['only' => ['showRegistrationForm', 'register', 'registerFromAuth']]);
-        $this->middleware('admin', ['only' => ['showRegistrationForm', 'register', 'registerFromAuth']]);
+        $this->middleware('permission:create.users', ['only' => ['showRegistrationForm', 'register', 'registerFromAuth']]);
     }
 
     /**

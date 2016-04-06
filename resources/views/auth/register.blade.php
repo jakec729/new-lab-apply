@@ -55,8 +55,9 @@
         <div class="form-group">
             <div>
                 <select name="assign_role" id="assign_role" class="form-control">
-                    <option value="admin">Admin</option>
                     <option value="reader" selected>Reader</option>
+                    <option value="editor">Editor</option>
+                    <option value="admin">Admin</option>
                 </select>
             </div>
         </div>

@@ -13,7 +13,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('admin', ['only' => ['index'] ]);
+        $this->middleware('permission:create.users', ['only' => ['index'] ]);
     }
 
 

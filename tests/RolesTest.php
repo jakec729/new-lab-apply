@@ -15,7 +15,9 @@ class RolesTest extends TestCase
 	protected function makeReader()
 	{
 		$user = factory(User::class)->create();
-		$user->attachRole('reader');
+		$role = Role::where('slug', 'reader')->first();
+		$user->attachRole($role);
+		$user = $user->fresh();
 
 		return $user;
 	}
@@ -23,7 +25,9 @@ class RolesTest extends TestCase
 	protected function makeEditor()
 	{
 		$user = factory(User::class)->create();
-		$user->attachRole('editor');
+		$role = Role::where('slug', 'editor')->first();
+		$user->attachRole($role);
+		$user = $user->fresh();
 
 		return $user;
 	}
@@ -31,48 +35,64 @@ class RolesTest extends TestCase
 	protected function makeAdmin()
 	{
 		$user = factory(User::class)->create();
-		$user->attachRole('admin');
+		$role = Role::where('slug', 'admin')->first();
+		$user->attachRole($role);
+		$user = $user->fresh();
 
 		return $user;
-	}
-
-	public function testReaderCanSeeAllApplications()
-	{
-		$admin = $this->makeAdmin();
-		$reader = $this->makeReader();
-		$this->actingAs($reader)
-			 ->visit('/')
-			 ->see("All Submissions");
 	}
 
 	public function testReaderCantRateApplications()
 	{
 		$reader = $this->makeReader();
+		$admin = $this->makeAdmin();
 		$application = factory(Application::class)->create();
 
 		$this->actingAs($reader)
 			 ->visit("/applications/{$application->id}")
 			 ->dontSee("userRatingForm");
-	}
-
-	public function testEditorCanRateApplications()
-	{
-		$editor = $this->makeEditor();
-		$reader = $this->makeReader();
-		$admin = $this->makeAdmin();
-		$application = factory(Application::class)->create();
-
-		// $this->actingAs($editor)
-		// 	 ->visit("/applications/{$application->id}")
-		// 	 ->see("userRatingForm");
 
 		$this->actingAs($admin)
 			 ->visit("/applications/{$application->id}")
 			 ->see("userRatingForm");
+	}
 
-		$this->actingAs($reader)
+	public function testAdminCanRateApplications()
+	{
+		$admin = $this->makeAdmin();
+		$application = factory(Application::class)->create();
+		$permission = Permission::where('slug', 'create.ratings')->first();
+
+		$this->actingAs($admin)
 			 ->visit("/applications/{$application->id}")
-			 ->dontSee("userRatingForm");
+			 ->see("userRatingForm");
+	}
+
+	public function testEditorCanCreateUsers()
+	{
+		$editor = $this->makeEditor();
+
+		$this->actingAs($editor)
+			 ->visit('/users')
+			 ->see('<h1 class="submission__heading">All Users</h1>');
+	}
+
+	public function testEditorCanRateApplications()
+	{
+		$editor = $this->makeEditor();		
+		$application = factory(Application::class)->create();
+
+		$this->actingAs($editor)
+			 ->visit("/applications/{$application->id}")
+			 ->see("userRatingForm");
+
+		// $this->actingAs($admin)
+		// 	 ->visit("/applications/{$application->id}")
+		// 	 ->see("userRatingForm");
+
+		// $this->actingAs($reader)
+		// 	 ->visit("/applications/{$application->id}")
+		// 	 ->dontSee("userRatingForm");
 	}
 
 }

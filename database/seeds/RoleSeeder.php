@@ -55,6 +55,7 @@ class RoleSeeder extends Seeder
         $adminRole->attachPermission($usersPermission);
 
         $editorRole->attachPermission($ratingsPermission);
+        $editorRole->attachPermission($usersPermission);
         
         User::find(1)->attachRole($adminRole);
        	User::find(2)->attachRole($adminRole);

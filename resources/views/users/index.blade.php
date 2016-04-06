@@ -3,9 +3,9 @@
 @section('title', 'All Users')
 
 @section('controls')
-	@if(Auth::user()->hasRole('admin'))
+	@permission('create.users')
 		<a href="{{url('/register')}}" class="btn btn-default">Register New Users</a>
-	@endif
+	@endpermission
 @endsection
 
 @section('body')
