@@ -10,6 +10,14 @@
     <div>@include('applications.partials.pagination')</div>
     <div class="hidden-xs hidden-sm">{!! $applications->links() !!}</div>
 @endif
+<div class="search">
+    <form action="" method="GET" class="form-inline">
+        <div class="form-group">
+            <input type="text" name="search" class="form-control" placeholder="Search">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
 <div class="hidden-xs hidden-sm">
     <form action="/applications/download" method="POST" class="form-inline">
         {{csrf_field()}}

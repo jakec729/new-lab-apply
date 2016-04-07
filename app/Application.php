@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use willvincent\Rateable\Rateable;
 use willvincent\Rateable\Rating;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Application extends Model
 {
     use Rateable;
 	use MoreRateable;
+    use SearchableTrait;
 
     protected $dates = ['created_at', 'updated_at', 'submitted_on'];
 
@@ -37,6 +39,16 @@ class Application extends Model
         'new_lab_resources', 
         'text_community' 
     ];
+
+    protected $searchable = [
+           'columns' => [
+               'applications.first_name' => 10,
+               'applications.last_name' => 10,
+               'applications.company' => 10,
+               'applications.email' => 5,
+               'applications.website' => 5,
+           ]
+       ];
 
     protected $appends = [ 'rating' ];
     protected $hidden = [ 'ratings' ];

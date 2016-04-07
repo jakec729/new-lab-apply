@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
 use App\Application;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +17,7 @@ class ApplicationRepository extends Model
         if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'submitted_on', 'direction' => 'asc']]);
 	}
 
+    
     public function deleteAll()
     {
         $applications = Application::all();
@@ -25,6 +26,11 @@ class ApplicationRepository extends Model
             $application->ratings()->delete();
             $application->delete();
         }
+    }
+
+    public function search($terms)
+    {        
+        return Application::search($terms)->get();
     }
 
     public function allSubs() 

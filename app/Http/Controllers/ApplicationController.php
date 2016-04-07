@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Application;
-use App\ApplicationRepository;
+use App\Repositories\ApplicationRepository;
 use App\CustomPaginator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\URL;
 class ApplicationController extends Controller
 {
     protected $applications;
-
 
     public function __construct(ApplicationRepository $applications)
     {
@@ -32,18 +31,45 @@ class ApplicationController extends Controller
         return CustomPaginator::paginateCollection($request, $applications);
     }
 
-    public function index(Request $request)
+    public function search(Request $request, $terms)
     {
         SessionManager::setTableFilter($request);
         $this->updatePPG($request);
-        
+
+        $page_title = "Results for \"{$terms}\"";
+        $applications = $this->applications->search($terms);
+
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+        }
+
+        return view('applications.search', [
+            'applications' => $applications,
+            'page_title' => $page_title
+        ]);
+
+    }
+
+    public function index(Request $request)
+    {
+        if ($request->has('search')) {
+            return $this->search($request, $request->input('search'));
+        }
+
+        SessionManager::setTableFilter($request);
+        $this->updatePPG($request);
+
+        $page_title = "All Applications";
         $applications = $this->applications->allSubs();
 
         if ($applications->count() > 0) {
             $applications = $this->formatResultsForTable($applications, $request);
         }
 
-        return view('applications.index', compact('applications'));
+        return view('applications.index', [
+            'applications' => $applications,
+            'page_title' => $page_title
+        ]);
     }
 
     protected function isOffsetPage($request, $collection)
@@ -66,8 +92,10 @@ class ApplicationController extends Controller
             $applications = $this->formatResultsForTable($applications, $request);
         }
 
-
-        return view('applications.shortlisted', compact('applications'));
+        return view('applications.index', [
+            'applications' => $applications,
+            'page_title' => 'Shortlisted'
+        ]);
     }
 
 	public function show($id) 
