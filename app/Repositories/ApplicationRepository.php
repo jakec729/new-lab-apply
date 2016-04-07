@@ -29,14 +29,16 @@ class ApplicationRepository extends Model
 
     public function search($terms)
     {        
+        $applications = Application::search($terms)->get();
+        // dd($applications);
         // $applications = Application::where('first_name', $terms)->take(20)->get();
 
-        $applications = collect([]);
-        $exact_name = Application::where('first_name', $terms)->get();
-        $exact_email = Application::where('email', $terms)->get();
+        // $applications = collect([]);
+        // $exact_name = Application::where('first_name', $terms)->get();
+        // $exact_email = Application::where('email', $terms)->get();
 
-        $applications = $applications->merge($exact_name);
-        $applications = $applications->merge($exact_email);
+        // $applications = $applications->merge($exact_name);
+        // $applications = $applications->merge($exact_email);
 
         return $applications;
     }

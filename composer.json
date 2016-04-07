@@ -11,7 +11,8 @@
         "league/csv": "^8.0",
         "willvincent/laravel-rateable": "^1.0",
         "fzaninotto/faker": "~1.4",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "nicolaslopezj/searchable": "^1.7"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
