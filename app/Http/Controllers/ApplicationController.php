@@ -31,20 +31,36 @@ class ApplicationController extends Controller
         return CustomPaginator::paginateCollection($request, $applications);
     }
 
-    public function index(Request $request)
+    public function search(Request $request, $terms)
     {
         SessionManager::setTableFilter($request);
         $this->updatePPG($request);
 
-        $page_title = "All Applications";
+        $page_title = "Results for \"{$terms}\"";
+        $applications = $this->applications->search($terms);
 
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+        }
+
+        return view('applications.search', [
+            'applications' => $applications,
+            'page_title' => $page_title
+        ]);
+
+    }
+
+    public function index(Request $request)
+    {
         if ($request->has('search')) {
-            $terms = $request->input('search');
-            $page_title = "Results for \"{$terms}\"";
-            $applications = $this->applications->search($terms);
-        } else {
-            $applications = $this->applications->allSubs();
-        }  
+            return $this->search($request, $request->input('search'));
+        }
+
+        SessionManager::setTableFilter($request);
+        $this->updatePPG($request);
+
+        $page_title = "All Applications";
+        $applications = $this->applications->allSubs();
 
         if ($applications->count() > 0) {
             $applications = $this->formatResultsForTable($applications, $request);
@@ -75,7 +91,6 @@ class ApplicationController extends Controller
         if ($applications->count() > 0) {
             $applications = $this->formatResultsForTable($applications, $request);
         }
-
 
         return view('applications.index', [
             'applications' => $applications,

@@ -61,4 +61,7 @@ class SearchTest extends TestCase
 			 ->visit('/applications?search=Test')
 			 ->see("Results for \"Test\"");
 	}
+
+	// Test for Pagination of results
+	// Test for updating posts per page
 }
