@@ -53,6 +53,19 @@ class SearchTest extends TestCase
 			 ->see("applications/{$application->id}");
 	}
 
+	public function testSearchShowsResultsForCompany()
+	{
+		$admin = $this->makeAdmin();
+		$company = "Acme Co.";
+		$application = factory(App\Application::class)->create(['company' => $company]);
+
+		$this->actingAs($admin)
+			 ->visit('/applications')
+			 ->type($company, 'search')
+			 ->press('Search')
+			 ->see("applications/{$application->id}");
+	}
+
 	public function testSearchPage()
 	{
 		$admin = $this->makeAdmin();
