@@ -1,6 +1,6 @@
 @extends('layouts.submission')
 
-@section('title', 'All Submissions')
+@section('title', $page_title)
 
 @section('body')
 	@include('applications.partials.table')

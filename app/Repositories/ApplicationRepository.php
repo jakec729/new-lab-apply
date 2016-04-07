@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
 use App\Application;
 use Illuminate\Database\Eloquent\Model;
@@ -28,8 +28,17 @@ class ApplicationRepository extends Model
     }
 
     public function search($terms)
-    {
-        dd($terms);
+    {        
+        // $applications = Application::where('first_name', $terms)->take(20)->get();
+
+        $applications = collect([]);
+        $exact_name = Application::where('first_name', $terms)->get();
+        $exact_email = Application::where('email', $terms)->get();
+
+        $applications = $applications->merge($exact_name);
+        $applications = $applications->merge($exact_email);
+
+        return $applications;
     }
 
     public function allSubs() 

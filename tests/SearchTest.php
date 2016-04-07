@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SearchTest extends TestCase
 {
+	use DatabaseTransactions;
 
 	protected function makeAdmin()
 	{
@@ -13,6 +14,43 @@ class SearchTest extends TestCase
 	    $user->attachRole('admin');
 
 	    return $user;
+	}
+
+	public function testFormSubmitsToCorrectUrl()
+	{
+		$admin = $this->makeAdmin();
+
+		$this->actingAs($admin)
+			 ->visit('/applications')
+			 ->type('Test', 'search')
+			 ->press('Search')
+			 ->seePageIs('/applications?search=Test');
+	}
+
+	public function testSearchShowsResultsInName()
+	{
+		$admin = $this->makeAdmin();
+		$name = "Jake";
+		$application = factory(App\Application::class)->create(['first_name' => $name]);
+
+		$this->actingAs($admin)
+			 ->visit('/applications')
+			 ->type($name, 'search')
+			 ->press('Search')
+			 ->see("applications/{$application->id}");
+	}
+
+	public function testSearchShowsResultsInEmail()
+	{
+		$admin = $this->makeAdmin();
+		$email = "test@test.com";
+		$application = factory(App\Application::class)->create(['email' => $email]);
+
+		$this->actingAs($admin)
+			 ->visit('/applications')
+			 ->type($email, 'search')
+			 ->press('Search')
+			 ->see("applications/{$application->id}");
 	}
 
 	public function testSearchPage()

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Application;
-use App\ApplicationRepository;
+use App\Repositories\ApplicationRepository;
 use App\CustomPaginator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -36,17 +36,24 @@ class ApplicationController extends Controller
         SessionManager::setTableFilter($request);
         $this->updatePPG($request);
 
+        $page_title = "All Applications";
+
         if ($request->has('search')) {
-            $applications = $this->applications->search($request->input('search'));
-        }
-        
-        $applications = $this->applications->allSubs();
+            $terms = $request->input('search');
+            $page_title = "Results for \"{$terms}\"";
+            $applications = $this->applications->search($terms);
+        } else {
+            $applications = $this->applications->allSubs();
+        }  
 
         if ($applications->count() > 0) {
             $applications = $this->formatResultsForTable($applications, $request);
         }
 
-        return view('applications.index', compact('applications'));
+        return view('applications.index', [
+            'applications' => $applications,
+            'page_title' => $page_title
+        ]);
     }
 
     protected function isOffsetPage($request, $collection)
@@ -70,7 +77,10 @@ class ApplicationController extends Controller
         }
 
 
-        return view('applications.shortlisted', compact('applications'));
+        return view('applications.index', [
+            'applications' => $applications,
+            'page_title' => 'Shortlisted'
+        ]);
     }
 
 	public function show($id) 
