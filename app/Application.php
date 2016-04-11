@@ -50,8 +50,8 @@ class Application extends Model
            ]
        ];
 
-    protected $appends = [ 'rating' ];
-    protected $hidden = [ 'ratings' ];
+    protected $appends = ['rating'];
+    protected $hidden = ['ratings'];
 
     public function getNameAttribute()
     {
@@ -74,19 +74,8 @@ class Application extends Model
             'Large: '
         ];
 
-        // if (!empty($value)) {
-            $value = str_replace($categories, "", $value);
-        // } else {
-        //     $value = 'n/a';
-        // }
-
-        return $value;
+        return str_replace($categories, "", $value);
     }
-
-    // public function getMembershipTypeAttribute($value)
-    // {
-    //     return (!empty($value)) ? $value : 'n/a';
-    // }
 
     public function getWebsiteAttribute($value) 
     {

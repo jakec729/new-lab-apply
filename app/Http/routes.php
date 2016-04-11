@@ -41,6 +41,8 @@ Route::group(['middleware' => ['web', 'auth']], function() {
     Route::get('/applications/deleteAll', 'ApplicationController@deleteAll');
     Route::post('/applications/updatePPG', 'ApplicationController@updatePPG');
     Route::get('/applications/{applications}', 'ApplicationController@show');
+    Route::get('/applications/{applications}/edit', 'ApplicationController@edit');
+    Route::post('/applications/{applications}/edit', 'ApplicationController@update');
     Route::post('/applications/{applications}/comments', 'ApplicationController@addComment');
     Route::post('/applications/{application}/rate', 'ApplicationController@rate');
 
