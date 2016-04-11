@@ -1,6 +1,8 @@
 @extends('layouts.submission')
 
-@section('title', $application->company)
+@section('title')
+	{{$application->company}} <small><a href="{{url("applications/{$application->id}/edit")}}">Edit</a></small>
+@endsection
 
 @section('controls')
 	@if ($previous || $next)

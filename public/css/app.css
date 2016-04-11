@@ -7934,6 +7934,12 @@ small {
     display: inline-block;
     width: 1em; }
 
+.form-group.spaced {
+  margin: 2em 0; }
+
+legend {
+  margin: 1em 0; }
+
 #app__ratings li {
   padding: .25em 0; }
 

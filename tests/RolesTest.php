@@ -12,41 +12,6 @@ class RolesTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	protected function makeReader()
-	{
-		$user = factory(User::class)->create();
-		$role = Role::where('slug', 'reader')->first();
-		$user->attachRole($role);
-		$user = $user->fresh();
-
-		return $user;
-	}
-
-	protected function makeEditor()
-	{
-		$user = factory(User::class)->create();
-		$role = Role::where('slug', 'editor')->first();
-		$user->attachRole($role);
-		$user = $user->fresh();
-
-		return $user;
-	}
-
-	protected function makeAdmin()
-	{
-		$user = factory(User::class)->create();
-		$role = Role::where('slug', 'admin')->first();
-		$user->attachRole($role);
-		$user = $user->fresh();
-
-		return $user;
-	}
-
-	protected function makeUser()
-	{
-		return factory(App\User::class)->create();
-	}
-
 	public function testReaderCantRateApplications()
 	{
 		$reader = $this->makeReader();

@@ -21,6 +21,7 @@ class ApplicationController extends Controller
     {
         $this->applications = $applications;
         $this->middleware('admin', ['only' => ['delteAll']]);
+        $this->middleware('permission:edit.applications', ['only' => ['edit', 'update'] ]);
     }
 
     protected function formatResultsForTable($applications, $request)
@@ -68,6 +69,13 @@ class ApplicationController extends Controller
 
 
         return view('applications.shortlisted', compact('applications'));
+    }
+
+    public function edit($application)
+    {
+        $application = $this->applications->find($application);
+        
+        return view('applications.edit', ['application' => $application]);
     }
 
 	public function show($id) 
@@ -130,6 +138,20 @@ class ApplicationController extends Controller
         $this->applications->deleteAll();
 
         return redirect('/applications');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $application = Application::find($id);        
+        $fields = $request->all();
+
+        unset($fields['_token']);
+
+        if (array_key_exists('new_lab_resources', $fields)) {
+            $fields['new_lab_resources'] = comma_separate($fields['new_lab_resources']);
+        }
+
+        return ($application->fill($fields)->update()) ? redirect("applications/{$application->id}/edit") : false;
     }
 
     protected function updatePPG(Request $request)
