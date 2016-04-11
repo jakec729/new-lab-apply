@@ -1,5 +1,5 @@
 @extends('layouts.submission')
-@inject('applications_rep', 'App\ApplicationRepository')
+@inject('applications_rep', 'App\Repositories\ApplicationRepository')
 
 @section('title', $application->company)
 
