@@ -35,7 +35,7 @@ class ApplicationController extends Controller
     public function search(Request $request, $terms)
     {
         SessionManager::setTableFilter($request);
-        $this->updatePPG($request);
+        // $this->updatePPG($request);
 
         $page_title = "Results for \"{$terms}\"";
         $applications = $this->applications->search($terms);
@@ -58,7 +58,7 @@ class ApplicationController extends Controller
         }
 
         SessionManager::setTableFilter($request);
-        $this->updatePPG($request);
+        // $this->updatePPG($request);
 
         $page_title = "All Applications";
         $applications = $this->applications->allSubs();
@@ -85,7 +85,7 @@ class ApplicationController extends Controller
     public function shortlisted(Request $request)
     {
         SessionManager::setTableFilter($request);
-        $this->updatePPG($request);
+        // $this->updatePPG($request);
 
         $applications = $this->applications->shortlistedSubs();
 
@@ -184,6 +184,7 @@ class ApplicationController extends Controller
 
     protected function updatePPG(Request $request)
     {
+        // dd($request->all(), $request->session()->previousUrl());
         $previous = session('posts_per_page');
         $current = ($request->has('posts_per_page')) ? $request->input('posts_per_page') : null;
 
@@ -192,7 +193,7 @@ class ApplicationController extends Controller
             $request->session()->put('posts_per_page', $current );
     
             if ($current !== $previous) {
-                return redirect($request->url());
+                return redirect()->back();
             }
         }
     }

@@ -27,6 +27,21 @@ class SearchTest extends TestCase
 			 ->seePageIs('/applications?search=Test');
 	}
 
+	public function test_changing_posts_per_page_keeps_search_results()
+	{
+		$admin = $this->makeAdmin();
+		$name = "Jake";
+		$application = factory(App\Application::class)->create(['first_name' => $name]);
+
+		$this->actingAs($admin)
+			 ->visit('/applications')
+			 ->type($name, 'search')
+			 ->press('Search')
+			 ->see("applications/{$application->id}")
+			 ->visit("applications/?search=$name&posts_per_page=10")
+			 ->see($name);
+	}
+
 	public function testSearchShowsResultsInName()
 	{
 		$admin = $this->makeAdmin();
