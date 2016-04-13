@@ -14,7 +14,7 @@ class ApplicationRepository extends Model
 	public function __construct()
 	{
         if(! session('posts_per_page')) session(['posts_per_page' => 20]);
-        if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'submitted_on', 'direction' => 'asc']]);
+        if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'submitted_on', 'direction' => 'desc']]);
 	}
 
     public function find($id)
@@ -37,11 +37,8 @@ class ApplicationRepository extends Model
         return Application::search($terms)->get();
     }
 
-    public function allSubs() 
+    public function applyUsersFilters($apps)
     {
-        $array = $this->allSubmissionsWithAvgRating();
-        $apps = $this->appsFromQuery($array);
-
         $user = request()->user();
 
         if ($user->hasRole('reviewer')) {
@@ -49,6 +46,14 @@ class ApplicationRepository extends Model
                 return $app->isAssignedToUser($user);
             });
         }
+
+        return $apps;
+    }
+
+    public function allSubs() 
+    {
+        $array = $this->allSubmissionsWithAvgRating();
+        $apps = $this->appsFromQuery($array);
 
         return $apps;
     }
@@ -139,7 +144,10 @@ class ApplicationRepository extends Model
     protected function appsFromQuery($builder)
     {
         $apps = $this->addFilter($builder)->get();
-        return $this->mapArrayToCollection($apps);
+        $apps = $this->mapArrayToCollection($apps);
+        $apps = $this->applyUsersFilters($apps);
+        
+        return $apps;
     }
 
     protected function mapArrayToCollection($array)

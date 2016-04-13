@@ -23,6 +23,14 @@ class RoleSeeder extends Seeder
             ]);
         }
 
+        if (! Permission::whereSlug('assign.reviewers')->exists() ) {
+            $ratingsPermission = Permission::create([
+                'name' => 'Assign Reviewers',
+                'slug' => 'assign.reviewers',
+                'description' => 'Can assign users to applications for review'
+            ]);
+        }
+
         if (! Permission::whereSlug('create.users')->exists() ) {
             $usersPermission = Permission::create([
                 'name' => 'Create Users',
@@ -88,10 +96,12 @@ class RoleSeeder extends Seeder
         $ratingsPermission = Permission::whereSlug('create.ratings')->first();
         $usersPermission = Permission::whereSlug('create.users')->first();
         $editAppsPermission = Permission::whereSlug('edit.applications')->first();
+        $assignReviewewPermission = Permission::whereSlug('assign.reviewers')->first();
 
         $adminRole->attachPermission($ratingsPermission);
         $adminRole->attachPermission($usersPermission);
         $adminRole->attachPermission($editAppsPermission);
+        $adminRole->attachPermission($assignReviewewPermission);
 
         $editorRole = Role::whereSlug('editor')->first();
         $editorRole->attachPermission($editAppsPermission);

@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ReviewerTest extends TestCase
 {
+	use DatabaseTransactions;
+
 	public function test_reviewer_role_exists()
 	{
 		$role = Role::where('slug', 'reviewer')->first();
@@ -56,5 +58,36 @@ class ReviewerTest extends TestCase
 			 ->visit('applications')
 			 ->see("applications/{$a->id}")
 			 ->dontSee("applications/{$b->id}");
+	}
+	public function test_reviewers_can_only_see_shortlisted_assigned_apps()
+	{
+		$a = $this->makeApp();
+		$b = $this->makeApp();
+		$reviewer = $this->makeReviewer();
+
+		$reviewer->assignAppToUser($a);
+		$reviewer->assignAppToUser($b);
+
+		$a->addRating(5, $reviewer);
+
+		$this->actingAs($reviewer)
+			 ->visit('applications/shortlisted')
+			 ->see("applications/{$a->id}")
+			 ->dontSee("applications/{$b->id}");
+	}
+
+	public function test_admins_see_assign_reviewers_button()
+	{
+		$admin = $this->makeAdmin();
+		$user = $this->makeUser();
+		$app = $this->makeApp();
+
+		$this->actingAs($admin)
+			 ->visit("applications/{$app->id}")
+			 ->see("Assign Reviewers");
+
+		$this->actingAs($user)
+			 ->visit("applications/{$app->id}")
+			 ->dontSee("Assign Reviewers");
 	}
 }

@@ -35,5 +35,8 @@
             </li>
             @endunless
         @endforeach
+        @permission('assign.reviewers')
+            <button class="btn btn-sm btn-default">Assign Reviewers</button>
+        @endpermission
     </ul>
 </section>
