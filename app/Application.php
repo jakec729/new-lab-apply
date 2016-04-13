@@ -4,12 +4,13 @@ namespace App;
 
 use App\Comment;
 use App\Traits\MoreRateable;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use willvincent\Rateable\Rateable;
 use willvincent\Rateable\Rating;
-use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Application extends Model
 {
@@ -111,5 +112,20 @@ class Application extends Model
         $comment->user_id = $user_id;
         $comment->body = $body;
         $comment->save();
+    }
+
+    public function reviewers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function assignUserToApp(User $user)
+    {
+        $this->reviewers()->save($user);
+    }
+
+    public function isAssignedToUser(User $user)
+    {
+        return $this->reviewers->contains($user);
     }
 }

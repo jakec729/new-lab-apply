@@ -42,6 +42,14 @@ class ApplicationRepository extends Model
         $array = $this->allSubmissionsWithAvgRating();
         $apps = $this->appsFromQuery($array);
 
+        $user = request()->user();
+
+        if ($user->hasRole('reviewer')) {
+            $apps = $apps->filter(function($app) use ($user){
+                return $app->isAssignedToUser($user);
+            });
+        }
+
         return $apps;
     }
 

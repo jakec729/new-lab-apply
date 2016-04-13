@@ -67,6 +67,14 @@ class RoleSeeder extends Seeder
             ]);
         }
 
+        if (! Role::whereSlug('reviewer')->exists() ) {
+            $revewerRole = Role::create([
+                'name' => 'Reviewer',
+                'slug' => 'reviewer',
+                'description' => 'Reviewers can read, comment, and rate applications they were assigned'
+            ]);
+        }
+
         if (! Role::whereSlug('editor')->exists() ) {
             $editorRole = Role::create([
                 'name' => 'Editor',

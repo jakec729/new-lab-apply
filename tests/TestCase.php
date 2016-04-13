@@ -62,6 +62,16 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         return $user;
     }
 
+    protected function makeReviewer()
+    {
+        $user = $this->makeUser();
+        $role = Role::where('slug', 'reviewer')->first();
+        $user->attachRole($role);
+        $user = $user->fresh();
+
+        return $user;
+    }
+
     protected function makeUser()
     {
         return factory(App\User::class)->create();

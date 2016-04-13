@@ -58,7 +58,6 @@ class ApplicationController extends Controller
         }
 
         SessionManager::setTableFilter($request);
-        // $this->updatePPG($request);
 
         $page_title = "All Applications";
         $applications = $this->applications->allSubs();
