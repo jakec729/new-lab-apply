@@ -90,4 +90,19 @@ class ReviewerTest extends TestCase
 			 ->visit("applications/{$app->id}")
 			 ->dontSee("Assign Reviewers");
 	}
+
+	public function test_assign_multiple_users_to_app()
+	{
+		$admin = $this->makeAdmin();
+		$reviewer_a = $this->makeReviewer();
+		$reviewer_b = $this->makeReviewer();
+		$app = $this->makeApp();
+
+		$this->actingAs($admin)
+			 ->visit("applications/{$app->id}")
+			 ->check("user_{$reviewer_a->id}")
+			 ->check("user_{$reviewer_b->id}")
+			 ->press("Confirm")
+			 ->see("2 Reviewers");
+	}
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Application;
+use App\Repositories\UserRepository;
 use App\User;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
@@ -53,8 +54,7 @@ class RolesTest extends TestCase
 		$admin = $this->makeAdmin();		
 		$reader = $this->makeReader();
 		$user = $this->makeUser();	
-
-		$application = factory(Application::class)->create();
+		$application = $this->makeApp();
 
 		$this->actingAs($editor)
 			 ->visit("/applications/{$application->id}")
@@ -73,6 +73,15 @@ class RolesTest extends TestCase
 			 ->dontSee("userRatingForm");
 	}
 
+	public function test_user_repository_finds_reviewers()
+	{
+		$reviewer = $this->makeReviewer();
+		$reviewers = UserRepository::reviewers();
+
+		$this->assertTrue($reviewers->contains($reviewer));
+
+	}
+
 	public function testSeeReviewerRatings()
 	{
 		$admin = $this->makeAdmin();
@@ -80,7 +89,6 @@ class RolesTest extends TestCase
 		$user = $this->makeUser();
 
 		// MAKE TEST TO HIDE ADMIN RATINGS
-		
 		$application = factory(Application::class)->create();
 		$application->addRating(5, $editor->id);
 
