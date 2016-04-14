@@ -73,15 +73,6 @@ class RolesTest extends TestCase
 			 ->dontSee("userRatingForm");
 	}
 
-	public function test_user_repository_finds_reviewers()
-	{
-		$reviewer = $this->makeReviewer();
-		$reviewers = UserRepository::reviewers();
-
-		$this->assertTrue($reviewers->contains($reviewer));
-
-	}
-
 	public function testSeeReviewerRatings()
 	{
 		$admin = $this->makeAdmin();

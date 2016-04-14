@@ -12,8 +12,10 @@ class UserRepository
 
 	public static function reviewers()
 	{
-		return User::with('roles')->get()->filter(function($user){
-			return ($user->can('create.ratings') && ! $user->hasRole('admin'));
-		});
+		$users = User::whereHas('roles', function($query){
+			$query->where('slug', 'reviewer');
+		})->get();
+
+		return $users;
 	}
 }

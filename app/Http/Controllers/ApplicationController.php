@@ -196,4 +196,9 @@ class ApplicationController extends Controller
             }
         }
     }
+
+    public function assignReviewers(Request $request, Application $application)
+    {
+        dd($request->all(), $application);
+    }
 }
