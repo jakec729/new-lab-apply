@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Application;
-use App\Repositories\ApplicationRepository;
 use App\CustomPaginator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Repositories\ApplicationRepository;
 use App\Session\SessionManager;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use Illuminate\Support\Facades\URL;
@@ -199,6 +200,19 @@ class ApplicationController extends Controller
 
     public function assignReviewers(Request $request, Application $application)
     {
-        dd($request->all(), $application);
+        $this->validate($request, [ 'users' => 'required' ]);
+
+        if (! $request->user()->can('assign.reviewers')) {
+            return redirect()->back()->withErrors(['You are not allowed to assign reviewers']);
+        }
+
+        $users = collect($request->input('users'))->map(function($user) use ($application) {
+            $user = User::find($user);
+            $application->assignUserToApp($user);
+
+            return $user;
+        });
+
+        return redirect()->back();
     }
 }

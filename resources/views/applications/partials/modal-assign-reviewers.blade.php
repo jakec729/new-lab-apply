@@ -13,15 +13,26 @@
                 </div>
                 <div class="modal-body">
                         {{ csrf_field() }}
-                        <ul class="list-unstyled">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th><i class="fa fa-check"></i></th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
                             @foreach(App\Repositories\UserRepository::reviewers() as $reviewer)
-                                <li><label><input type="checkbox" name="users[]" value="{{$reviewer->id}}">&nbsp;&nbsp;{{$reviewer->name}}</label></li>
+                                <tr>
+                                    <td><input type="checkbox" name="users[]" id="input_user_{{$reviewer->id}}" value="{{$reviewer->id}}"></td>
+                                    <td>{{$reviewer->name}}</td>
+                                    <td>{{$reviewer->email}}</td>
+                                </tr>
                             @endforeach
-                        </ul>
+                        </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary">
+                    <input type="submit" class="btn btn-primary" value="Confirm">
                 </div>
             </form>
         </div>

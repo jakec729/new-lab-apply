@@ -37,9 +37,24 @@ class UserRepositoryTest extends TestCase
     public function test_repository_finds_reviewers()
     {
         DB::table('users')->truncate();
+        DB::table('role_user')->truncate();
+
         $reviewer = $this->makeReviewer();
         $reviewers = UserRepository::reviewers();
 
         $this->assertEquals($reviewers->count(), 1);
+    }
+
+    public function test_repository_finds_editors()
+    {
+        DB::table('users')->truncate();
+        DB::table('role_user')->truncate();
+
+        $this->makeEditor();
+        $this->makeEditor();
+
+        $editors = UserRepository::editors();
+
+        $this->assertEquals($editors->count(), 2);
     }
 }

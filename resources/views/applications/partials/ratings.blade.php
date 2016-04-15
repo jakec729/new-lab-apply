@@ -20,24 +20,30 @@
                 @include('applications.partials.ratings-form')
             </li>
         @endpermission
-        @foreach ($user_rep->reviewers() as $user)
-            @unless($user->id == Auth::id())
-            <li class="rating--guest">
-                @if ($application->hasRatingByUser($user->id))
-                    <span class="rating__user" data-user-rating="{{$application->ratingByUser($user->id)}}">{{$user->name}}</span>
-                    @for ($i = 1; $i <= $application->ratingByUser($user->id); $i++)
-                        <i class="fa fa-star"></i>
-                    @endfor
-                @else
-                    <span class="rating__user">{{$user->name}}</span>
-                    Unrated
-                @endif
-            </li>
-            @endunless
-        @endforeach
+        @if($application->combinedReviewers()->count() > 0)
+            @foreach ($application->combinedReviewers() as $user)
+                @unless($user->id == Auth::id())
+                <li class="rating--guest">
+                    @if ($application->hasRatingByUser($user->id))
+                        <span class="rating__user" data-user-rating="{{$application->ratingByUser($user->id)}}">{{$user->name}}</span>
+                        @for ($i = 1; $i <= $application->ratingByUser($user->id); $i++)
+                            <i class="fa fa-star"></i>
+                        @endfor
+                    @else
+                        <span class="rating__user">{{$user->name}}</span>
+                        Unrated
+                    @endif
+                </li>
+                @endunless
+            @endforeach
+        @else
+            <li>No reviewers yet.</li>
+        @endif
         @permission('assign.reviewers')
+            @if(App\Repositories\UserRepository::reviewers()->count() > 0)
             <br>
-            @include('applications.partials.modal-assign-reviewers')
+                @include('applications.partials.modal-assign-reviewers')
+            @endif
         @endpermission
     </ul>
 </section>

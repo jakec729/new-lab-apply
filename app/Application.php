@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Comment;
+use App\Repositories\UserRepository;
 use App\Traits\MoreRateable;
 use App\User;
 use Carbon\Carbon;
@@ -117,6 +118,11 @@ class Application extends Model
     public function reviewers()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function combinedReviewers()
+    {
+        return UserRepository::editors()->merge($this->reviewers);
     }
 
     public function assignUserToApp(User $user)

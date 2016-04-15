@@ -93,17 +93,20 @@ class RoleSeeder extends Seeder
 
         $adminRole = Role::whereSlug('admin')->first();
         $editorRole = Role::whereSlug('editor')->first();
+        $reviewerRole = Role::whereSlug('reviewer')->first();
+
         $ratingsPermission = Permission::whereSlug('create.ratings')->first();
         $usersPermission = Permission::whereSlug('create.users')->first();
         $editAppsPermission = Permission::whereSlug('edit.applications')->first();
         $assignReviewewPermission = Permission::whereSlug('assign.reviewers')->first();
+
+        $reviewerRole->attachPermission($ratingsPermission);
 
         $adminRole->attachPermission($ratingsPermission);
         $adminRole->attachPermission($usersPermission);
         $adminRole->attachPermission($editAppsPermission);
         $adminRole->attachPermission($assignReviewewPermission);
 
-        $editorRole = Role::whereSlug('editor')->first();
         $editorRole->attachPermission($editAppsPermission);
         $editorRole->attachPermission($ratingsPermission);
         $editorRole->attachPermission($usersPermission);

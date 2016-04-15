@@ -4,6 +4,7 @@ namespace App;
 
 use App\Application;
 use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
+use Bican\Roles\Models\Role;
 use Bican\Roles\Traits\HasRoleAndPermission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -41,6 +42,14 @@ class User extends Authenticatable
             $role_names = $roles->pluck('name')->toArray();
             return comma_separate($role_names);
         }
+    }
+
+    public function assignRoleBySlug($slug)
+    {
+        $role = Role::where('slug', $slug)->first();
+        $this->attachRole($role);
+
+        return $this;
     }
 
     public function applications()
