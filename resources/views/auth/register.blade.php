@@ -55,9 +55,9 @@
         <div class="form-group">
             <div>
                 <select name="assign_role" id="assign_role" class="form-control">
-                    <option value="reader" selected>Reader</option>
-                    <option value="editor">Editor</option>
-                    <option value="admin">Admin</option>
+                    @foreach($roles as $role)
+                        <option value="{{$role->slug}}" {{isSelected('reader', $role->slug)}}>{{$role->name}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>

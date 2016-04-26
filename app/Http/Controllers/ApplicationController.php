@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Application;
-use App\ApplicationRepository;
 use App\CustomPaginator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Repositories\ApplicationRepository;
 use App\Session\SessionManager;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
 use Illuminate\Support\Facades\URL;
@@ -16,11 +17,11 @@ class ApplicationController extends Controller
 {
     protected $applications;
 
-
     public function __construct(ApplicationRepository $applications)
     {
         $this->applications = $applications;
         $this->middleware('admin', ['only' => ['delteAll']]);
+        $this->middleware('permission:edit.applications', ['only' => ['edit', 'update'] ]);
     }
 
     protected function formatResultsForTable($applications, $request)
@@ -32,18 +33,44 @@ class ApplicationController extends Controller
         return CustomPaginator::paginateCollection($request, $applications);
     }
 
-    public function index(Request $request)
+    public function search(Request $request, $terms)
     {
         SessionManager::setTableFilter($request);
-        $this->updatePPG($request);
-        
+        // $this->updatePPG($request);
+
+        $page_title = "Results for \"{$terms}\"";
+        $applications = $this->applications->search($terms);
+
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+        }
+
+        return view('applications.search', [
+            'applications' => $applications,
+            'page_title' => $page_title
+        ]);
+
+    }
+
+    public function index(Request $request)
+    {
+        if ($request->has('search')) {
+            return $this->search($request, $request->input('search'));
+        }
+
+        SessionManager::setTableFilter($request);
+
+        $page_title = "All Applications";
         $applications = $this->applications->allSubs();
 
         if ($applications->count() > 0) {
             $applications = $this->formatResultsForTable($applications, $request);
         }
 
-        return view('applications.index', compact('applications'));
+        return view('applications.index', [
+            'applications' => $applications,
+            'page_title' => $page_title
+        ]);
     }
 
     protected function isOffsetPage($request, $collection)
@@ -58,7 +85,7 @@ class ApplicationController extends Controller
     public function shortlisted(Request $request)
     {
         SessionManager::setTableFilter($request);
-        $this->updatePPG($request);
+        // $this->updatePPG($request);
 
         $applications = $this->applications->shortlistedSubs();
 
@@ -66,8 +93,17 @@ class ApplicationController extends Controller
             $applications = $this->formatResultsForTable($applications, $request);
         }
 
+        return view('applications.index', [
+            'applications' => $applications,
+            'page_title' => 'Shortlisted'
+        ]);
+    }
 
-        return view('applications.shortlisted', compact('applications'));
+    public function edit($application)
+    {
+        $application = $this->applications->find($application);
+        
+        return view('applications.edit', ['application' => $application]);
     }
 
 	public function show($id) 
@@ -132,8 +168,23 @@ class ApplicationController extends Controller
         return redirect('/applications');
     }
 
+    public function update(Request $request, $id)
+    {
+        $application = Application::find($id);        
+        $fields = $request->all();
+
+        unset($fields['_token']);
+
+        if (array_key_exists('new_lab_resources', $fields)) {
+            $fields['new_lab_resources'] = comma_separate($fields['new_lab_resources']);
+        }
+
+        return ($application->fill($fields)->update()) ? redirect("applications/{$application->id}/edit") : false;
+    }
+
     protected function updatePPG(Request $request)
     {
+        // dd($request->all(), $request->session()->previousUrl());
         $previous = session('posts_per_page');
         $current = ($request->has('posts_per_page')) ? $request->input('posts_per_page') : null;
 
@@ -142,8 +193,26 @@ class ApplicationController extends Controller
             $request->session()->put('posts_per_page', $current );
     
             if ($current !== $previous) {
-                return redirect($request->url());
+                return redirect()->back();
             }
         }
+    }
+
+    public function assignReviewers(Request $request, Application $application)
+    {
+        $this->validate($request, [ 'users' => 'required' ]);
+
+        if (! $request->user()->can('assign.reviewers')) {
+            return redirect()->back()->withErrors(['You are not allowed to assign reviewers']);
+        }
+
+        $users = collect($request->input('users'))->map(function($user) use ($application) {
+            $user = User::find($user);
+            $application->assignUserToApp($user);
+
+            return $user;
+        });
+
+        return redirect()->back();
     }
 }

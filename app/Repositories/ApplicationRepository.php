@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
 use App\Application;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +17,11 @@ class ApplicationRepository extends Model
         if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'submitted_on', 'direction' => 'desc']]);
 	}
 
+    public function find($id)
+    {
+        return Application::find($id);
+    }
+
     public function deleteAll()
     {
         $applications = Application::all();
@@ -25,6 +30,24 @@ class ApplicationRepository extends Model
             $application->ratings()->delete();
             $application->delete();
         }
+    }
+
+    public function search($terms)
+    {        
+        return Application::search($terms)->get();
+    }
+
+    public function applyUsersFilters($apps)
+    {
+        $user = request()->user();
+
+        if ($user->hasRole('reviewer')) {
+            $apps = $apps->filter(function($app) use ($user){
+                return $app->isAssignedToUser($user);
+            });
+        }
+
+        return $apps;
     }
 
     public function allSubs() 
@@ -41,6 +64,46 @@ class ApplicationRepository extends Model
         $apps = $this->appsFromQuery($array);
 
         return $apps;
+    }
+
+    public static function mergeWithColumnValues($column, $array)
+    {
+        $collection = collect($array);
+        return mergeCollections($collection, Application::all()->pluck($column));
+    }
+
+    public static function listDisciplines()
+    {
+        $control = ['A.I.', 'Connected Devices', 'Urban Tech', 'Nano Tech', 'Built Environment', 'Additive Tech', 'Energy', 'Life Sciences'];
+        return static::mergeWithColumnValues('discipline', $control);
+    }
+
+    public static function listMembershipTypes()
+    {
+        $control = ["Resident", "Resident Urban Tech", "Urban Tech", "Flex"];
+        return static::mergeWithColumnValues('membership_type', $control);
+    }
+
+    public static function listFundingStages()
+    {
+        $control = [];
+        return static::mergeWithColumnValues('funding_stage', $control);
+    }
+
+    public static function listResources()
+    {
+        $control = [];
+        $values = Application::all()
+            ->pluck('new_lab_resources')
+            ->map(function($item){
+                $values = array_filter(array_map('trim', explode(",", $item)));
+                $values = array_map('ucwords', $values);
+                return $values;
+            })
+            ->flatten()
+            ->unique();
+
+        return mergeCollections($values, collect($control));
     }
 
     public function submissions()
@@ -81,7 +144,10 @@ class ApplicationRepository extends Model
     protected function appsFromQuery($builder)
     {
         $apps = $this->addFilter($builder)->get();
-        return $this->mapArrayToCollection($apps);
+        $apps = $this->mapArrayToCollection($apps);
+        $apps = $this->applyUsersFilters($apps);
+        
+        return $apps;
     }
 
     protected function mapArrayToCollection($array)

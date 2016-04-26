@@ -1,4 +1,5 @@
-<form action="" method="GET" class="form-inline">
+<form action="{{url('applications/updatePPG')}}" method="POST" class="form-inline">
+	{{csrf_field()}}
 	<div class="form-group">
 		<label for="posts_per_page">Show</label>
 		<select name="posts_per_page" id="posts_per_page" class="form-control" onchange='this.form.submit()'>

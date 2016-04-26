@@ -3,7 +3,7 @@
 namespace App;
 
 use App\ApplicationFormatter;
-use App\ApplicationRepository;
+use App\Repositories\ApplicationRepository;
 use League\Csv\Reader;
 use League\Csv\Writer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

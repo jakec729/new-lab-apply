@@ -11,6 +11,8 @@ class ApplicationSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Application::class, 60)->create();
+    	if (App\Application::all()->count() <= 0) {
+	        factory(App\Application::class, 60)->create();
+    	}
     }
 }
