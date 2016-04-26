@@ -35,3 +35,7 @@ small {
 legend {
 	margin: 1em 0;
 }
+
+[data-row-select] {
+	cursor: pointer;
+}

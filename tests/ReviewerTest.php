@@ -105,6 +105,23 @@ class ReviewerTest extends TestCase
 		$this->assertEquals($application->combinedReviewers()->count(), 2);
 	}
 
+	public function test_repository_finds_remianing_reviewers()
+	{
+	    DB::table('users')->truncate();
+	    DB::table('role_user')->truncate();
+
+	    $app = $this->makeApp();
+	    $reviewer = $this->makeReviewer();
+
+	    $app->assignUserToApp($reviewer);
+
+	    $this->makeReviewer();
+	    $this->makeReviewer();
+
+	    $this->assertEquals(2, $app->remainingReviewers()->count());
+	}
+
+
 	// ERROR: Unreachable field, likely caused by javascript
 	
 	// public function test_assign_multiple_users_to_app()

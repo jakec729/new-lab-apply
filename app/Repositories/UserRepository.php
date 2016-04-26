@@ -1,6 +1,7 @@
 <?php 
 namespace App\Repositories;
 
+use App\Application;
 use App\User;
 
 class UserRepository

@@ -134,4 +134,10 @@ class Application extends Model
     {
         return $this->reviewers->contains($user);
     }
+
+    public function remainingReviewers()
+    {
+        return UserRepository::reviewers()->diff($this->reviewers);
+    }
+
 }

@@ -21,8 +21,8 @@
                                     <th>Email</th>
                                 </tr>
                             </thead>
-                            @foreach(App\Repositories\UserRepository::reviewers() as $reviewer)
-                                <tr>
+                            @foreach($application->remainingReviewers() as $reviewer)
+                                <tr data-row-select>
                                     <td><input type="checkbox" name="users[]" id="input_user_{{$reviewer->id}}" value="{{$reviewer->id}}"></td>
                                     <td>{{$reviewer->name}}</td>
                                     <td>{{$reviewer->email}}</td>
