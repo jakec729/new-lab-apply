@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@inject('applications_rep', 'App\ApplicationRepository')
+@inject('applications_rep', 'App\Repositories\ApplicationRepository')
 
 @section('content')
     <div class="container-fluid submissions">

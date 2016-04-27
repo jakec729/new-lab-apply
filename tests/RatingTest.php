@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RatingTest extends TestCase
 {
+	use DatabaseTransactions;
 
 	protected function makeAdmin()
 	{

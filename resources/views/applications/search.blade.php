@@ -3,7 +3,7 @@
 @section('title', $page_title)
 
 @section('body')
-	@include('applications.partials.table')
+	@include('applications.partials.table-nofilter')
 @endsection
 
 @section('controls')

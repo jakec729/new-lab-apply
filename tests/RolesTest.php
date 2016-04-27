@@ -1,6 +1,7 @@
 <?php
 
 use App\Application;
+use App\Repositories\UserRepository;
 use App\User;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
@@ -11,41 +12,6 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 class RolesTest extends TestCase
 {
 	use DatabaseTransactions;
-
-	protected function makeReader()
-	{
-		$user = factory(User::class)->create();
-		$role = Role::where('slug', 'reader')->first();
-		$user->attachRole($role);
-		$user = $user->fresh();
-
-		return $user;
-	}
-
-	protected function makeEditor()
-	{
-		$user = factory(User::class)->create();
-		$role = Role::where('slug', 'editor')->first();
-		$user->attachRole($role);
-		$user = $user->fresh();
-
-		return $user;
-	}
-
-	protected function makeAdmin()
-	{
-		$user = factory(User::class)->create();
-		$role = Role::where('slug', 'admin')->first();
-		$user->attachRole($role);
-		$user = $user->fresh();
-
-		return $user;
-	}
-
-	protected function makeUser()
-	{
-		return factory(App\User::class)->create();
-	}
 
 	public function testReaderCantRateApplications()
 	{
@@ -88,8 +54,7 @@ class RolesTest extends TestCase
 		$admin = $this->makeAdmin();		
 		$reader = $this->makeReader();
 		$user = $this->makeUser();	
-
-		$application = factory(Application::class)->create();
+		$application = $this->makeApp();
 
 		$this->actingAs($editor)
 			 ->visit("/applications/{$application->id}")
@@ -115,7 +80,6 @@ class RolesTest extends TestCase
 		$user = $this->makeUser();
 
 		// MAKE TEST TO HIDE ADMIN RATINGS
-		
 		$application = factory(Application::class)->create();
 		$application->addRating(5, $editor->id);
 

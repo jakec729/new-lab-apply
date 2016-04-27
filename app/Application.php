@@ -3,10 +3,13 @@
 namespace App;
 
 use App\Comment;
+use App\Repositories\UserRepository;
 use App\Traits\MoreRateable;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use willvincent\Rateable\Rateable;
 use willvincent\Rateable\Rating;
 
@@ -14,6 +17,7 @@ class Application extends Model
 {
     use Rateable;
 	use MoreRateable;
+    use SearchableTrait;
 
     protected $dates = ['created_at', 'updated_at', 'submitted_on'];
 
@@ -38,8 +42,18 @@ class Application extends Model
         'text_community' 
     ];
 
-    protected $appends = [ 'rating' ];
-    protected $hidden = [ 'ratings' ];
+    protected $searchable = [
+           'columns' => [
+               'applications.first_name' => 10,
+               'applications.last_name' => 10,
+               'applications.company' => 10,
+               'applications.email' => 5,
+               'applications.website' => 5,
+           ]
+       ];
+
+    protected $appends = ['rating'];
+    protected $hidden = ['ratings'];
 
     public function getNameAttribute()
     {
@@ -62,19 +76,8 @@ class Application extends Model
             'Large: '
         ];
 
-        // if (!empty($value)) {
-            $value = str_replace($categories, "", $value);
-        // } else {
-        //     $value = 'n/a';
-        // }
-
-        return $value;
+        return str_replace($categories, "", $value);
     }
-
-    // public function getMembershipTypeAttribute($value)
-    // {
-    //     return (!empty($value)) ? $value : 'n/a';
-    // }
 
     public function getWebsiteAttribute($value) 
     {
@@ -111,4 +114,30 @@ class Application extends Model
         $comment->body = $body;
         $comment->save();
     }
+
+    public function reviewers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function combinedReviewers()
+    {
+        return UserRepository::editors()->merge($this->reviewers);
+    }
+
+    public function assignUserToApp(User $user)
+    {
+        $this->reviewers()->save($user);
+    }
+
+    public function isAssignedToUser(User $user)
+    {
+        return $this->reviewers->contains($user);
+    }
+
+    public function remainingReviewers()
+    {
+        return UserRepository::reviewers()->diff($this->reviewers);
+    }
+
 }

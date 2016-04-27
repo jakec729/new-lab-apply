@@ -12,7 +12,11 @@
         "willvincent/laravel-rateable": "^1.0",
         "fzaninotto/faker": "~1.4",
         "doctrine/dbal": "^2.5",
+<<<<<<< HEAD
         "phpunit/phpunit": "^5.3"
+=======
+        "nicolaslopezj/searchable": "^1.7"
+>>>>>>> 68723c5f11f4b68955a4707087e744ffffcf1a54
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

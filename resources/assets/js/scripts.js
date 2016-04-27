@@ -7,6 +7,12 @@ $rows.each(function(){
 	});
 });
 
+$('[data-row-select]').each(function() {
+	$(this).on('click', function() {
+		$(this).find('input[type="checkbox"]').click();
+	});
+});
+
 $confirm = $('[data-confirm]');
 
 $confirm.each(function(){

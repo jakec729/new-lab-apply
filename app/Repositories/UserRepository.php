@@ -1,19 +1,29 @@
 <?php 
 namespace App\Repositories;
 
+use App\Application;
 use App\User;
 
 class UserRepository
 {
-	public function allUsers()
+	public static function allUsers()
 	{
 		return User::all();
 	}
 
-	public function reviewers()
+	public static function editors()
 	{
-		return $this->allUsers()->filter(function($user){
-			return ($user->can('create.ratings') && ! $user->hasRole('admin'));
+		return User::whereHas('roles', function($query){
+			$query->where('slug', 'editor');
+		})->get();
+	}
+
+	public static function reviewers()
+	{
+		$users = User::all()->filter(function($user){
+			return ( $user->can('create.ratings') && ! $user->is('admin') );
 		});
+
+		return $users;
 	}
 }
