@@ -161,12 +161,12 @@ class ApplicationController extends Controller
         return redirect($previous . "#app__ratings");
     }
 
-    public function deleteAll()
-    {
-        $this->applications->deleteAll();
+    // public function deleteAll()
+    // {
+    //     $this->applications->deleteAll();
 
-        return redirect('/applications');
-    }
+    //     return redirect('/applications');
+    // }
 
     public function update(Request $request, $id)
     {

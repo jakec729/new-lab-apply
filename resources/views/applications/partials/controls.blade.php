@@ -32,9 +32,6 @@
 </div>
 @if(Auth::user()->hasRole('admin'))
     <div class="hidden-xs hidden-sm">
-        <a href="{{url('/applications/deleteAll')}}" class="btn btn-primary" data-confirm>Clear Database</a>
-    </div>
-    <div class="hidden-xs hidden-sm">
         <a href="{{url("/files/import")}}" class="btn btn-primary">Import CSV</a>
     </div>
 @endif
