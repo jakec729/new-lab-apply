@@ -58,6 +58,13 @@ class ApplicationRepository extends Model
         return $apps;
     }
 
+    public function shortlisted()
+    {
+        return Application::has('ratings')->get()->filter(function($app){
+            return $app->rating >= 3;
+        });
+    }
+
     public function shortlistedSubs() 
     {
         $array = $this->shortlistedSubmissionsWithAvgRating();
@@ -138,7 +145,7 @@ class ApplicationRepository extends Model
                    ->join('ratings', 'applications.id', '=', 'ratings.rateable_id')
                    ->addSelect(DB::raw('AVG(ratings.rating) as average_rating'))
                    ->groupBy('applications.id')
-                   ->havingRaw(DB::raw('AVG(ratings.rating) > 0'));
+                   ->havingRaw(DB::raw('AVG(ratings.rating) >= 3'));
     }
 
     protected function appsFromQuery($builder)
