@@ -130,6 +130,22 @@ class Application extends Model
         $this->reviewers()->save($user);
     }
 
+    public function assignUsersToApp($users)
+    {
+        if (is_array($users)) {
+
+            $users = collect($users)->map(function($id){
+                return User::find($id);
+            });
+
+            // dd($users);
+
+            foreach ($users as $user) {
+                $this->reviewers()->save($user);
+            }
+        }
+    }
+
     public function isAssignedToUser(User $user)
     {
         return $this->reviewers->contains($user);

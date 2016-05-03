@@ -198,6 +198,26 @@ class ApplicationController extends Controller
         }
     }
 
+    public function assignReviewersToApps(Request $request)
+    {
+        $this->validate($request, [ 'users' => 'required' ]);
+
+        if (! $request->user()->can('assign.reviewers')) {
+            return redirect()->back()->withErrors(['You are not allowed to assign reviewers']);
+        }
+
+        $users = $request->input('users');
+        $apps = $request->input('app_ids');
+        $apps = (! is_array($apps)) ? explode(',', $apps) : $apps;
+
+        foreach ($apps as $app) {
+            $app = Application::find($app);
+            $app->assignUsersToApp($users);
+        }
+
+        return redirect()->back();
+    }
+
     public function assignReviewers(Request $request, Application $application)
     {
         $this->validate($request, [ 'users' => 'required' ]);

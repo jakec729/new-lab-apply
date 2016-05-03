@@ -18,6 +18,9 @@
         </div>
     </form>
 </div>
+<div>
+    @include('applications.partials.modal-multiple-assign-reviewers')
+</div>
 <div class="hidden-xs hidden-sm">
     <form action="/applications/download" method="POST" class="form-inline">
         {{csrf_field()}}

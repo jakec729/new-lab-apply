@@ -1,8 +1,9 @@
 @if($applications->count() > 0)
-<form action="" method="GET">
 <table class="table table-striped table-hover" id="submissions-table">
 	<thead>
 		<tr>
+		<form action="" method="GET">
+			<th></th>
 			<th>
 				<label for="tableSortBy_date"><i class="fa fa-sort"></i>&ensp;Date</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_date" value="submitted_on" onchange="this.form.submit()"></input>
@@ -36,19 +37,21 @@
 				<label for="tableSortBy_avg"><i class="fa fa-sort"></i>&ensp;Avg.</label>
 				<input type="checkbox" name="tableSortBy" id="tableSortBy_avg" value="average_rating" onchange="this.form.submit()"></input>
 			</th>
+			</form>
 		</tr>
 	</thead>
 	<tbody>
 		@foreach ($applications as $applicant)
 			<tr data-single-link="{{url("/applications/{$applicant->id}")}}">
-				<td>{{$applicant->submitted_on->format('m-d-y')}}</td>
-				<td><a href="{{url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
-				<td><a href="{{ $applicant->website }}">{{ $applicant->company }}&nbsp;></a></td>
-				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->discipline}}</td>
-				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->desks}}</td>
-				<td class="hidden-xs hidden-sm hidden-md">{{$applicant->membership_type}}</td>
-				<td class="hidden-xs hidden-sm hidden-md">{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
-				<td class="hidden-xs hidden-sm hidden-md">
+				<td><input type="checkbox" name="app_ids[]" value="{{$applicant->id}}" id="table_app_id_{{$applicant->id}}"></td>
+				<td data-trigger>{{$applicant->submitted_on->format('m-d-y')}}</td>
+				<td data-trigger><a href="{{url("/applications/{$applicant->id}")}}">{{ $applicant->name }}</a></td>
+				<td data-trigger><a href="{{ $applicant->website }}">{{ $applicant->company }}&nbsp;></a></td>
+				<td data-trigger class="hidden-xs hidden-sm hidden-md">{{$applicant->discipline}}</td>
+				<td data-trigger class="hidden-xs hidden-sm hidden-md">{{$applicant->desks}}</td>
+				<td data-trigger class="hidden-xs hidden-sm hidden-md">{{$applicant->membership_type}}</td>
+				<td data-trigger class="hidden-xs hidden-sm hidden-md">{{ str_limit($applicant->text_pitch, $limit = 200, $end = '...') }}</td>
+				<td data-trigger class="hidden-xs hidden-sm hidden-md">
 					@if ($applicant->alreadyRated())
 						@if ($applicant->userRating < 1)
 							<i class="fa fa-close"></i>
@@ -61,7 +64,7 @@
 						Unrated
 					@endif
 				</td>
-				<td>
+				<td data-trigger>
 					@if ($applicant->rating > 0)
 						@for ($i = 0; $i < $applicant->rating; $i++)
 					        <i class="fa fa-star"></i>
@@ -75,7 +78,6 @@
 		@endforeach
 	</tbody>
 </table>
-</form>
 @else
 	<br>
 	<p>No Applications to show.</p>

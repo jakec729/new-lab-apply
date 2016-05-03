@@ -1,6 +1,8 @@
 <?php
 
+use App\Application;
 use Bican\Roles\Models\Role;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -25,6 +27,22 @@ class ReviewerTest extends TestCase
 		$this->assertEquals($apps->first()->id, $app->id);
 	}
 
+	public function test_can_assign_multiple_reviewers_to_apps()
+	{
+		$reviewers = [];
+
+		for ($i=0; $i < 5; $i++) { 
+			$reviewer = $this->makeReviewer();
+			$reviewers[] = $reviewer->id;
+		}
+
+		$app = $this->makeApp();
+		$app->assignUsersToApp($reviewers);
+		$assigned = $app->reviewers;
+
+		$this->assertEquals($assigned->pluck('id')->toArray(), $reviewers);
+	}
+
 	public function test_can_assign_apps_to_reviewers()
 	{
 		$reviewer = $this->makeReviewer();
@@ -46,6 +64,30 @@ class ReviewerTest extends TestCase
 		$this->assertTrue($app->isAssignedToUser($reviewer));
 		$this->assertFalse($app->isAssignedToUser($user));
 	}
+
+	// public function test_multiple_app_multiple_users_form()
+	// {
+	// 	DB::table('applications')->truncate();
+
+	// 	$app_a = $this->makeApp();
+	// 	$app_b = $this->makeApp();
+	// 	$reviewer_a = $this->makeReviewer();
+	// 	$reviewer_b = $this->makeReviewer();
+	// 	$admin = $this->makeAdmin();
+	// 	$reviewers = collect([$reviewer_a, $reviewer_b]);
+	// 	$reviewer_ids = $reviewers->pluck('id');
+
+	// 	$this->actingAs($admin)
+	// 		 ->visit('applications')
+	// 		 ->check("table_app_id_{$app_a->id}")
+	// 		 ->check("table_app_id_{$app_b->id}")
+	// 		 ->check("input_user_{$reviewer_a->id}")
+	// 		 ->check("input_user_{$reviewer_b->id}")
+	// 		 ->press('Confirm Reviewers');
+
+	// 	$this->assertEquals($app_a->reviewers->pluck('id'), $reviewer_ids);
+	// 	$this->assertEquals($app_b->reviewers->pluck('id'), $reviewer_ids);
+	// }
 
 	public function test_reviewers_can_only_see_assigned_apps()
 	{

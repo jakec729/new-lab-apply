@@ -39,7 +39,7 @@ Route::group(['middleware' => ['web', 'auth']], function() {
     Route::get('/applications', 'ApplicationController@index');
     Route::post('/applications/updatePPG', 'ApplicationController@updatePPG');
     Route::get('/applications/shortlisted', 'ApplicationController@shortlisted');
-    Route::get('/applications/deleteAll', 'ApplicationController@deleteAll');
+    Route::post('/applications/assignReviewersToApps', 'ApplicationController@assignReviewersToApps');
     Route::get('/applications/{applications}', 'ApplicationController@show');
     Route::get('/applications/{applications}/edit', 'ApplicationController@edit');
     Route::post('/applications/{applications}/edit', 'ApplicationController@update');

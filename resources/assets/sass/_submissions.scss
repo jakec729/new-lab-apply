@@ -242,16 +242,20 @@
  	td {
  		width: (75/9 + 0%);
 
- 		&:nth-child(7) {
- 			width: 25%;
+ 		&:first-of-type {
+ 			width: 2%;
  		}
 
  		&:nth-child(8) {
+ 			width: 25%;
+ 		}
+
+ 		&:nth-child(9) {
  			border-right: 1px solid white;
  		}
 
- 		&:nth-child(8),
- 		&:nth-child(9) {
+ 		&:nth-child(9),
+ 		&:nth-child(10) {
  			background-color: rgba(0,0,0,0.1);
  		}
  	}
