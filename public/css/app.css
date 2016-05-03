@@ -8223,11 +8223,13 @@ legend {
 
 #submissions-table td {
   width: 8.3333333333%; }
-  #submissions-table td:nth-child(7) {
-    width: 25%; }
+  #submissions-table td:first-of-type {
+    width: 2%; }
   #submissions-table td:nth-child(8) {
+    width: 25%; }
+  #submissions-table td:nth-child(9) {
     border-right: 1px solid white; }
-  #submissions-table td:nth-child(8), #submissions-table td:nth-child(9) {
+  #submissions-table td:nth-child(9), #submissions-table td:nth-child(10) {
     background-color: rgba(0, 0, 0, 0.1); }
 
 .comments textarea {
@@ -8250,5 +8252,8 @@ legend {
   .comment__text {
     color: #666666;
     font-family: Georgia; }
+
+.modal {
+  text-align: left; }
 
 /*# sourceMappingURL=app.css.map */

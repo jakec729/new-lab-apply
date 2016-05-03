@@ -18,6 +18,9 @@
         </div>
     </form>
 </div>
+<div>
+    @include('applications.partials.modal-multiple-assign-reviewers')
+</div>
 <div class="hidden-xs hidden-sm">
     <form action="/applications/download" method="POST" class="form-inline">
         {{csrf_field()}}
@@ -31,9 +34,6 @@
     </form>
 </div>
 @if(Auth::user()->hasRole('admin'))
-    <div class="hidden-xs hidden-sm">
-        <a href="{{url('/applications/deleteAll')}}" class="btn btn-primary" data-confirm>Clear Database</a>
-    </div>
     <div class="hidden-xs hidden-sm">
         <a href="{{url("/files/import")}}" class="btn btn-primary">Import CSV</a>
     </div>

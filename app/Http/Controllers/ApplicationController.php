@@ -161,12 +161,12 @@ class ApplicationController extends Controller
         return redirect($previous . "#app__ratings");
     }
 
-    public function deleteAll()
-    {
-        $this->applications->deleteAll();
+    // public function deleteAll()
+    // {
+    //     $this->applications->deleteAll();
 
-        return redirect('/applications');
-    }
+    //     return redirect('/applications');
+    // }
 
     public function update(Request $request, $id)
     {
@@ -196,6 +196,26 @@ class ApplicationController extends Controller
                 return redirect()->back();
             }
         }
+    }
+
+    public function assignReviewersToApps(Request $request)
+    {
+        $this->validate($request, [ 'users' => 'required' ]);
+
+        if (! $request->user()->can('assign.reviewers')) {
+            return redirect()->back()->withErrors(['You are not allowed to assign reviewers']);
+        }
+
+        $users = $request->input('users');
+        $apps = $request->input('app_ids');
+        $apps = (! is_array($apps)) ? explode(',', $apps) : $apps;
+
+        foreach ($apps as $app) {
+            $app = Application::find($app);
+            $app->assignUsersToApp($users);
+        }
+
+        return redirect()->back();
     }
 
     public function assignReviewers(Request $request, Application $application)
