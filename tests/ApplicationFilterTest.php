@@ -1,6 +1,7 @@
 <?php
 
 use App\Application;
+use App\Repositories\ApplicationRepository;
 use App\User;
 use Bican\Roles\Models\Role;
 use Faker\Generator;
@@ -45,6 +46,23 @@ class ApplicationFilterTest extends TestCase
 		$this->actingAs($admin)
 			 ->visit('/applications?tableSortBy=last_name')
 			 ->see($first);
+	}
+
+	public function test_shortlisted_shows_only_3_stars()
+	{
+		DB::table('applications')->truncate();
+		$app = $this->makeApp();
+		$app2 = $this->makeApp();
+		$editor = $this->makeEditor();
+
+		$app->addRating(5, $editor);
+		$app2->addRating(2, $editor);
+
+		$shortlisted = new ApplicationRepository;
+		$shortlisted = $shortlisted->shortlisted();
+
+		$this->assertTrue($shortlisted->contains($app));
+		$this->assertFalse($shortlisted->contains($app2));
 	}
 
 }
