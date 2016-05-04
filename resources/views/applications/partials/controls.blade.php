@@ -18,9 +18,13 @@
         </div>
     </form>
 </div>
-<div>
-    @include('applications.partials.modal-multiple-assign-reviewers')
-</div>
+@permission('assign.reviewers')
+    @if(App\Repositories\UserRepository::reviewers()->count() > 0)
+        <div>
+            @include('applications.partials.modal-multiple-assign-reviewers')
+        </div> 
+    @endif
+@endpermission
 <div class="hidden-xs hidden-sm">
     <form action="/applications/download" method="POST" class="form-inline">
         {{csrf_field()}}
