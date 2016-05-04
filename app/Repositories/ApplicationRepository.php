@@ -13,7 +13,7 @@ class ApplicationRepository extends Model
 {
 	public function __construct()
 	{
-        if(! session('posts_per_page')) session(['posts_per_page' => 20]);
+        if(! session('posts_per_page')) session(['posts_per_page' => 50]);
         if(! session('tableSortBy')) session(['tableSortBy' => ['column' => 'submitted_on', 'direction' => 'desc']]);
 	}
 

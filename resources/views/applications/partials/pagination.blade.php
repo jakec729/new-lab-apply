@@ -3,9 +3,9 @@
 	<div class="form-group">
 		<label for="posts_per_page">Show</label>
 		<select name="posts_per_page" id="posts_per_page" class="form-control" onchange='this.form.submit()'>
-			<option value="5" {{ (session('posts_per_page') == 5) ? "selected" : null }}>5</option>
-			<option value="10" {{ (session('posts_per_page') == 10) ? "selected" : null }}>10</option>
-			<option value="20" {{ (session('posts_per_page') == 20) ? "selected" : null }}>20</option>
+			<option value="50" {{ (session('posts_per_page') == 50) ? "selected" : null }}>50</option>
+			<option value="100" {{ (session('posts_per_page') == 100) ? "selected" : null }}>100</option>
+			<option value="200" {{ (session('posts_per_page') == 200) ? "selected" : null }}>200</option>
 		</select>
 	</div>
 </form>
