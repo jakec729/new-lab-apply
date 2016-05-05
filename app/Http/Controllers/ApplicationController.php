@@ -33,25 +33,29 @@ class ApplicationController extends Controller
     {
         SessionManager::setTableFilter($request);
 
-        $page_title = "Results for \"{$terms}\"";
         $applications = $this->applications->search($terms);
         $applications = $this->formatResultsForTable($applications, $request);
 
         return view('applications.search', [
             'applications' => $applications,
-            'page_title' => $page_title
+            'page_title' => "Results for \"{$terms}\""
         ]);
 
     }
 
     public function index(Request $request)
     {
+        // 1. If it's a search perform the search
+        // 2. Get the apps
+        // 3. Paginate Apps
+        // 4. Redirect to page 1 if requested page isn't available
+        // 5. Render view
+        
         if ($request->has('search')) {
             return $this->search($request, $request->input('search'));
         }
 
         SessionManager::setTableFilter($request);
-        $page_title = "All Applications";
         
         $applications = $this->applications->allSubs();
         $applications = $this->formatResultsForTable($applications, $request);
@@ -62,7 +66,7 @@ class ApplicationController extends Controller
 
         return view('applications.index', [
             'applications' => $applications,
-            'page_title' => $page_title
+            'page_title' => "All Applications"
         ]);
     }
 
