@@ -122,6 +122,7 @@ class ReviewerTest extends TestCase
 	{
 		$admin = $this->makeAdmin();
 		$user = $this->makeUser();
+		$reviewer = $this->makeReviewer();
 		$app = $this->makeApp();
 
 		$this->actingAs($admin)

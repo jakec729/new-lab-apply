@@ -34,7 +34,14 @@ class ApplicationController extends Controller
         SessionManager::setTableFilter($request);
 
         $applications = $this->applications->search($terms);
-        $applications = $this->formatResultsForTable($applications, $request);
+
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+
+            if (! $applications) {
+                return redirect($request->url() . "?search={$terms}");
+            }
+        }
 
         return view('applications.search', [
             'applications' => $applications,
@@ -45,12 +52,6 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        // 1. If it's a search perform the search
-        // 2. Get the apps
-        // 3. Paginate Apps
-        // 4. Redirect to page 1 if requested page isn't available
-        // 5. Render view
-        
         if ($request->has('search')) {
             return $this->search($request, $request->input('search'));
         }
@@ -58,10 +59,13 @@ class ApplicationController extends Controller
         SessionManager::setTableFilter($request);
         
         $applications = $this->applications->allSubs();
-        $applications = $this->formatResultsForTable($applications, $request);
 
-        if (! $applications) {
-            return redirect($request->url());
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+
+            if (! $applications) {
+                return redirect($request->url());
+            }
         }
 
         return view('applications.index', [
@@ -79,10 +83,13 @@ class ApplicationController extends Controller
         SessionManager::setTableFilter($request);
 
         $applications = $this->applications->shortlistedSubs();
-        $applications = $this->formatResultsForTable($applications, $request);
 
-        if (! $applications) {
-            return redirect($request->url());
+        if ($applications->count() > 0) {
+            $applications = $this->formatResultsForTable($applications, $request);
+
+            if (! $applications) {
+                return redirect($request->url());
+            }
         }
 
         return view('applications.index', [

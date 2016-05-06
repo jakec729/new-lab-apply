@@ -8,14 +8,6 @@ class SearchTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	protected function makeAdmin()
-	{
-	    $user = factory(App\User::class)->create();
-	    $user->attachRole('admin');
-
-	    return $user;
-	}
-
 	public function testFormSubmitsToCorrectUrl()
 	{
 		$admin = $this->makeAdmin();
@@ -25,6 +17,15 @@ class SearchTest extends TestCase
 			 ->type('Test', 'search')
 			 ->press('Search')
 			 ->seePageIs('/applications?search=Test');
+	}
+
+	public function testSearchPage()
+	{
+		$admin = $this->makeAdmin();
+
+		$this->actingAs($admin)
+			 ->visit('/applications?search=Test')
+			 ->see("Results for \"Test\"");
 	}
 
 	public function test_changing_posts_per_page_keeps_search_results()
@@ -80,16 +81,4 @@ class SearchTest extends TestCase
 			 ->press('Search')
 			 ->see("applications/{$application->id}");
 	}
-
-	public function testSearchPage()
-	{
-		$admin = $this->makeAdmin();
-
-		$this->actingAs($admin)
-			 ->visit('/applications?search=Test')
-			 ->see("Results for \"Test\"");
-	}
-
-	// Test for Pagination of results
-	// Test for updating posts per page
 }
