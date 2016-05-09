@@ -42,8 +42,9 @@ class EditUsersTest extends TestCase
 		$editor = $this->makeEditor();
 		$user = $this->makeUser();
 
-		$this->visit("users/{$user->id}")
-			 ->select("reviewer", "roles")
+		$this->actingAs($editor)
+			 ->visit("users/{$user->id}")
+			 ->select("reviewer", "user_roles")
 			 ->press("Update Role");
 
 		$this->assertTrue($user->fresh()->hasRole('reviewer'));

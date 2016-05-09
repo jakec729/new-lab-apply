@@ -44,6 +44,19 @@ class UserController extends Controller
     	return view('users.show', compact('user', 'roles'));
     }
 
+    public function update(Request $request, User $user)
+    {
+        if (! $this->authorize('update', $user)) {
+            return redirect()->back()->withErrors(['Not Authorized.']);
+        }
+
+        if ($request->has('user_roles')) {
+            $user->assignRoleBySlug($request->input('user_roles'));
+        }
+
+        return redirect()->back();
+    }
+
     public function changePassword(Request $request, $id)
     {
     	$this->validate($request, [ 
@@ -67,6 +80,5 @@ class UserController extends Controller
     	$user->save();
 
     	return redirect()->back();
-    	
     }
 }

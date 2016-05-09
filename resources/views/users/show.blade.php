@@ -12,13 +12,24 @@
 				<p><a href="mailto:{{$user->email}}">{{$user->email}}</a></p>
         	</header>
         	<section>
-        		<form action="/users/{{$user->id}}/" class="form auth--panel" method="POST">
+        		<form action="/users/{{$user->id}}" class="form auth--panel" method="POST">
         			{{csrf_field()}}
-        			<select name="roles" id="user_roles" class="form-control">
-        				@foreach($roles as $role)
-        					<option value="{{$role->slug}}">{{$role->name}}</option>
-        				@endforeach
-        			</select>
+        			<div class="form-group">
+	        			<select name="user_roles" id="user_roles" class="form-control">
+	        				@foreach($roles as $role)
+	        					<option value="{{$role->slug}}"
+	        					 @if($user->hasRole($role->slug))
+	        					 	{{"selected"}}
+	        					 @endif
+	        					>
+	        						{{$role->name}}
+	        					</option>
+	        				@endforeach
+	        			</select>
+        			</div>
+        			<div class="form-group">
+        				<input type="submit" class="btn btn-default btn-block" value="Update Role">
+        			</div>
         		</form>
         	</section>
 			<section>
@@ -26,7 +37,7 @@
 				<h4>Change Password</h4>
 				<br>
 				@include('common.errors')
-				<form action="" method="POST" class="form auth--panel">
+				<form action="/users/{{$user->id}}/updatePassword" method="POST" class="form auth--panel">
 					{{csrf_field()}}
 					<div class="form-group">
 						<input class="form-control" type="password" name="password" placeholder="Password">
