@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\User;
+use Bican\Roles\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,7 +33,15 @@ class UserController extends Controller
             return redirect('/');
         }
 
-    	return view('users.show', compact('user'));
+        $roles = Role::all();
+
+        if (! $user->hasRole('admin')) {
+            $roles->filter(function($role){
+                return $role->slug !== "admin";
+            });
+        }
+
+    	return view('users.show', compact('user', 'roles'));
     }
 
     public function changePassword(Request $request, $id)

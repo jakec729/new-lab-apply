@@ -11,6 +11,16 @@
 				<h1>Hello, {{ $user->name }}</h1>
 				<p><a href="mailto:{{$user->email}}">{{$user->email}}</a></p>
         	</header>
+        	<section>
+        		<form action="/users/{{$user->id}}/" class="form auth--panel" method="POST">
+        			{{csrf_field()}}
+        			<select name="roles" id="user_roles" class="form-control">
+        				@foreach($roles as $role)
+        					<option value="{{$role->slug}}">{{$role->name}}</option>
+        				@endforeach
+        			</select>
+        		</form>
+        	</section>
 			<section>
 				<br>
 				<h4>Change Password</h4>
