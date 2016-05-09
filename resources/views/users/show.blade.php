@@ -12,6 +12,8 @@
 				<p><a href="mailto:{{$user->email}}">{{$user->email}}</a></p>
         	</header>
         	<section>
+        		<h4>Update Role</h4>
+        		@include('common.errors')
         		<form action="/users/{{$user->id}}" class="form auth--panel" method="POST">
         			{{csrf_field()}}
         			<div class="form-group">

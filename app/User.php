@@ -7,6 +7,7 @@ use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 use Bican\Roles\Models\Role;
 use Bican\Roles\Traits\HasRoleAndPermission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -65,6 +66,11 @@ class User extends Authenticatable
     public function assignedApps()
     {
         return $this->applications;
+    }
+
+    public function checkPassword($password)
+    {
+        return Hash::check($password, $this->password);
     }
 
 }
