@@ -24,30 +24,25 @@ class ApplicationController extends Controller
         $this->middleware('permission:edit.applications', ['only' => ['edit', 'update'] ]);
     }
 
-    protected function formatResultsForTable($applications, $request)
+    public function formatApps($applications, $request)
     {
-        return ($applications->count() > 0) ? CustomPaginator::create($request, $applications) : false;
+        return ($applications->count() > 0) ? CustomPaginator::create($request, $applications) : $applications;
     }
 
     public function search(Request $request, $terms)
     {
         SessionManager::setTableFilter($request);
-
         $applications = $this->applications->search($terms);
+        $applications = $this->formatApps($applications, $request);
 
-        if ($applications->count() > 0) {
-            $applications = $this->formatResultsForTable($applications, $request);
-
-            if (! $applications) {
-                return redirect($request->url() . "?search={$terms}");
-            }
+        if (! $applications) {
+            return redirect($request->url() . "?search={$terms}");
         }
 
         return view('applications.search', [
             'applications' => $applications,
             'page_title' => "Results for \"{$terms}\""
         ]);
-
     }
 
     public function index(Request $request)
@@ -57,15 +52,11 @@ class ApplicationController extends Controller
         }
 
         SessionManager::setTableFilter($request);
-        
         $applications = $this->applications->allSubs();
+        $applications = $this->formatApps($applications, $request);
 
-        if ($applications->count() > 0) {
-            $applications = $this->formatResultsForTable($applications, $request);
-
-            if (! $applications) {
-                return redirect($request->url());
-            }
+        if (! $applications) {
+            return redirect($request->url());
         }
 
         return view('applications.index', [
@@ -81,15 +72,11 @@ class ApplicationController extends Controller
         }
 
         SessionManager::setTableFilter($request);
-
         $applications = $this->applications->shortlistedSubs();
+        $applications = $this->formatApps($applications, $request);
 
-        if ($applications->count() > 0) {
-            $applications = $this->formatResultsForTable($applications, $request);
-
-            if (! $applications) {
-                return redirect($request->url());
-            }
+        if (! $applications) {
+            return redirect($request->url());
         }
 
         return view('applications.index', [

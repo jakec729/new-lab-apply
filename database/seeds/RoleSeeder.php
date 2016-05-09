@@ -110,6 +110,7 @@ class RoleSeeder extends Seeder
         $editorRole->attachPermission($editAppsPermission);
         $editorRole->attachPermission($ratingsPermission);
         $editorRole->attachPermission($usersPermission);
+        $editorRole->attachPermission($assignReviewewPermission);
 
     }
 }
