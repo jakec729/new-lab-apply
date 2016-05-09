@@ -45,6 +45,13 @@ class ApplicationController extends Controller
         ]);
     }
 
+    public function checkForSearch(Request $request)
+    {
+        if ($request->has('search')) {
+            return $this->search($request, $request->input('search'));
+        }
+    }
+
     public function index(Request $request)
     {
         if ($request->has('search')) {

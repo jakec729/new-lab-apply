@@ -26,11 +26,11 @@ class UserController extends Controller
 
     public function profile(Request $request, $id)
     {
-    	if ($request->user()->id !== (int) $id) {
-    		return redirect('/');
-    	}
-
     	$user = User::findOrFail($id);
+
+        if (! $this->authorize('update', $user) ) {
+            return redirect('/');
+        }
 
     	return view('users.show', compact('user'));
     }
