@@ -103,18 +103,26 @@ class ApplicationController extends Controller
 	{
         $applications = $this->applications->allSubs();
 
-        $app_key = $applications->search(function($item, $key) use ($id) {
-            return $item->id == $id;
+        $app_key = $applications->search(function($app) use ($id) {
+            return $app->id == $id;
         });
 
-        $application = (isset($app_key)) ? $applications[$app_key] : null;
-        $next = ($applications[$app_key + 1]) ? $applications[$app_key + 1]->id : null;
-        $previous = ($app_key - 1 >= 0 && $applications[$app_key - 1]) ? $applications[$app_key - 1]->id : null;
+        if ($app_key === false) {
+            return redirect('/');
+        }
+
+        $application = $applications[$app_key];
+        $next = (isset($applications[$app_key + 1])) ? $applications[$app_key + 1] : null;
+        $prev = (isset($applications[$app_key - 1])) ? $applications[$app_key - 1] : null;
+
+        $application = $applications[$app_key];
+        $next = (isset($applications[$app_key + 1])) ? $applications[$app_key + 1] : null;
+        $prev = (isset($applications[$app_key - 1])) ? $applications[$app_key - 1] : null;
 
         return view('applications.show', [
             'application' => $application,
             'next' => $next,
-            'previous' => $previous,
+            'previous' => $prev,
         ]);
     }
 

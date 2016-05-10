@@ -65,29 +65,20 @@ class ReviewerTest extends TestCase
 		$this->assertFalse($app->isAssignedToUser($user));
 	}
 
-	// public function test_multiple_app_multiple_users_form()
-	// {
-	// 	DB::table('applications')->truncate();
+	public function test_user_can_visit_assigned_apps()
+	{
+		DB::table('applications')->truncate();
 
-	// 	$app_a = $this->makeApp();
-	// 	$app_b = $this->makeApp();
-	// 	$reviewer_a = $this->makeReviewer();
-	// 	$reviewer_b = $this->makeReviewer();
-	// 	$admin = $this->makeAdmin();
-	// 	$reviewers = collect([$reviewer_a, $reviewer_b]);
-	// 	$reviewer_ids = $reviewers->pluck('id');
+		$reviewer = $this->makeReviewer();
+		$user = $this->makeUser();
+		$app = $this->makeApp();
 
-	// 	$this->actingAs($admin)
-	// 		 ->visit('applications')
-	// 		 ->check("table_app_id_{$app_a->id}")
-	// 		 ->check("table_app_id_{$app_b->id}")
-	// 		 ->check("input_user_{$reviewer_a->id}")
-	// 		 ->check("input_user_{$reviewer_b->id}")
-	// 		 ->press('Confirm Reviewers');
+		$app->assignUserToApp($reviewer);
 
-	// 	$this->assertEquals($app_a->reviewers->pluck('id'), $reviewer_ids);
-	// 	$this->assertEquals($app_b->reviewers->pluck('id'), $reviewer_ids);
-	// }
+		$this->actingAs($user)
+			 ->visit("applications/{$app->id}")
+			 ->see("submission-data");
+	}
 
 	public function test_reviewers_can_only_see_assigned_apps()
 	{
@@ -101,6 +92,7 @@ class ReviewerTest extends TestCase
 			 ->see("applications/{$a->id}")
 			 ->dontSee("applications/{$b->id}");
 	}
+
 	public function test_reviewers_can_only_see_shortlisted_assigned_apps()
 	{
 		$a = $this->makeApp();
