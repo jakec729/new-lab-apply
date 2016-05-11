@@ -116,8 +116,8 @@ class ApplicationController extends Controller
         $prev = (isset($applications[$app_key - 1])) ? $applications[$app_key - 1] : null;
 
         $application = $applications[$app_key];
-        $next = (isset($applications[$app_key + 1])) ? $applications[$app_key + 1] : null;
-        $prev = (isset($applications[$app_key - 1])) ? $applications[$app_key - 1] : null;
+        $next = (isset($applications[$app_key + 1])) ? $applications[$app_key + 1]->id : null;
+        $prev = (isset($applications[$app_key - 1])) ? $applications[$app_key - 1]->id : null;
 
         return view('applications.show', [
             'application' => $application,
