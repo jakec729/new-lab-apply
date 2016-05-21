@@ -96,4 +96,25 @@ class RolesTest extends TestCase
 			 ->see('data-user-rating="5"');
 	}
 
+	public function test_users_can_only_have_one_role()
+	{
+		$admin = $this->makeAdmin();
+
+		$this->actingAs($admin)
+			 ->visit("users/{$admin->id}")
+			 ->select("reader", 'user_roles')
+			 ->press("Update Role");
+
+		$this->assertEquals($admin->roles->count(), 1);
+
+		$user = $this->makeUser();
+
+		$this->actingAs($user)
+			 ->visit("users/{$user->id}")
+			 ->select("reader", 'user_roles')
+			 ->press("Update Role");
+
+		$this->assertEquals($user->roles->count(), 1);
+	}
+
 }

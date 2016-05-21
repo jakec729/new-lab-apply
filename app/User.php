@@ -48,7 +48,11 @@ class User extends Authenticatable
     public function assignRoleBySlug($slug)
     {
         $role = Role::where('slug', $slug)->first();
-        $this->attachRole($role);
+
+        if ($role) {
+            $this->detachAllRoles();
+            $this->attachRole($role);
+        }
 
         return $this;
     }
