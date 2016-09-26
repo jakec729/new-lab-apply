@@ -13,7 +13,8 @@
         "fzaninotto/faker": "~1.4",
         "doctrine/dbal": "^2.5",
         "phpunit/phpunit": "^5.3",
-        "nicolaslopezj/searchable": "^1.7"
+        "nicolaslopezj/searchable": "^1.7",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
