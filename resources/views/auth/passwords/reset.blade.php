@@ -4,12 +4,10 @@
     <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
         {!! csrf_field() !!}
 
-        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="token" value="{{ $token }}" placeholder="Email">
 
         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-            <label class="col-md-4 control-label">E-Mail Address</label>
-
-            <div class="col-md-6">
+            <div>
                 <input type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
 
                 @if ($errors->has('email'))
@@ -21,10 +19,8 @@
         </div>
 
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-            <label class="col-md-4 control-label">Password</label>
-
-            <div class="col-md-6">
-                <input type="password" class="form-control" name="password">
+            <div>
+                <input type="password" class="form-control" name="password" placeholder="Password">
 
                 @if ($errors->has('password'))
                     <span class="help-block">
@@ -35,9 +31,8 @@
         </div>
 
         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-            <label class="col-md-4 control-label">Confirm Password</label>
-            <div class="col-md-6">
-                <input type="password" class="form-control" name="password_confirmation">
+            <div>
+                <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password">
 
                 @if ($errors->has('password_confirmation'))
                     <span class="help-block">
@@ -48,11 +43,9 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-6 col-md-offset-4">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-btn fa-refresh"></i>Reset Password
-                </button>
-            </div>
+            <button type="submit" class="btn btn-block btn-primary">
+                <i class="fa fa-btn fa-refresh"></i>Reset Password
+            </button>
         </div>
     </form>
 @endsection
